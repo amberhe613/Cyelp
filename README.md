@@ -5,7 +5,7 @@
 | -------------------------|:-------------:|
 | lu.yuj@husky.neu.edu     | yujialu       |
 | he.zh@husky.neu.edu      | amberhe       |
-| zebra stripes            | are neat      |
+| ouyang.f@husky.neu.edu   | fayeoyaee     |
 
 ## Project Name
 Cyelp(Chinese Resturant Yelp)
