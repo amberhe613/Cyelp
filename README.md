@@ -1,8 +1,11 @@
 # Cyelp
 ## Team Member
-1.Email: lu.yuj@husky.neu.edu CCIS ID: yujialu
-2.Email: he.zh@husky.neu.edu CCIS ID: amberhe
-3.
+
+| Email                    | CCIS ID       |
+| -------------------------|:-------------:|
+| lu.yuj@husky.neu.edu     | yujialu       |
+| he.zh@husky.neu.edu      | amberhe       |
+| zebra stripes            | are neat      |
 
 ## Project Name
 Cyelp(Chinese Resturant Yelp)
