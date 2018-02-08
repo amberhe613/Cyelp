@@ -18,6 +18,18 @@ People in Bay Area interest in chinese food.
 
 ## Technology Stacks
 ### Server
-express.js
-Node.js
-Passport.js
+1. express.js
+2. Node.js
+3. Passport.js
+4. mongoose
+
+### Database
+1. MongoDB
+2. MLab
+
+### Client
+1. Angular JS
+2. Bootstrap
+3. Materialize CSS
+4. jQuery
+
