@@ -1,4 +1,7 @@
 # Cyelp
+### Slack
+cyelp.slack.com
+
 ## Team Member
 
 | Email                    | CCIS ID       |
