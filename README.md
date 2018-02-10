@@ -36,3 +36,8 @@ People in Bay Area interest in chinese food.
 3. Materialize CSS
 4. jQuery
 
+## Application Functions
+1. Postting name, photos, description and etc. about resturants
+2. Giving commits to resturants and edit them
+3. Ratting resturants
+4. Authorizing with facebook account or google account
