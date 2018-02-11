@@ -37,7 +37,7 @@ People in the Bay Area who are interested in chinese food.
 4. jQuery
 
 ## Application Functions
-1. Post name, photos, description and etc. about resturants.
-2. Leave reviews about resturants and edit comments whenever they need.
-3. Rate resturants.
+1. Post name, photos, description and other information about resturants.
+2. Leave reviews about resturants and edit comments whenever users need.
+3. Rate resturants on a five-star rating scale according to food quality, service and etc.
 4. Login with facebook account or google account.
