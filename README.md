@@ -21,7 +21,7 @@ People in the Bay Area who are interested in chinese food.
 
 ## Technology Stacks
 ### Platform
-Heroku
+1. Heroku
 
 ### Server
 1. Express.js
