@@ -14,12 +14,15 @@ cyelp.slack.com
 Cyelp(Chinese Resturant Yelp)
 
 ## Description
-A yelp-like website for customers to post, search and read reviews about chinese resturants that they are interested in. Users can rate the resturant and write comments for those resturants as well. Users can login to the website with their facebook or google plus account so that they don't need to register for our website.
+A yelp-like website for customers to post, search and read reviews about chinese resturants that they are interested in. Users can rate the resturant and write comments for those resturants as well. Users can login to the website with their facebook or google plus account so that they don't have to register for our website.
 
 ## Intended Users
 People in the Bay Area who are interested in chinese food.
 
 ## Technology Stacks
+### Platform
+Heroku
+
 ### Server
 1. Express.js
 2. Node.js
@@ -37,7 +40,9 @@ People in the Bay Area who are interested in chinese food.
 4. jQuery
 
 ## Application Functions
-1. Post name, photos, description and other information about resturants.
-2. Leave reviews about resturants and edit comments whenever users need.
-3. Rate resturants on a five-star rating scale according to food quality, service and etc.
-4. Login with facebook account or google account.
+1. Post photos, description and other information about resturants.
+2. Search exsiting resturants.
+3. Leave reviews about resturants and edit or delete comments whenever users need.
+4. Rate resturants on a five-star rating scale according to food quality, service and etc.
+5. Login with facebook account or google account.
+6. Display resturant location on Google Maps.
