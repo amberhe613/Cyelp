@@ -14,7 +14,7 @@ cyelp.slack.com
 Cyelp(Chinese Resturant Yelp)
 
 ## Description
-A yelp-like website for customers to post, search and read reviews about chinese resturants that they are interested in. Users can rate the resturant and write comments for those resturants as well. Users can login to the website with their facebook or google plus account so that they don't have to register for our website.
+A yelp-like website for customers to post, search and read reviews about chinese resturants that they are interested in. Users can rate the resturant and write comments for those resturants as well. Users can login to the website with their facebook or google plus account so that they can manage posts and comments without registering for our website.
 
 ## Intended Users
 People in the Bay Area who are interested in chinese food.
