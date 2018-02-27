@@ -1,140 +1,102 @@
 # Cyelp
 A full-stack Node.js web application for recommending Chinese restaurants
 
-## Initial Setup (finish by March 12)
+## Initial Setup (By March 12)
 * Set up Front-end framework (React / Angular)
 * Set up server (Express)
 * Set up remote MongoDB mLab
 * Set up Heroku Environment
 
-## Implement Home Page
+## Implement Home Page (By March 19)
 * Top: Access to Login, Register, Profile
 * Main: Display a list of links to restaurants 
 * Buttom: Contact information
 
-## Layout and Basic Styling
+## Layout and Basic Styling (By March 19)
 * Create header and footer partials
 * Add in Bootstrap
 
-## Authentication Pt. 1 - Add User Model
+## Authentication Pt. 1 - Add User Model (By March 26)
 * Install all packages needed for auth
 * Define User model 
 
-## Authentication Pt. 2 - Register
+## Authentication Pt. 2 - Register (By March 26)
 * Configure Passport
 * Add register routes
 * Add register template
 
-## Authentication Pt. 3 - Login
+## Authentication Pt. 3 - Login (By March 26)
 * Add login routes
 * Add login template
 
-## Authentication Pt. 4 - Logout/Navbar
+## Authentication Pt. 4 - Logout/Navbar (By March 26)
 * Add logout route
 * Prevent user from adding a comment if not signed in
 * Add links to navbar
-<!---
-## Authentication Pt. 5 - Show/Hide Links
-* Show/hide auth links in navbar 
---->
-## Add Restaurant Model
+
+## Add Restaurant Model (By April 2)
 * Install and configure Mongoose
 * Setup campground model
 * Use campground model inside of routes
 
-## Creating New Restaurants
+## Creating New Restaurants (By April 2)
 * Setup new campground POST route
 * Add in body-parser
 * Setup route to show form
 * Add basic unstyled form
 
-## Editing Restaurants
+## Editing Restaurants (By April 2)
 * Add Method-Override
 * Add Edit Route for Restaurants
 * Add Link to Edit Page
 * Add Update Route
 
-## Deleting Restaurants
+## Deleting Restaurants (By April 2)
 * Add Destroy Route
 * Add Delete button
 
-## Style the Restaurants page
+## Style the Restaurants page (By April 2)
 * Add a better header/title
 * Make campgrounds display in a grid
-<!---
-## Show Page
-* Review the RESTful routes we've seen so far
-* Add description to the campground model
-* Show db.collection.drop()
-* Add a show route/template
--->
-<!---
-## Refactor Mongoose Code
-* Create a models directory
-* Use module.exports
-* Require everything correctly!
--->
-<!---
-## Add Seeds File
-* Add a seeds.js file
-* Run the seeds file every time the server starts
--->
-## Add the Comment model!
+
+## Add the Comment model! (By April 9)
 * Make comment errors go away!
 * Display comments on campground show page
 
-## Comment New/Create
+## Comment New/Create (By April 9)
 * Discuss nested routes
 * Add the comment new and create routes
 * Add the new comment form
-<!---
-## Style Show Page
-* Add sidebar to show page
-* Display comments nicely
--->
-<!---
-## Finish Styling Show Page
-* Add public directory
-* Add custom stylesheet
--->
-<!---
-## Refactor The Routes
-* Use Express router to reoragnize all routes
--->
-## Users + Comments
+
+## Users + Comments (By April 9)
 * Associate users and comments
 * Save author's name to a comment automatically
 
-## Users + Restaurant
+## Users + Restaurant (By April 9)
 * Prevent an unauthenticated user from creating a restaurant
 * Save username+id to newly created restaurants
 
-## Authorization Part 1: Restaurants
+## Authorization Part 1: Restaurants (By April 9)
 * User can only edit his/her restaurants
 * User can only delete his/her restaurants
 * Hide/Show edit and delete buttons
 
-## Editing Comments
+## Editing Comments (By April 16)
 * Add Edit route for comments
 * Add Edit button
 * Add Update route
 
-## Deleting Comments
+## Deleting Comments (By April 16)
 * Add Destroy route
 * Add Delete button
 
-## Authorization: Comments + User
+## Authorization: Comments + User (By April 16)
 * User can only edit his/her comments
 * User can only delete his/her comments
 * Hide/Show edit and delete buttons
 * Refactor Middleware to a single file
 
-## Adding in Flash!
+## Adding in Flash! (By April 16)
 * Demo working version
 * Install and configure connect-flash
 * Add bootstrap alerts to header
-
-## Adding dynamic price tag
-* Show user-defined price
-* Edit new or old price
-* Change model for campground
