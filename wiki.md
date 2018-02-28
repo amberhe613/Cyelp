@@ -17,6 +17,7 @@ A full-stack Node.js web application for recommending Chinese restaurants
 * Add in Bootstrap
 
 ## Authentication Pt. 1 - Add User Model (By March 26)
+* Install and configure Mongoose
 * Install all packages needed for auth
 * Define User model 
 
@@ -35,7 +36,6 @@ A full-stack Node.js web application for recommending Chinese restaurants
 * Add links to navbar
 
 ## Add Restaurant Model (By April 2)
-* Install and configure Mongoose
 * Setup campground model
 * Use campground model inside of routes
 
