@@ -36,11 +36,11 @@ A full-stack Node.js web application for recommending Chinese restaurants
 * Add links to navbar
 
 ## Add Restaurant Model (By April 2)
-* Setup campground model
-* Use campground model inside of routes
+* Setup restaurant model
+* Use restaurant model inside of routes
 
 ## Creating New Restaurants (By April 2)
-* Setup new campground POST route
+* Setup new restaurant POST route
 * Add in body-parser
 * Setup route to show form
 * Add basic unstyled form
@@ -57,11 +57,11 @@ A full-stack Node.js web application for recommending Chinese restaurants
 
 ## Style the Restaurants page (By April 2)
 * Add a better header/title
-* Make campgrounds display in a grid
+* Make restaurants display in a grid
 
 ## Add the Comment model! (By April 9)
 * Make comment errors go away!
-* Display comments on campground show page
+* Display comments on restaurant show page
 
 ## Comment New/Create (By April 9)
 * Discuss nested routes
