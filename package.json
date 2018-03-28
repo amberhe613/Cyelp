@@ -1,0 +1,27 @@
+{
+    "name": "bfc",
+    "version": "1.0.0",
+    "description": "cyelp",
+    "author": "feiyiOuyang",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.18.2",
+        "express": "^4.16.3",
+        "mongoose": "^5.0.12",
+        "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "foreman": "^2.0.0"
+    },
+    "scripts": {
+        "start": "node server.js",
+        "heroku-postbuild": "cd client && yarn --production=false && yarn run build",
+        "test": "mocha --compilers js:babel-core/register --timeout 10000",
+        "build": "babel server -d lib"
+    },
+    "engines": {
+        "node": "8.9.3"
+    },
+    "main": "index.js",
+    "repository": "https://github.com/fayeoyaee/Cyelp.git"
+}
