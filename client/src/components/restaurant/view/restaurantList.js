@@ -14,7 +14,9 @@ class RestaurantRow extends React.Component {
 
         return (
             <tr>
-                <td>{restaurant.name}</td>
+                <a herf={"/restaurant" + restaurant.id}>
+                    <td>{restaurant.name}</td>
+                </a>
                 <td>{restaurant.location}</td>
                 <td>{restaurant.footType}</td>
                 <td>{restaurant.averageRating}</td>

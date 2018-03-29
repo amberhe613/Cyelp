@@ -70,9 +70,8 @@ export function reviewRestaurant(userId, restaurantId, rating, cost) {
 }
 
 export async function findRestaurantsByType(foodType, n) {
-    var queryInfo = { key: 'foodType', value: foodType, n: n }
     var restaurants = [{}]
-    await fetch('/restaurants/', {
+    await fetch('/restaurants?key=foodType&value='+foodType+'n='+n, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -92,15 +91,13 @@ export async function findRestaurantsByType(foodType, n) {
 }
 
 export async function findRestaurantsByArea(location, diameter, n) {
-    var queryInfo = { key: 'location', value: location, diameter: diameter, n: n }
     var restaurants = [{}]
-    await fetch('/restaurants/', {
-        method: 'GET',
+    await fetch('/restaurants?key=location&value='+location+'diameter='+diameter+'n='+n, {
+        method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(queryInfo)
     }).then(function (response) {
         console.log("ok");
         return response.json()
@@ -114,15 +111,13 @@ export async function findRestaurantsByArea(location, diameter, n) {
 }
 
 export async function findRestaurantsByLowestRating(lowestRating, n) {
-    var queryInfo = { key: 'averageRating', value: lowestRating, n: n }
     var restaurants = [{}]
-    await fetch('/restaurants/', {
+    await fetch('/restaurants?key=lowestRating&value='+lowestRating+'n='+n, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(queryInfo)
     }).then(function (response) {
         console.log("ok");
         return response.json()
@@ -134,6 +129,49 @@ export async function findRestaurantsByLowestRating(lowestRating, n) {
     });
     return restaurants
 }
+
+export async function findRestaurantReviews(restaurantId, n) {
+    var reviews = [{}]
+    await fetch('/restaurants/a/'+restaurantId+'/reviews', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(queryInfo)
+    }).then(function (response) {
+        console.log("ok");
+        return response.json()
+    }).then(function (value) {
+        console.log(value)
+        reviews = value;
+    }).catch(function (error) {
+        console.log("error");
+    });
+    return reviews
+}
+
+export async function findRestaurantById(restaurantId, n) {
+    var restaurant = {}
+    await fetch('/restaurants/a/'+restaurantId, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(queryInfo)
+    }).then(function (response) {
+        console.log("ok");
+        return response.json()
+    }).then(function (value) {
+        console.log(value)
+        restaurant = value;
+    }).catch(function (error) {
+        console.log("error");
+    });
+    return restaurant
+}
+
 
 export function sortRestaurantByRating(restaurants) {
     return restaurants.sort((a, b) => {

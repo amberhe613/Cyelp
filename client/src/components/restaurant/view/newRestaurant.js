@@ -44,43 +44,52 @@ export default class NewRestaurant extends React.Component {
     }
 
     render() {
-        return (
+        if (this.props.userId === '') {
+            return (
+                <div>
+                    Please log in
+                </div>
+            )
+        } else {
+            return (
             <div>
-                Create a new restaurant
+                    Create a new restaurant
              <form>
-                    <p>
-                        Restaurant Name
+                        <p>
+                            Restaurant Name
                     {' '}
-                        <input
-                            type="text"
-                            placeholder=""
-                            value={this.props.name}
-                            onChange={this.handleNameChange}
-                        />
-                    </p>
-                    <p>
-                        Location
+                            <input
+                                type="text"
+                                placeholder=""
+                                value={this.props.name}
+                                onChange={this.handleNameChange}
+                            />
+                        </p>
+                        <p>
+                            Location
                     {' '}
-                        <input
-                            type="text"
-                            placeholder="five digit zip code"
-                            value={this.props.area}
-                            onChange={this.handleAreaChange}
-                        />
-                    </p>
-                    <p>
-                        Food Type
+                            <input
+                                type="text"
+                                placeholder="five digit zip code"
+                                value={this.props.area}
+                                onChange={this.handleAreaChange}
+                            />
+                        </p>
+                        <p>
+                            Food Type
                     {' '}
-                        <input
-                            type="text"
-                            placeholder="hunan, sichuan..."
-                            value={this.props.foodType}
-                            onChange={this.handleFoodTypeChange}
-                        />
-                    </p>
-                </form>
-                <button onclick="handleSubmit()">Create new restaurant</button>
+                            <input
+                                type="text"
+                                placeholder="hunan, sichuan..."
+                                value={this.props.foodType}
+                                onChange={this.handleFoodTypeChange}
+                            />
+                        </p>
+                    </form>
+                    <button onclick="handleSubmit()">Create new restaurant</button>
             </div>
-        );
+            );
+
+        }
     }
 }
