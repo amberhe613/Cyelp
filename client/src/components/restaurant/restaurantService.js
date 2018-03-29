@@ -9,6 +9,7 @@ export function createRestaurant(userId, name, location, foodType) {
         addedDate: d.getDate(),
         rateTimes: 0,
         averageRating: 0,
+        averagePrice: 0,
     }
 
     fetch('/restaurants/new', {
@@ -47,10 +48,11 @@ export function updateRestaurant(userId, restaurantId, key, value) {
     });
 }
 
-export function likeRestaurant(userId, restaurantId) {
+export function reviewRestaurant(userId, restaurantId, rating, cost) {
     var rateInfo = {
         userId: userId,
-        like: true,
+        rating: rating,
+        cost: cost,
     }
 
     fetch('/restaurants/' + restaurantId, {
@@ -67,23 +69,96 @@ export function likeRestaurant(userId, restaurantId) {
     });
 }
 
-export function dislikeRestaurant(userId, restaurantId) {
-    var rateInfo = {
-        userId: userId,
-        like: falst,
-    }
-
-    fetch('/restaurants/' + restaurantId, {
-        method: 'PUT',
+export async function findRestaurantsByType(foodType, n) {
+    var queryInfo = { key: 'foodType', value: foodType, n: n }
+    var restaurants = [{}]
+    await fetch('/restaurants/', {
+        method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(rateInfo)
+        body: JSON.stringify(queryInfo)
     }).then(function (response) {
         console.log("ok");
+        return response.json()
+    }).then(function (value) {
+        console.log(value)
+        restaurants = value;
     }).catch(function (error) {
         console.log("error");
     });
+    return restaurants
 }
 
+export async function findRestaurantsByArea(location, diameter, n) {
+    var queryInfo = { key: 'location', value: location, diameter: diameter, n: n }
+    var restaurants = [{}]
+    await fetch('/restaurants/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(queryInfo)
+    }).then(function (response) {
+        console.log("ok");
+        return response.json()
+    }).then(function (value) {
+        console.log(value)
+        restaurants = value;
+    }).catch(function (error) {
+        console.log("error");
+    });
+    return restaurants
+}
+
+export async function findRestaurantsByLowestRating(lowestRating, n) {
+    var queryInfo = { key: 'averageRating', value: lowestRating, n: n }
+    var restaurants = [{}]
+    await fetch('/restaurants/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(queryInfo)
+    }).then(function (response) {
+        console.log("ok");
+        return response.json()
+    }).then(function (value) {
+        console.log(value)
+        restaurants = value;
+    }).catch(function (error) {
+        console.log("error");
+    });
+    return restaurants
+}
+
+export function sortRestaurantByRating(restaurants) {
+    return restaurants.sort((a, b) => {
+        if (a.averageRating != b.averageRating) {
+            return a.averageRating - b.averageRating
+        } else {
+            if (a.averagePrice != b.averagePrice) {
+                return a.averagePrice - b.averagePrice
+            } else {
+                return a.name - b.name
+            }
+        }
+    })
+}
+
+export function sortRestaurantByPrice(restaurants) {
+    return restaurants.sort((a, b) => {
+        if (a.averagePrice != b.averagePrice) {
+            return a.averagePrice - b.averagePrice
+        } else {
+            if (a.averageRating != b.averageRating) {
+                return a.averageRating - b.averageRating
+            } else {
+                return a.name - b.name
+            }
+        }
+    })
+}
