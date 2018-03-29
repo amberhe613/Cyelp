@@ -34,7 +34,7 @@ People in the Bay Area who are interested in chinese food.
 2. MLab
 
 ### Client
-1. Angular JS
+1. React JS
 2. Bootstrap
 3. Materialize CSS
 4. jQuery
