@@ -24,13 +24,13 @@ class RestaurantRow extends React.Component {
     }
 }
 
-class ProductTable extends React.Component {
+class RestaurantTable extends React.Component {
     render() {
         const rows = [];
         this.props.restaurants.forEach((restaurant) => {
             rows.push(
                 <RestaurantRow
-                    product={restaurant}
+                    restaurant={restaurant}
                     key={restaurant.id}
                 />
             );
@@ -86,7 +86,7 @@ class SearchBar extends React.Component {
                         onChange={this.handleFoodTypeChange}
                     />
                 </p>
-                 <p>
+                <p>
                     Search restaurants by area
                     {' '}
                     <input
@@ -96,7 +96,7 @@ class SearchBar extends React.Component {
                         onChange={this.handleAreaChange}
                     />
                 </p>
-                 <p>
+                <p>
                     Search restaurants by lowest rating
                     {' '}
                     <input
@@ -122,7 +122,8 @@ export default class RestaurantList extends React.Component {
         };
 
         this.handleFoodTypeChange = this.handleFoodTypeChange.bind(this);
-        this.handleFilterChange = this.handleFilterChange.bind(this);
+        this.handleAreaChange = this.handleAreaChange.bind(this);
+        this.handleLowestRatingChange = this.handleLowestRatingChange.bind(this);
     }
 
     handleAreaChange(area) {
@@ -144,10 +145,10 @@ export default class RestaurantList extends React.Component {
     }
 
     handleFoodTypeChange(foodType) {
-        var products = findRestaurantByType(foodType, N);
+        var restaurants = findRestaurantByType(foodType, N);
 
         this.setState({
-            products: products
+            restaurants: restaurants
         })
     }
 
@@ -162,8 +163,8 @@ export default class RestaurantList extends React.Component {
                     onAreaChange={this.handleAreaChange}
                     onLowestRatingChange={this.handleLowestRatingChange}
                 />
-                <ProductTable
-                    products={this.props.products}
+                <RestaurantTable
+                    restaurants={this.props.restaurants}
                 />
             </div>
         );
