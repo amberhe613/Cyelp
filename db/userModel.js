@@ -26,8 +26,16 @@ const passportLocalMongoose = require("passport-local-mongoose");
 
 // schema setup
 const UserSchema = new mongoose.Schema({
-    username: {type: String, required: true},
-    password: {type: String, required: true}
+    googleId: String,
+    username: {type: String},
+    restaurants: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Restaurant"
+    }],
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review"
+    }]
 });
 
 // passport-Local Mongoose will add a username, hash and salt field to store the username, the hashed password and the
