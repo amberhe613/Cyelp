@@ -1,8 +1,8 @@
 // dev.js - Don't commit
 module.exports = {
-    googleClientID: "831729423679-011sidk96uq0qh3i4b0gmvb0fvnsp96i.apps.googleusercontent.com",
-    googleClientSecret: "36j2d4cwKdLIicxE6NFwv7s1",
-    mongoURI: "mongodb://admin:123@ds111258.mlab.com:11258/online-survey-dev",
+    googleClientID: "492382660892-bttuh889c2v6hbcdcru78p1l92050r57.apps.googleusercontent.com",
+    googleClientSecret: "xkCct9snISPv91lBej566DyW",
+    mongoURI: "mongodb://heroku_r6plxl9m:n3onhrtg58jkom4intit987kkr@ds127139.mlab.com:27139/heroku_r6plxl9m",
     cookieKey: 'aksjdhluiqeyiuwhqdasjnxjhuhwqhoqisoijioioihoi',
-    redirectDomain: "http://localhost:3000"
+    redirectDomain: "http://localhost:5050"
 }
