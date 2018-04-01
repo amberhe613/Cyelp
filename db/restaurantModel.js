@@ -7,7 +7,6 @@ const restaurantSchema = new mongoose.Schema( {
     description: String,
     location: String,
     addedDate: {type: Date, default: Date.now},
-    rateTimes: Number,
     averageRating: Number,
     averagePrice: Number,
     author: {
