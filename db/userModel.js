@@ -26,8 +26,10 @@ const passportLocalMongoose = require("passport-local-mongoose");
 
 // schema setup
 const UserSchema = new mongoose.Schema({
+
     googleId: String,
-    username: {type: String},
+    username: String,
+    photos: String,
     restaurants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Restaurant"

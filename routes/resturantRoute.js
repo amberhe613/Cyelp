@@ -5,7 +5,7 @@ var User = require("../db/userModel");
 
 // POST createRestaurant
 router.post('/user/:userId/restaurant', function(req, res){
-    //Check if all fields are provided and are valid:
+    // Check if all fields are provided and are valid:
     if(!req.body.name || !req.body.image){
         res.status(400);
         res.json({message: "Bad Request"});
@@ -37,6 +37,7 @@ router.post('/user/:userId/restaurant', function(req, res){
             }
         });
     }
+        res.json({message: "Not Found"});
 });
 
 // GET findAllRestaurantsForUser
@@ -45,7 +46,7 @@ router.get('/user/:userId/restaurant', function(req, res){
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-        Restaurant.find({author:{id: req.params.userId}}, function (err, restaurants) {
+        Restaurant.find({_author:req.params.userId}, function (err, restaurants) {
             if (restaurants) {
                 var restaurantMap = [];
 
@@ -55,7 +56,7 @@ router.get('/user/:userId/restaurant', function(req, res){
                 res.json(restaurantMap);
             } else {
                 res.status(400);
-                res.json({message: "Not Found"});
+                res.json({message: "Not Found!"});
             }
         });
     }
