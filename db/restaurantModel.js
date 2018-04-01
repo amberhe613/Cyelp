@@ -5,6 +5,11 @@ const restaurantSchema = new mongoose.Schema( {
     name: {type: String, required: true},
     image: {type: String, required: true},
     description: String,
+    location: String,
+    addedDate: {type: Date, default: Date.now},
+    rateTimes: Number,
+    averageRating: Number,
+    averagePrice: Number,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

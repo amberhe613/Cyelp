@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const reviewSchema = mongoose.Schema({
     text: {type: String, required: true},
     rating: {type: Number, required: true},
+    addedData: {type: Date, default: Date.now},
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
