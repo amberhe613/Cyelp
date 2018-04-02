@@ -13,11 +13,11 @@ router.post('/restaurants/:restaurantId/reviews', function (req, res) {
               "error": "restaurant not found"
           });
       } else {
-          Review.create(req.body.comment, function(err, review){
+          Review.create(req.body.review, function(err, review){
               if (err) {
                   console.log(err);
                   res.status(400);
-                  res.json({
+                  res.send({
                       "error": "error while creating review"
                   });
               } else {
@@ -27,7 +27,7 @@ router.post('/restaurants/:restaurantId/reviews', function (req, res) {
                   review.save();
                   console.log(review);
                   res.status(201);
-                  res.json({message: "successfully added review"});
+                  res.send(review);
               }
           })
       }
@@ -40,12 +40,12 @@ router.put("/restaurants/:restaurantId/reviews/:reviewId", function(req, res){
         if(err){
             console.log(err);
             res.status(400);
-            res.json({
+            res.send({
                 "error": "error while updating review"
             });
         } else {
             res.status(200);
-            res.json({message: "successfully updated review"});
+            res.send({message: "successfully updated review"});
         }
     });
 });
@@ -56,12 +56,12 @@ router.delete("/restaurants/:restaurantId/reviews/:reviewId", function(req, res)
     Review.findByIdAndRemove(req.params.reviewId, function(err){
         if(err){
             res.status(400);
-            res.json({
+            res.send({
                 "error": "error while deleting review"
             });
         } else {
             res.status(200);
-            res.json({message: "successfully deleted review"});
+            res.send({message: "successfully deleted review"});
         }
     });
 });
