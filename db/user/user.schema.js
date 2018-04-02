@@ -20,12 +20,11 @@ var productSchema = mongoose.Schema({
 module.exports = mongoose.model('product', productSchema);
 */
 
-
-const mongoose = require("mongoose");
-const passportLocalMongoose = require("passport-local-mongoose");
+let mongoose = require("mongoose");
+let passportLocalMongoose = require("passport-local-mongoose");
 
 // schema setup
-const UserSchema = new mongoose.Schema({
+let UserSchema = new mongoose.Schema({
     username: {type: String, required: true},
     password: {type: String, required: true}
 });
@@ -34,4 +33,4 @@ const UserSchema = new mongoose.Schema({
 // salt value
 UserSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = UserSchema;
