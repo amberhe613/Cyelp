@@ -10,8 +10,8 @@ const restaurantSchema = new mongoose.Schema( {
     averageRating: Number,
     averagePrice: Number,
     _author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
     },
     reviews: [
         {
