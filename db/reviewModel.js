@@ -7,8 +7,8 @@ const reviewSchema = mongoose.Schema({
     price: Number,
     addedData: {type: Date, default: Date.now},
     _author: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 });
 
