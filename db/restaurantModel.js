@@ -9,13 +9,9 @@ const restaurantSchema = new mongoose.Schema( {
     addedDate: {type: Date, default: Date.now},
     averageRating: Number,
     averagePrice: Number,
-    author: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        },
-        username: String,
-        required: true
+    _author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
     reviews: [
         {
