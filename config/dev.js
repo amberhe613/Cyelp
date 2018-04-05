@@ -4,5 +4,6 @@ module.exports = {
     googleClientSecret: "xkCct9snISPv91lBej566DyW",
     mongoURI: "mongodb://heroku_r6plxl9m:n3onhrtg58jkom4intit987kkr@ds127139.mlab.com:27139/heroku_r6plxl9m",
     cookieKey: 'aksjdhluiqeyiuwhqdasjnxjhuhwqhoqisoijioioihoi',
-    redirectDomain: "http://localhost:5050"
+    FACEBOOK_APP_ID: "159787854841050",
+    FACEBOOK_APP_SECRET: "f1b05fba629146e27bd4fb7cee0801e0"
 }
