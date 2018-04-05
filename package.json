@@ -29,6 +29,6 @@
     "engines": {
         "node": "8.9.3"
     },
-    "main": "index.js",
+    "main": "server.js",
     "repository": "https://github.com/fayeoyaee/Cyelp.git"
 }
