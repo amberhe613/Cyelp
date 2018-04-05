@@ -1,4 +1,6 @@
 const passport = require("passport");
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
 
 module.exports = app => {
     app.get(
@@ -12,7 +14,7 @@ module.exports = app => {
         "/auth/google/callback",
         passport.authenticate("google"),
         (req, res) => {
-            res.redirect("/restaurant");
+            res.redirect('/restaurant');
         }
     );
 
@@ -27,7 +29,7 @@ module.exports = app => {
         "/auth/github/callback",
         passport.authenticate("github"),
         (req, res) => {
-        res.redirect("/restaurant");
+            res.redirect('/restaurant');
         }
     );
 
@@ -39,10 +41,19 @@ module.exports = app => {
         }
     );
 
-    app.get(
-        "/api/current_user",
-        (req, res) => {
-            res.send(req.user);
-        }
-    );
+    app.get('/api/account', ensureAuthenticated, function(req, res){
+        User.findById(req.session.passport.user, function(err, user) {
+            if(err) {
+                console.log(err);  // handle errors
+            } else {
+                res.send(user);
+            }
+        });
+    });
+}
+
+// test authentication
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/');
 }

@@ -7,44 +7,13 @@ const cookieSession = require('cookie-session');
 const path = require('path');
 const keys = require('./config/keys');
 const resturantRoute = require('./routes/resturantRoute');
+const User = mongoose.model('User');
 
 // Require Database models
 require('./db/userModel');
 require('./db/restaurantModel');
 require('./db/reviewModel');
 require('./services/passport');
-
-// install, load, and configure body parser module
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
-
-server.use(express.static(path.join(__dirname, '../client/build')));
-
-server.use(passport.initialize());
-server.use(passport.session());
-
-// serialize and deserialize
-passport.serializeUser(function(user, done) {
-    console.log('serializeUser: ' + user._id);
-    done(null, user._id);
-});
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user){
-        console.log(user);
-        if(!err) done(null, user);
-        else done(err, null);
-    });
-});
-
-require('./routes/authRoute')(server);
-server.use('/api', resturantRoute);
-
-// server.use(
-//     cookieSession({
-//         maxAge: 30 * 24 * 60 * 60 * 1000,
-//         keys: [keys.cookieKey]
-//     })
-// );
 
 mongoose.connect(keys.mongoURI, function (err, db) {
     if (err) {
@@ -57,6 +26,37 @@ mongoose.connect(keys.mongoURI, function (err, db) {
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// install, load, and configure body parser module
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+
+server.use(express.static(path.join(__dirname, '../client/build')));
+
+// serialize and deserialize
+passport.serializeUser(function(user, done) {
+    done(null, user._id);
+});
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user){
+        if(!err) done(null, user);
+        else done(err, null);
+    });
+});
+
+server.use(
+    cookieSession({
+        name: 'session',
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 24 hours
+        keys: [keys.cookieKey]
+    })
+);
+
+server.use(passport.initialize());
+server.use(passport.session());
+
+require('./routes/authRoute')(server);
+server.use('/api', resturantRoute);
 
 server.listen(process.env.PORT || 3002, function (err) {
     if (err) {
