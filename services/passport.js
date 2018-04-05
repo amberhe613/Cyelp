@@ -37,3 +37,26 @@ passport.use(
         }
     )
 );
+
+// Set facebook OAuth with passport.js
+passport.use(
+    new FacebookStrategy(
+        {
+        clientID: keys.FACEBOOK_APP_ID,
+        clientSecret: keys.FACEBOOK_APP_SECRET,
+        callbackURL: "/auth/facebook/callback"
+        },
+        async (accessToken, refreshToken, profile, cb) => {
+        const existingUser = await User.find({ facebookId: profile.id });
+            if (existingUser) {
+                done(null, existingUser);
+            } else {
+                const user = await new User({
+                    facebookId: profile.id,
+                    username: profile.displayName,
+                    photos: profile.photos.value}).save();
+                done(null, user);
+            }
+        });
+    }
+));
