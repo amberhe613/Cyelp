@@ -12,6 +12,7 @@ class App extends Component {
         super(props);
         this.state = {
             userId: '',
+
         };
 
         this.handleLogin = this.handleLogin.bind(this);
