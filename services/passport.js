@@ -1,19 +1,11 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const GitHubStrategy = require('passport-github').Strategy;
 const mongoose = require("mongoose");
 const keys = require("../config/keys");
 
 const User = mongoose.model('User');
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-    User.findById(id).then(user => {
-        done(null, user);
-    });
-});
 
 // Set google OAuth with passport.js
 passport.use(
@@ -24,39 +16,39 @@ passport.use(
             callbackURL: '/auth/google/callback'
         },
         async (accessToken, refreshToken, profile, done) => {
-            const existingUser = await User.findOne({ googleId: profile.id});
+            const existingUser = await User.findOne({ oauthID: profile.id});
             if (existingUser) {
                 done(null, existingUser);
             } else {
                 const user = await new User({
-                    googleId: profile.id,
+                    oauthID: profile.id,
                     username: profile.displayName,
-                    photos: profile.photos.value}).save();
+                    photo: profile.photos[0].value}).save();
                 done(null, user);
             }
         }
     )
 );
 
-// Set facebook OAuth with passport.js
+// Set Github OAuth with passport.js
 passport.use(
-    new FacebookStrategy(
+    new GitHubStrategy(
         {
-        clientID: keys.FACEBOOK_APP_ID,
-        clientSecret: keys.FACEBOOK_APP_SECRET,
-        callbackURL: "/auth/facebook/callback"
+        clientID: keys.githubClientID,
+        clientSecret: keys.githubClientSecret,
+        callbackURL: "/auth/github/callback"
         },
-        async (accessToken, refreshToken, profile, cb) => {
-        const existingUser = await User.find({ facebookId: profile.id });
+        async (accessToken, refreshToken, profile, done) => {
+        const existingUser = await User.findOne({ oauthID: profile.id });
             if (existingUser) {
                 done(null, existingUser);
             } else {
                 const user = await new User({
-                    facebookId: profile.id,
+                    oauthID: profile.id,
                     username: profile.displayName,
-                    photos: profile.photos.value}).save();
+                    photo: profile.photos[0].value}).save();
                 done(null, user);
             }
-        });
-    }
-));
+        }
+    )
+);

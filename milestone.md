@@ -7,7 +7,7 @@
 - [x] Designe RESTful Routing
 - [x] Class diagram (user, restaurant, review, etc)
 - [x] Implement restaurant view and services
-- [x] Designe and Implement database models for restaurant, user and review 
+- [x] Design and Implement database models for restaurant, user and review 
 - [x] Implement basic backend services for user authentication with Google+, restaurant and review
 
 ### week 4.02-4.08: 
@@ -20,8 +20,8 @@
 
 ### week 4.09-4.15: 
 
-- [ ] Implement search function(Opition)
-- [ ] Add google map to detail page(Opition)
+- [ ] Implement search function(Opitional)
+- [ ] Add google map to detail page(Opitional)
 - [ ] Polish front-end views
 - [ ] Testing
 - [ ] Cleaning up the code
