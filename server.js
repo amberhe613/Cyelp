@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const server = express();
@@ -16,7 +16,7 @@ require('./services/passport');
 
 // install, load, and configure body parser module
 server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.urlencoded({extended: true}));
 
 server.use(express.static(path.join(__dirname, '../client/build')));
 
@@ -25,15 +25,17 @@ server.use(passport.session());
 
 // serialize and deserialize
 passport.serializeUser(function(user, done) {
-    console.log('serializeUser: ' + user._id);
-    done(null, user._id);
+  console.log('serializeUser: ' + user._id);
+  done(null, user._id);
 });
 passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user){
-        console.log(user);
-        if(!err) done(null, user);
-        else done(err, null);
-    });
+  User.findById(id, function(err, user) {
+    console.log(user);
+    if (!err)
+      done(null, user);
+    else
+      done(err, null);
+  });
 });
 
 require('./routes/authRoute')(server);
@@ -46,22 +48,35 @@ server.use('/api', resturantRoute);
 //     })
 // );
 
-mongoose.connect(keys.mongoURI, function (err, db) {
-    if (err) {
-        console.log("Error: unable to connect to db");
-    } else {
-        console.log("db connected");
-    }
+mongoose.connect(keys.mongoURI, function(err, db) {
+  if (err) {
+    console.log('Error: unable to connect to db');
+  } else {
+    console.log('db connected');
+  }
 })
 
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-server.listen(process.env.PORT || 3002, function (err) {
-    if (err) {
-        console.log("err: app listen");
-    } else {
-        console.log("app listening");
-    }
+server.listen(process.env.PORT || 3002, function(err) {
+  if (err) {
+    console.log('err: app listen');
+  } else {
+    console.log('app listening');
+  }
+});
+
+// serve static built files
+server.get('/index.html*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+server.get('/service-worker.js', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+server.get('/static/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
