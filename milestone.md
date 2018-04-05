@@ -4,7 +4,7 @@
 
 - [x] Set up react-mongodb-express-heroku framework
 - [x] [URL diagram](https://drive.google.com/file/d/1dACySKbPXIwAe0M6piYnkQ7dECkR_sRc/view?usp=sharing) indicating how the pages link with each other 
-- [x] Designe RESTful Routering
+- [x] Designe RESTful Routing
 - [x] Class diagram (user, restaurant, review, etc)
 - [x] Implement restaurant view and services
 - [x] Designe and Implement database models for restaurant, user and review 
