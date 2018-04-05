@@ -23,6 +23,19 @@ server.use(express.static(path.join(__dirname, '../client/build')));
 server.use(passport.initialize());
 server.use(passport.session());
 
+// serialize and deserialize
+passport.serializeUser(function(user, done) {
+    console.log('serializeUser: ' + user._id);
+    done(null, user._id);
+});
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user){
+        console.log(user);
+        if(!err) done(null, user);
+        else done(err, null);
+    });
+});
+
 require('./routes/authRoute')(server);
 server.use('/api', resturantRoute);
 

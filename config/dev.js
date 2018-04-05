@@ -2,8 +2,9 @@
 module.exports = {
     googleClientID: "492382660892-bttuh889c2v6hbcdcru78p1l92050r57.apps.googleusercontent.com",
     googleClientSecret: "xkCct9snISPv91lBej566DyW",
-    mongoURI: "mongodb://heroku_r6plxl9m:n3onhrtg58jkom4intit987kkr@ds127139.mlab.com:27139/heroku_r6plxl9m",
+    githubClientID: "8123ee1485e84d057756",
+    githubClientSecret: "4bee35aee54110e6e31d86ff1079b9874053bf42",
+    mongoURI: "mongodb://user:123@ds235239.mlab.com:35239/cyelp",
     cookieKey: 'aksjdhluiqeyiuwhqdasjnxjhuhwqhoqisoijioioihoi',
-    FACEBOOK_APP_ID: "159787854841050",
-    FACEBOOK_APP_SECRET: "f1b05fba629146e27bd4fb7cee0801e0"
+    redirectDomain: "http://localhost:3002"
 }

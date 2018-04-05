@@ -10,24 +10,24 @@ module.exports = app => {
 
     app.get(
         "/auth/google/callback",
-        passport.authenticate("facebook"),
+        passport.authenticate("google"),
         (req, res) => {
-            res.redirect("/restaurants");
+            res.redirect("/restaurant");
         }
     );
 
     app.get(
-        "/auth/facebook",
-        passport.authenticate("facebook", {
+        "/auth/github",
+        passport.authenticate("github", {
             scope: ['profile', 'email']
         })
     );
 
     app.get(
-        "/auth/facebook/callback",
-        passport.authenticate("facebook"),
+        "/auth/github/callback",
+        passport.authenticate("github"),
         (req, res) => {
-        res.redirect("/restaurants");
+        res.redirect("/restaurant");
         }
     );
 
@@ -35,7 +35,7 @@ module.exports = app => {
         "/api/logout",
         (req, res) => {
             req.logout();
-            res.redirect('/restaurants');
+            res.redirect('/restaurant');
         }
     );
 
