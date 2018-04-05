@@ -7,7 +7,6 @@ const restaurantSchema = new mongoose.Schema( {
     description: String,
     foodType: String,
     location: String,
-    addedDate: {type: Date, default: Date.now},
     averageRating: Number,
     averagePrice: Number,
     _author: {
@@ -20,6 +19,6 @@ const restaurantSchema = new mongoose.Schema( {
             ref: "Review"
         }
     ]
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model('Restaurant', restaurantSchema);

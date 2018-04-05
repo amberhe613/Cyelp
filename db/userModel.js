@@ -1,33 +1,19 @@
-// may follow the codes below to create userModel
-/*
-let mongoose = require('mongoose');
-var productSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    img: {
-        type: String,
-        required: true
-    },
-});
-module.exports = mongoose.model('product', productSchema);
-*/
-
-
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
+const uniqueValidator = require('mongoose-unique-validator');
 
 // schema setup
 const UserSchema = new mongoose.Schema({
+<<<<<<< HEAD
 
     oauthID: String,
     username: String,
     photo: String,
+=======
+    googleId: String,
+    username: {type: String, required: true, unique: true},
+    photos: String,
+>>>>>>> 411113135dc2558055309b162abfbf1cbcd0a756
     restaurants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Restaurant"
@@ -38,6 +24,7 @@ const UserSchema = new mongoose.Schema({
     }]
 });
 
+UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
 // passport-Local Mongoose will add a username, hash and salt field to store the username, the hashed password and the
 // salt value
 UserSchema.plugin(passportLocalMongoose);
