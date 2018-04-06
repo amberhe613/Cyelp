@@ -16,11 +16,15 @@ router.post('/user/:userId/restaurant', function(req, res){
                     new Restaurant({
                         name: req.body.name,
                         image: req.body.image,
-                        description: req.body.description,
-                        location: req.body.location
+                        cuisine: req.body.cuisine,
+                        phone: req.body.phone,
+                        street: req.body.address.street,
+                        building: req.body.address.building,
+                        city: req.body.address.city,
+                        state: req.body.address.state,
+                        zipcode: req.body.address.zipcode,
                     });
-                newRestaurant.author.id = user._id;
-                newRestaurant.author.name = user.name;
+                newRestaurant._author = user._id;
                 newRestaurant.save(function (err) {
                     if (err) {
                         res.status(400);
@@ -37,10 +41,61 @@ router.post('/user/:userId/restaurant', function(req, res){
             }
         });
     }
-        res.json({message: "Not Found"});
 });
 
-// GET findAllRestaurantsForUser
+
+// GET findAllRestaurant Or findAllRestaurantByZipCode or findAllRestaurantByFoodType
+router.get('/restaurant', function(req, res){
+    //Check if all fields are provided and are valid:
+    if(!req.query.cuisine && !req.query.zipcode){
+        Restaurant.find({}, function (err, restaurants) {
+            if (restaurants) {
+                var restaurantMap = [];
+
+                restaurants.forEach(function(restaurant){
+                    restaurantMap.push(restaurant);
+                });
+                res.json(restaurantMap);
+            } else {
+                res.status(400);
+                res.json({message: "Not Found!"});
+            }
+        });
+    } else
+    if (req.query.cuisine) {
+        Restaurant.find({cuisine: req.query.cuisine}, function (err, restaurants) {
+            if (restaurants) {
+                var restaurantMap = [];
+
+                restaurants.forEach(function(restaurant){
+                    restaurantMap.push(restaurant);
+                });
+                res.json(restaurantMap);
+            } else {
+                res.status(400);
+                res.json({message: "Not Found!"});
+            }
+        });
+    }
+    else
+    if (req.query.zipcode) {
+        Restaurant.find({address: {zipcode: req.query.zipcode}}, function (err, restaurants) {
+            if (restaurants) {
+                var restaurantMap = [];
+
+                restaurants.forEach(function(restaurant){
+                    restaurantMap.push(restaurant);
+                });
+                res.json(restaurantMap);
+            } else {
+                res.status(400);
+                res.json({message: "Not Found!"});
+            }
+        });
+    }
+});
+
+// GET findAllRestaurantsByUserId
 router.get('/user/:userId/restaurant', function(req, res){
     if(!req.params.userId){
         res.status(400);
@@ -108,12 +163,12 @@ router.delete('/restaurant/:restaurantId', function(req, res){
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-        Restaurant.findByIdAndRemove(req.params.restaurantId, function (err, deleteRestaurant) {
+        Restaurant.findById(req.params.restaurantId, function (err, deleteRestaurant) {
             if (err) {
                 res.status(400);
                 res.json({message: "Not found"});
             } else {
-                var userId = deleteRestaurant.author.id;
+                var userId = deleteRestaurant._author;
                 User.findById(userId, function (err, user) {
                     var removeIndex = user.restaurants.map(function(restaurant){
                         return restaurant._id;
