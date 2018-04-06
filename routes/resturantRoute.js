@@ -17,10 +17,11 @@ router.post('/user/:userId/restaurant', function(req, res){
                         name: req.body.name,
                         image: req.body.image,
                         description: req.body.description,
-                        location: req.body.location
+                        foodType: req.body.foodType,
+                        location: req.body.location,
+                        zipCode: req.body.zipCode
                     });
-                newRestaurant.author.id = user._id;
-                newRestaurant.author.name = user.name;
+                newRestaurant._author = user._id;
                 newRestaurant.save(function (err) {
                     if (err) {
                         res.status(400);
@@ -40,7 +41,7 @@ router.post('/user/:userId/restaurant', function(req, res){
         res.json({message: "Not Found"});
 });
 
-// GET findAllRestaurantsForUser
+// GET findAllRestaurantsByUserId
 router.get('/user/:userId/restaurant', function(req, res){
     if(!req.params.userId){
         res.status(400);
