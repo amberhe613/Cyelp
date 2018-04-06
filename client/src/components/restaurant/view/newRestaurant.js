@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-    createRestaurant,
-} from '../restaurantService';
-
+import {createRestaurant} from '../restaurantService';
 
 export default class NewRestaurant extends React.Component {
     // need a props for userId
@@ -11,84 +8,80 @@ export default class NewRestaurant extends React.Component {
         this.state = {
             foodType: '',
             area: '',
-            name: '',
+            name: ''
         };
 
-        this.handleFoodTypeChange = this.handleFoodTypeChange.bind(this);
-        this.handleAreaChange = this.handleAreaChange.bind(this);
-        this.handleNameChange = this.handleLowestRatingChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-
+        this.handleFoodTypeChange = this
+            .handleFoodTypeChange
+            .bind(this);
+        this.handleAreaChange = this
+            .handleAreaChange
+            .bind(this);
+        this.handleNameChange = this
+            .handleLowestRatingChange
+            .bind(this);
+        this.handleSubmit = this
+            .handleSubmit
+            .bind(this);
     }
 
     handleAreaChange(area) {
-        this.setState({
-            area: area
-        })
+        this.setState({area: area})
     }
 
     handleNameChange(name) {
-        this.setState({
-            name: name
-        })
+        this.setState({name: name})
     }
 
     handleFoodTypeChange(foodType) {
-        this.setState({
-            foodType: foodType
-        })
+        this.setState({foodType: foodType})
     }
 
     handleSubmit() {
-        createRestaurant(this.props.userId, this.name, this.location, this.foodType);
+        createRestaurant(this.props.match.params.userId, this.name, this.location, this.foodType);
     }
 
     render() {
-        if (this.props.userId === '') {
+        // TODO: clean up codes use handlechange
+        if (this.props.isAuthenticated) {
             return (
                 <div>
-                    Please log in
-                </div>
-            )
-        } else {
-            return (
-            <div>
                     Create a new restaurant
-             <form>
+                    <form>
                         <p>
-                            Restaurant Name
-                    {' '}
+                            Restaurant Name {' '}
                             <input
                                 type="text"
                                 placeholder=""
                                 value={this.props.name}
-                                onChange={this.handleNameChange}
-                            />
+                                onChange={this.handleNameChange}/>
                         </p>
                         <p>
-                            Location
-                    {' '}
+                            Location {' '}
                             <input
                                 type="text"
                                 placeholder="five digit zip code"
                                 value={this.props.area}
-                                onChange={this.handleAreaChange}
-                            />
+                                onChange={this.handleAreaChange}/>
                         </p>
                         <p>
-                            Food Type
-                    {' '}
+                            Food Type {' '}
                             <input
                                 type="text"
                                 placeholder="hunan, sichuan..."
                                 value={this.props.foodType}
-                                onChange={this.handleFoodTypeChange}
-                            />
+                                onChange={this.handleFoodTypeChange}/>
                         </p>
                     </form>
-                    <button onclick="handleSubmit()">Create new restaurant</button>
-            </div>
+                    <button onclick={this.handleSubmit}>Create new restaurant</button>
+                </div>
             );
+        } else {
+            return (
+                <div>
+                    Invalid page! 
+                </div>
+            )
 
         }
     }

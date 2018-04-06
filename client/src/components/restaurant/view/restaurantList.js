@@ -26,7 +26,7 @@ class RestaurantRow extends React.Component {
     }
 }
 
-class RestaurantTable extends React.Component {
+export class RestaurantTable extends React.Component {
     render() {
         const rows = [];
         this.props.restaurants.forEach((restaurant) => {
@@ -55,6 +55,7 @@ class RestaurantTable extends React.Component {
     }
 }
 
+// TODO: handle input field change in local state
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
@@ -81,6 +82,7 @@ class SearchBar extends React.Component {
                 <p>
                     Search restaurants by food type
                     {' '}
+                    {/* TODO: value and onChange locally */}
                     <input
                         type="text"
                         placeholder="food type (sichuan, hunan...)"
@@ -113,14 +115,14 @@ class SearchBar extends React.Component {
     }
 }
 
-export default class RestaurantList extends React.Component {
+export class RestaurantList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            products: [{}],
             foodType: '',
             area: '',
             lowestRating: '',
+            restaurants: []
         };
 
         this.handleFoodTypeChange = this.handleFoodTypeChange.bind(this);
@@ -130,19 +132,19 @@ export default class RestaurantList extends React.Component {
 
     handleAreaChange(area) {
         // may need to use async function here
-        var products = findRestaurantsByArea(area, N);
+        var restaurants = findRestaurantsByArea(area, N);
 
         this.setState({
-            products: products
+            restaurants: restaurants
         })
     }
 
 
     handleLowestRatingChange(lowestRating) {
-        var products = findRestaurantsByLowestRating(lowestRating, N);
+        var restaurants = findRestaurantsByLowestRating(lowestRating, N);
 
         this.setState({
-            products: products
+            restaurants: restaurants
         })
     }
 
@@ -158,15 +160,15 @@ export default class RestaurantList extends React.Component {
         return (
             <div>
                 <SearchBar
-                    foodType={this.foodType}
-                    area={this.area}
-                    lowestRating={this.lowestRating}
+                    foodType={this.state.foodType}
+                    area={this.state.area}
+                    lowestRating={this.state.lowestRating}
                     onFoodTypeChange={this.handleFoodTypeChange}
                     onAreaChange={this.handleAreaChange}
                     onLowestRatingChange={this.handleLowestRatingChange}
                 />
                 <RestaurantTable
-                    restaurants={this.props.restaurants}
+                    restaurants={this.state.restaurants}
                 />
             </div>
         );

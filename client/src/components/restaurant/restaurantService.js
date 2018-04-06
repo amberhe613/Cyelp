@@ -1,7 +1,6 @@
 export function createRestaurant(userId, name, location, foodType) {
     var d = new Date();
     var newRestaurant = {
-        id: '_' + Math.random().toString(36).substr(2, 9),
         name: name,
         location: location,
         foodType: foodType,
@@ -9,7 +8,7 @@ export function createRestaurant(userId, name, location, foodType) {
         addedDate: d.getDate(),
         rateTimes: 0,
         averageRating: 0,
-        averagePrice: 0,
+        averagePrice: 0
     }
 
     fetch('/restaurants/new', {
@@ -18,12 +17,14 @@ export function createRestaurant(userId, name, location, foodType) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newRestaurant)
-    }).then(function (response) {
-        console.log("ok");
-    }).catch(function (error) {
-        console.log("error");
-    });
+            body: JSON.stringify(newRestaurant)
+        })
+        .then(function (response) {
+            console.log("ok");
+        })
+        .catch(function (error) {
+            console.log("error");
+        });
 }
 
 export function updateRestaurant(userId, restaurantId, key, value) {
@@ -31,7 +32,7 @@ export function updateRestaurant(userId, restaurantId, key, value) {
         userId: userId,
         restaurantId: restaurantId,
         key: key,
-        value: value,
+        value: value
     }
 
     fetch('/restaurants/' + restaurantId + '/edit', {
@@ -40,19 +41,21 @@ export function updateRestaurant(userId, restaurantId, key, value) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(updateInfo)
-    }).then(function (response) {
-        console.log("ok");
-    }).catch(function (error) {
-        console.log("error");
-    });
+            body: JSON.stringify(updateInfo)
+        })
+        .then(function (response) {
+            console.log("ok");
+        })
+        .catch(function (error) {
+            console.log("error");
+        });
 }
 
 export function reviewRestaurant(userId, restaurantId, rating, cost) {
     var rateInfo = {
         userId: userId,
         rating: rating,
-        cost: cost,
+        cost: cost
     }
 
     fetch('/restaurants/' + restaurantId, {
@@ -61,114 +64,126 @@ export function reviewRestaurant(userId, restaurantId, rating, cost) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(rateInfo)
-    }).then(function (response) {
-        console.log("ok");
-    }).catch(function (error) {
-        console.log("error");
-    });
+            body: JSON.stringify(rateInfo)
+        })
+        .then(function (response) {
+            console.log("ok");
+        })
+        .catch(function (error) {
+            console.log("error");
+        });
 }
 
 export async function findRestaurantsByType(foodType, n) {
     var restaurants = [{}]
-    await fetch('/restaurants?key=foodType&value='+foodType+'n='+n, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then(function (response) {
+    await fetch('/restaurants?key=foodType&value=' + foodType + 'n=' + n, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
         console.log("ok");
         return response.json()
-    }).then(function (value) {
-        console.log(value)
-        restaurants = value;
-    }).catch(function (error) {
-        console.log("error");
-    });
+    })
+        .then(function (value) {
+            console.log(value)
+            restaurants = value;
+        })
+        .catch(function (error) {
+            console.log("error");
+        });
     return restaurants
 }
 
 export async function findRestaurantsByArea(location, diameter, n) {
     var restaurants = [{}]
-    await fetch('/restaurants?key=location&value='+location+'diameter='+diameter+'n='+n, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-    }).then(function (response) {
+    await fetch('/restaurants?key=location&value=' + location + 'diameter=' + diameter + 'n=' + n, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
         console.log("ok");
         return response.json()
-    }).then(function (value) {
-        console.log(value)
-        restaurants = value;
-    }).catch(function (error) {
-        console.log("error");
-    });
+    })
+        .then(function (value) {
+            console.log(value)
+            restaurants = value;
+        })
+        .catch(function (error) {
+            console.log("error");
+        });
     return restaurants
 }
 
 export async function findRestaurantsByLowestRating(lowestRating, n) {
     var restaurants = [{}]
-    await fetch('/restaurants?key=lowestRating&value='+lowestRating+'n='+n, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-    }).then(function (response) {
+    await fetch('/restaurants?key=lowestRating&value=' + lowestRating + 'n=' + n, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
         console.log("ok");
         return response.json()
-    }).then(function (value) {
-        console.log(value)
-        restaurants = value;
-    }).catch(function (error) {
-        console.log("error");
-    });
+    })
+        .then(function (value) {
+            console.log(value)
+            restaurants = value;
+        })
+        .catch(function (error) {
+            console.log("error");
+        });
     return restaurants
 }
 
 export async function findRestaurantReviews(restaurantId, n) {
     var reviews = [{}]
-    await fetch('/restaurants/a/'+restaurantId+'/reviews', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then(function (response) {
+    await fetch('/restaurants/a/' + restaurantId + '/reviews', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
         console.log("ok");
         return response.json()
-    }).then(function (value) {
-        console.log(value)
-        reviews = value;
-    }).catch(function (error) {
-        console.log("error");
-    });
+    })
+        .then(function (value) {
+            console.log(value)
+            reviews = value;
+        })
+        .catch(function (error) {
+            console.log("error");
+        });
     return reviews
 }
 
+// TODO: return a promise, catch error in the called function
 export async function findRestaurantById(restaurantId, n) {
     var restaurant = {}
-    await fetch('/restaurants/a/'+restaurantId, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then(function (response) {
+    await fetch('/restaurants/a/' + restaurantId, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
         console.log("ok");
         return response.json()
-    }).then(function (value) {
-        console.log(value)
-        restaurant = value;
-    }).catch(function (error) {
-        console.log("error");
-    });
+    })
+        .then(function (value) {
+            console.log(value)
+            restaurant = value;
+        })
+        .catch(function (error) {
+            console.log("error");
+        });
     return restaurant
 }
-
 
 export function sortRestaurantByRating(restaurants) {
     return restaurants.sort((a, b) => {
@@ -194,6 +209,17 @@ export function sortRestaurantByPrice(restaurants) {
             } else {
                 return a.name - b.name
             }
+        }
+    })
+}
+
+export function saveRestaurant(userId, restaurantId) {
+    return fetch('/restaurants/' + restaurantId + 'save/' + userId, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Content-Length': 0
         }
     })
 }

@@ -28,11 +28,17 @@ export default class Login extends React.Component {
         })
     }
 
-    handleLogin() {
-        var isLoginSuccess = login(this.username, this.password);
-        if (isLoginSuccess) {
-            this.props.onSuccessLogin(this.username)
-        }
+    handleLogin(event) {
+        // BUG: need to add preventdefault?
+        event.preventDefault();
+        login(this.state.username, this.state.password).then((res) => {
+            this.props.authenticateUser(res.userId)
+            // TODO: redirect to whatever the last page
+            this.props.history.goBack()
+        }).catch((err) => {
+            // TODO: now do nothing, may render alert later
+            console.log("Login failure")
+        });
     }
 
     render() {
@@ -58,7 +64,7 @@ export default class Login extends React.Component {
                         onChange={this.handlePasswordChange}
                     />
                 </p>
-                <button onclick="handleLogin()">Login</button>
+                <button onclick={handleLogin}>Login</button>
             </form>
         )
     }

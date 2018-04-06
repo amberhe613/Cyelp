@@ -5,7 +5,7 @@ const server = express();
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const path = require('path');
-const keys = require('./config/keys');
+// const keys = require('./config/keys');
 const resturantRoute = require('./routes/resturantRoute');
 const User = mongoose.model('User');
 
@@ -16,6 +16,7 @@ require('./db/reviewModel');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI, function (err, db) {
+    o
     if (err) {
         console.log("Error: unable to connect to db");
     } else {
