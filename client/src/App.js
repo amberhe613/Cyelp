@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {Link, Route} from 'react-router-dom';
-import Login from './components/user/view/login';
+import Login from './components/user/view/Login';
 import Restaurant from './components/restaurant/view/restaurant';
 import RestaurantList from './components/restaurant/view/restaurantList';
 import NewRestaurant from './components/restaurant/view/newRestaurant';
-// import logo from './logo.svg';
+import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
