@@ -5,8 +5,13 @@ const restaurantSchema = new mongoose.Schema( {
     name: {type: String, required: true},
     image: {type: String, required: true},
     description: String,
-    foodType: String,
-    location: String,
+    //https://www.buffalotours.com/blog/guide-to-different-types-chinese-food/
+    foodType: {
+        type: String,
+        enum : ['Cantonese', 'Sichuan', 'Hunan', 'Fujian', 'Jiangsu', 'Zhejiang', 'Anhui', 'Shandong']
+    },
+    address: String,
+    zipCode: String,
     averageRating: Number,
     averagePrice: Number,
     _author: {
