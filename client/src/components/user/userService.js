@@ -1,5 +1,5 @@
 export async function login(username, password) {
-    var loginInfoj = {
+    var loginInfo = {
         username: username,
         password: password,
    }
@@ -11,7 +11,7 @@ export async function login(username, password) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(loginInf0)
+        body: JSON.stringify(loginInfo)
     }).then(function (response) {
         isLoginSuccess = true;
         console.log("ok");
