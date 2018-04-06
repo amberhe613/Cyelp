@@ -38,7 +38,58 @@ router.post('/user/:userId/restaurant', function(req, res){
             }
         });
     }
-        res.json({message: "Not Found"});
+});
+
+
+// GET findAllRestaurant Or findAllRestaurantByZipCode or findAllRestaurantByFoodType
+router.get('/restaurant', function(req, res){
+    //Check if all fields are provided and are valid:
+    if(!req.query.foodtype && !req.query.zipcode){
+        Restaurant.find({}, function (err, restaurants) {
+            if (restaurants) {
+                var restaurantMap = [];
+
+                restaurants.forEach(function(restaurant){
+                    restaurantMap.push(restaurant);
+                });
+                res.json(restaurantMap);
+            } else {
+                res.status(400);
+                res.json({message: "Not Found!"});
+            }
+        });
+    } else
+    if (req.query.foodtype) {
+        Restaurant.find({foodType:req.query.foodtype}, function (err, restaurants) {
+            if (restaurants) {
+                var restaurantMap = [];
+
+                restaurants.forEach(function(restaurant){
+                    restaurantMap.push(restaurant);
+                });
+                res.json(restaurantMap);
+            } else {
+                res.status(400);
+                res.json({message: "Not Found!"});
+            }
+        });
+    }
+    else
+    if (req.query.zipcode) {
+        Restaurant.find({zipCode:req.query.zipcode}, function (err, restaurants) {
+            if (restaurants) {
+                var restaurantMap = [];
+
+                restaurants.forEach(function(restaurant){
+                    restaurantMap.push(restaurant);
+                });
+                res.json(restaurantMap);
+            } else {
+                res.status(400);
+                res.json({message: "Not Found!"});
+            }
+        });
+    }
 });
 
 // GET findAllRestaurantsByUserId
@@ -109,12 +160,12 @@ router.delete('/restaurant/:restaurantId', function(req, res){
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-        Restaurant.findByIdAndRemove(req.params.restaurantId, function (err, deleteRestaurant) {
+        Restaurant.findById(req.params.restaurantId, function (err, deleteRestaurant) {
             if (err) {
                 res.status(400);
                 res.json({message: "Not found"});
             } else {
-                var userId = deleteRestaurant.author.id;
+                var userId = deleteRestaurant._author;
                 User.findById(userId, function (err, user) {
                     var removeIndex = user.restaurants.map(function(restaurant){
                         return restaurant._id;
