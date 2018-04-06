@@ -4,9 +4,9 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 // schema setup
 const UserSchema = new mongoose.Schema({
-    oauthID: String,
+    oauthID: {type: String, required: true, unique: true},
     username: String,
-    photo: {type: String, required: true, unique: true},
+    photo: String,
     restaurants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Restaurant"
