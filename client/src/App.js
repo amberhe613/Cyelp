@@ -12,7 +12,6 @@ class App extends Component {
         super(props);
         this.state = {
             userId: '',
-
         };
 
         this.handleLogin = this.handleLogin.bind(this);
@@ -21,7 +20,7 @@ class App extends Component {
 
     handleLogin(userId) {
         this.setState({
-            userId: uesrId
+            userId: userId
         })
     }
 
