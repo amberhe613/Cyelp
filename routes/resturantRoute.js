@@ -16,10 +16,13 @@ router.post('/user/:userId/restaurant', function(req, res){
                     new Restaurant({
                         name: req.body.name,
                         image: req.body.image,
-                        description: req.body.description,
-                        foodType: req.body.foodType,
-                        location: req.body.location,
-                        zipCode: req.body.zipCode
+                        cuisine: req.body.cuisine,
+                        phone: req.body.phone,
+                        street: req.body.address.street,
+                        building: req.body.address.building,
+                        city: req.body.address.city,
+                        state: req.body.address.state,
+                        zipcode: req.body.address.zipcode,
                     });
                 newRestaurant._author = user._id;
                 newRestaurant.save(function (err) {
@@ -44,7 +47,7 @@ router.post('/user/:userId/restaurant', function(req, res){
 // GET findAllRestaurant Or findAllRestaurantByZipCode or findAllRestaurantByFoodType
 router.get('/restaurant', function(req, res){
     //Check if all fields are provided and are valid:
-    if(!req.query.foodtype && !req.query.zipcode){
+    if(!req.query.cuisine && !req.query.zipcode){
         Restaurant.find({}, function (err, restaurants) {
             if (restaurants) {
                 var restaurantMap = [];
@@ -59,8 +62,8 @@ router.get('/restaurant', function(req, res){
             }
         });
     } else
-    if (req.query.foodtype) {
-        Restaurant.find({foodType:req.query.foodtype}, function (err, restaurants) {
+    if (req.query.cuisine) {
+        Restaurant.find({cuisine: req.query.cuisine}, function (err, restaurants) {
             if (restaurants) {
                 var restaurantMap = [];
 
@@ -76,7 +79,7 @@ router.get('/restaurant', function(req, res){
     }
     else
     if (req.query.zipcode) {
-        Restaurant.find({zipCode:req.query.zipcode}, function (err, restaurants) {
+        Restaurant.find({address: {zipcode: req.query.zipcode}}, function (err, restaurants) {
             if (restaurants) {
                 var restaurantMap = [];
 

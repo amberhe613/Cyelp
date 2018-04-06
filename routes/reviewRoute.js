@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Restaurant = require("../db/restaurantModel");
 var Review = require("../db/reviewModel");
+var User = require("../db/userModel");
 
 // create new review
 router.post('/restaurants/:restaurantId/reviews', function (req, res) {
@@ -31,7 +32,7 @@ router.post('/restaurants/:restaurantId/reviews', function (req, res) {
               }
           })
       }
-    })
+    });
 });
 
 // edit review
