@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link, Route, Redirect} from 'react-router-dom';
-import {Login} from './components/user/view/login';
+import {Login} from './components/user/view/Login';
 import {Restaurant} from './components/restaurant/view/restaurant';
 import {RestaurantList} from './components/restaurant/view/restaurantList';
 import {NewRestaurant} from './components/restaurant/view/newRestaurant';
