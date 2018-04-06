@@ -22,6 +22,7 @@ const restaurantSchema = new mongoose.Schema( {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
+    reviewsNumber: Number,
     reviews: [
         {
             type: mongoose.Schema.Types.ObjectId,
