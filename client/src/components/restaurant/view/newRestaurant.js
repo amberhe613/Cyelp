@@ -27,7 +27,7 @@ export default class NewRestaurant extends React.Component {
         })
     }
 
-    handleNameChange(lowestRating) {
+    handleNameChange(name) {
         this.setState({
             name: name
         })

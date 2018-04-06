@@ -76,8 +76,7 @@ export async function findRestaurantsByType(foodType, n) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(queryInfo)
+        }
     }).then(function (response) {
         console.log("ok");
         return response.json()
@@ -137,8 +136,7 @@ export async function findRestaurantReviews(restaurantId, n) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(queryInfo)
+        }
     }).then(function (response) {
         console.log("ok");
         return response.json()
@@ -158,8 +156,7 @@ export async function findRestaurantById(restaurantId, n) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(queryInfo)
+        }
     }).then(function (response) {
         console.log("ok");
         return response.json()
@@ -175,10 +172,10 @@ export async function findRestaurantById(restaurantId, n) {
 
 export function sortRestaurantByRating(restaurants) {
     return restaurants.sort((a, b) => {
-        if (a.averageRating != b.averageRating) {
+        if (a.averageRating !== b.averageRating) {
             return a.averageRating - b.averageRating
         } else {
-            if (a.averagePrice != b.averagePrice) {
+            if (a.averagePrice !== b.averagePrice) {
                 return a.averagePrice - b.averagePrice
             } else {
                 return a.name - b.name
@@ -189,10 +186,10 @@ export function sortRestaurantByRating(restaurants) {
 
 export function sortRestaurantByPrice(restaurants) {
     return restaurants.sort((a, b) => {
-        if (a.averagePrice != b.averagePrice) {
+        if (a.averagePrice !== b.averagePrice) {
             return a.averagePrice - b.averagePrice
         } else {
-            if (a.averageRating != b.averageRating) {
+            if (a.averageRating !== b.averageRating) {
                 return a.averageRating - b.averageRating
             } else {
                 return a.name - b.name

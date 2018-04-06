@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-    findRestaurantsReviews,
+    findRestaurantById,
+    findRestaurantReviews
 } from '../restaurantService';
 
 // fix the number of review queries for now
@@ -48,10 +49,6 @@ class ReviewTable extends React.Component {
 }
 
 class RestaurantInfo extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div>
@@ -70,7 +67,7 @@ class RestaurantInfo extends React.Component {
 }
 
 
-class Restaurant extends React.Component {
+export default class Restaurant extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -108,7 +105,6 @@ class Restaurant extends React.Component {
                     onCreateReview={this.createReview}
                 />
             </div>
-
         )
     }
 

@@ -1,32 +1,32 @@
 import React, { Component } from 'react';
-import {Link, Route, Redirect} from 'react-router-dom';
-import {Login} from './components/user/view/Login';
-import {Restaurant} from './components/restaurant/view/restaurant';
-import {RestaurantList} from './components/restaurant/view/restaurantList';
-import {NewRestaurant} from './components/restaurant/view/newRestaurant';
-import logo from './logo.svg';
+import {Link, Route} from 'react-router-dom';
+import Login from './components/user/view/login';
+import Restaurant from './components/restaurant/view/restaurant';
+import RestaurantList from './components/restaurant/view/restaurantList';
+import NewRestaurant from './components/restaurant/view/newRestaurant';
+// import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: '',
+            username: '',
         };
 
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
     }
 
-    handleLogin(userId) {
+    handleLogin(username) {
         this.setState({
-            userId: userId
+            username: username
         })
     }
 
-    handleLogout(userId) {
+    handleLogout(username) {
         this.setState({
-            userId: ''
+            username: ''
         })
     }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-    findRestaurantByType,
-    findRestaurantByArea,
-    findRestaurantByLowestRating
+    findRestaurantsByType,
+    findRestaurantsByArea,
+    findRestaurantsByLowestRating
 } from '../restaurantService';
 
 // fix the number of query for now
@@ -130,7 +130,7 @@ export default class RestaurantList extends React.Component {
 
     handleAreaChange(area) {
         // may need to use async function here
-        var products = findRestaurantByArea(area, N);
+        var products = findRestaurantsByArea(area, N);
 
         this.setState({
             products: products
@@ -139,7 +139,7 @@ export default class RestaurantList extends React.Component {
 
 
     handleLowestRatingChange(lowestRating) {
-        var products = findRestaurantByLowestRating(lowestRating, N);
+        var products = findRestaurantsByLowestRating(lowestRating, N);
 
         this.setState({
             products: products
@@ -147,7 +147,7 @@ export default class RestaurantList extends React.Component {
     }
 
     handleFoodTypeChange(foodType) {
-        var restaurants = findRestaurantByType(foodType, N);
+        var restaurants = findRestaurantsByType(foodType, N);
 
         this.setState({
             restaurants: restaurants
