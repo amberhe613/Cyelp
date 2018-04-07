@@ -17,7 +17,6 @@ const restaurantSchema = new mongoose.Schema( {
     },
     phone: String,
     averageRating: Number,
-    averagePrice: Number,
     _author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"

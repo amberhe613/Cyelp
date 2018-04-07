@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 var Restaurant = require("../db/restaurantModel");
 var Review = require("../db/reviewModel");
+var User = require("../db/userModel");
 
 // create new review
-router.post('/restaurants/:restaurantId/reviews', function (req, res) {
+router.post('/restaurant/:restaurantId/review', function (req, res) {
     Restaurant.findById(req.params.restaurantId, function(err, restaurant) {
       if (err) {
           console.log(err);
@@ -14,27 +15,31 @@ router.post('/restaurants/:restaurantId/reviews', function (req, res) {
           });
       } else {
           var curReviewNum = restaurant.reviewsNumber;
-          Review.create(req.body.review, function(err, review){
-              // console.log(req.body.review);
-              if (err) {
-                  console.log(err);
-                  res.status(400);
-                  res.send({
-                      "error": "error while creating review"
-                  });
-              } else {
-                  // add user id to review
-                  review._author = req.user._id;
-                  // save review
-                  review.save();
-                  restaurant.reviews.push(review._id);
-                  restaurant.reviewsNumber = curReviewNum + 1;
-                  req.user.reviews.push(review._id);
-                  console.log(review);
-                  res.status(201);
-                  res.send(review);
-              }
+          var curRatingTotal = (restaurant.averageRating || 0) * curReviewNum;
+
+          console.log(curRatingTotal);
+          var newReview =
+              new Review({
+                  text: req.body.text,
+                  rating: req.body.rating,
+                  price: req.body.price,
+                  _restaurant: {
+                      id: restaurant._id,
+                      name: restaurant.name
+                  }
+              });
+          newReview._author = req.body.user;
+          newReview.save();
+          restaurant.reviews.push(newReview._id);
+          restaurant.reviewsNumber = curReviewNum + 1;
+          restaurant.averageRating = (curRatingTotal + req.body.rating) / (curReviewNum + 1);
+
+          restaurant.save();
+          User.findById(req.body.user, function(err, user) {
+              user.reviews.push(newReview._id);
+              user.save();
           });
+          res.send(newReview);
       }
     });
 });
