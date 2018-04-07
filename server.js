@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const server = express();
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const path = require('path');
-const keys = require('./config/keys');
+// const keys = require('./config/keys');
 const resturantRoute = require('./routes/resturantRoute');
 const userRoute = require('./routes/userRoute');
 const reviewRoute = require('./routes/reviewRoute');
@@ -18,6 +18,7 @@ require('./db/reviewModel');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI, function (err, db) {
+    o
     if (err) {
         console.log("Error: unable to connect to db");
     } else {
@@ -31,7 +32,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // install, load, and configure body parser module
 server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.urlencoded({extended: true}));
 
 server.use(express.static(path.join(__dirname, '../client/build')));
 
@@ -62,10 +63,23 @@ server.use('/api', userRoute);
 server.use('/api', resturantRoute);
 server.use('/api', reviewRoute);
 
-server.listen(process.env.PORT || 3002, function (err) {
-    if (err) {
-        console.log("err: app listen");
-    } else {
-        console.log("app listening");
-    }
+server.listen(process.env.PORT || 3002, function(err) {
+  if (err) {
+    console.log('err: app listen');
+  } else {
+    console.log('app listening');
+  }
+});
+
+// serve static built files
+server.get('/index.html*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+server.get('/service-worker.js', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+server.get('/static/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });

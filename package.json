@@ -23,9 +23,7 @@
     },
     "scripts": {
         "start": "node server.js",
-        "heroku-postbuild": "cd client && yarn --production=false && yarn run build",
-        "test": "mocha --compilers js:babel-core/register --timeout 10000",
-        "build": "babel server -d lib"
+        "heroku-postbuild": "cd client && npm install && npm run build"
     },
     "engines": {
         "node": "8.9.3"
