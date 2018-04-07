@@ -8,6 +8,7 @@ const path = require('path');
 const keys = require('./config/keys');
 const resturantRoute = require('./routes/resturantRoute');
 const userRoute = require('./routes/userRoute');
+const reviewRoute = require('./routes/reviewRoute');
 const User = mongoose.model('User');
 
 // Require Database models
@@ -59,6 +60,7 @@ server.use(passport.session());
 require('./routes/authRoute')(server);
 server.use('/api', userRoute);
 server.use('/api', resturantRoute);
+server.use('/api', reviewRoute);
 
 server.listen(process.env.PORT || 3002, function (err) {
     if (err) {

@@ -22,11 +22,18 @@ const restaurantSchema = new mongoose.Schema( {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    reviewsNumber: Number,
+    reviewsNumber: {type: Number, default: 0},
     reviews: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Review"
+        }
+    ],
+    likedUserNumber: {type: Number, default: 0},
+    likedUser: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
         }
     ]
 }, {timestamps: true});
