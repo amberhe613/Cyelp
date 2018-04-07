@@ -17,7 +17,6 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
           var curReviewNum = restaurant.reviewsNumber;
           var curRatingTotal = (restaurant.averageRating || 0) * curReviewNum;
 
-          console.log(curRatingTotal);
           var newReview =
               new Review({
                   text: req.body.text,
@@ -28,53 +27,128 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
                       name: restaurant.name
                   }
               });
-          newReview._author = req.body.user;
+          newReview._author = req.user._id;
           newReview.save();
+          // Add review to restaurant reviews list
           restaurant.reviews.push(newReview._id);
+          // update reviews number and calculate avg rate
           restaurant.reviewsNumber = curReviewNum + 1;
-          restaurant.averageRating = (curRatingTotal + req.body.rating) / (curReviewNum + 1);
-
+          restaurant.averageRating = (curRatingTotal + req.body.rating) / restaurant.reviewsNumber;
           restaurant.save();
-          User.findById(req.body.user, function(err, user) {
-              user.reviews.push(newReview._id);
-              user.save();
-          });
-          res.send(newReview);
+          // Add review to user reviews list
+          req.user.reviews.push(newReview._id);
+          req.user.save();
+
+          res.send({message: "New Review id " + newReview._id + "created."});
       }
     });
 });
 
-//
-// // edit review
-// router.put("/restaurants/:restaurantId/reviews/:reviewId", function(req, res){
-//     Review.findByIdAndUpdate(req.params.reviewId, req.body.review, function(err, updatedComment){
-//         if(err){
-//             console.log(err);
-//             res.status(400);
-//             res.send({
-//                 "error": "error while updating review"
-//             });
-//         } else {
-//             res.status(200);
-//             res.send({message: "successfully updated review"});
-//         }
-//     });
-// });
-//
-// // delete review
-// router.delete("/restaurants/:restaurantId/reviews/:reviewId", function(req, res){
-//     //findByIdAndRemove
-//     Review.findByIdAndRemove(req.params.reviewId, function(err){
-//         if(err){
-//             res.status(400);
-//             res.send({
-//                 "error": "error while deleting review"
-//             });
-//         } else {
-//             res.status(200);
-//             res.send({message: "successfully deleted review"});
-//         }
-//     });
-// });
+
+// edit review
+router.put("/review/:reviewId", function(req, res){
+    Review.findById(req.params.reviewId, function(err, updateReview){
+        if(err){
+            console.log(err);
+            res.status(400);
+            res.send({
+                "error": "error while updating review"
+            });
+        } else {
+            var oldRate = updateReview.rating;
+            updateReview = req.body;
+            Restaurant.findById(updateReview._restaurant.id, function(err, restaurant){
+                var curRatingTotal = (restaurant.averageRating || 0) * restaurant.reviewsNumber;
+                restaurant.averageRating = (curRatingTotal + req.body.rating - oldRate) / restaurant.reviewsNumber;
+                restaurant.save();
+            });
+            updateReview.save();
+            res.status(200);
+            res.send({message: "Review id " + req.params.reviewId + "has been updated"});
+        }
+    });
+});
+
+// GET findReviewedRestaurantsByUserId
+router.get('/user/:userId/review', function(req, res){
+    if(!req.params.userId){
+        res.status(400);
+        res.json({message: "Bad Request"});
+    } else {
+        Review.find({_author:req.params.userId}, function (err, reviews) {
+            if (reviews) {
+                var reviewMap = [];
+
+                reviews.forEach(function(review){
+                    reviewMap.push(review);
+                });
+                res.json(reviewMap);
+            } else {
+                res.status(400);
+                res.json({message: "Not Found!"});
+            }
+        });
+    }
+});
+
+// GET findReviewedRestaurantsByRestaurantId
+router.get('/restaurant/:restaurantId/review', function(req, res){
+    if(!req.params.userId){
+        res.status(400);
+        res.json({message: "Bad Request"});
+    } else {
+        Review.find({_restaurant:req.params.restaurantId}, function (err, reviews) {
+            if (reviews) {
+                var reviewMap = [];
+
+                reviews.forEach(function(review){
+                    reviewMap.push(review);
+                });
+                res.json(reviewMap);
+            } else {
+                res.status(400);
+                res.json({message: "Not Found!"});
+            }
+        });
+    }
+});
+
+//Delete review
+router.delete("/reviews/:reviewId", function(req, res){
+    //findByIdAndRemove
+    Review.findByIdAndRemove(req.params.reviewId, function(err, deletedReview){
+        if(err){
+            res.status(400);
+            res.send({
+                "error": "error while deleting review"
+            });
+        } else {
+            // Remove review id in restaurant reviews list
+            Restaurant.findById(deletedReview._restaurant.id, function(err, restaurant) {
+                var curReviewNum = restaurant.reviewsNumber;
+                var curRatingTotal = (restaurant.averageRating || 0) * restaurant.reviewsNumber;
+                var removeIndexForRestaurant = restaurant.reviews.map(function(review){
+                    return review._id;
+                }).indexOf(req.params.reviewId);
+                if (removeIndexForRestaurant === -1) {
+                    res.json({message: "Not found"});
+                } else {
+                    restaurant.reviewsNumber = curReviewNum - 1;
+                    restaurant.averageRating = (curRatingTotal - deletedReview.rating) / restaurant.reviewsNumber;
+                    restaurant.reviews.splice(removeIndexForRestaurant, 1);
+                    restaurant.save();
+
+                    var removeIndexForUser = req.user.reviews.map(function(review){
+                        return review._id;
+                    }).indexOf(req.params.reviewId);
+                    req.user.reviews.splice(removeIndexForUser, 1);
+                    req.user.save();
+                    res.status(200);
+                    res.send({message: "successfully deleted review"});
+                }
+            });
+        }
+    });
+});
 
 module.exports = router;

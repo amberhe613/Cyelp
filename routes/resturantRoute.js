@@ -130,11 +130,20 @@ router.delete('/restaurant/:restaurantId', function(req, res){
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-        Restaurant.findById(req.params.restaurantId, function (err, deleteRestaurant) {
+        Restaurant.findByIdAndRemove(req.params.restaurantId, function (err, deleteRestaurant) {
             if (err) {
                 res.status(400);
                 res.json({message: "Not found"});
             } else {
+                // Delete restaurant in user liked restaurant list
+                deleteRestaurant.likedUser.forEach(function(likedUser) {
+                    var removeIndex = likedUser.likedRestaurants.map(function(restaurant){
+                        return restaurant._id;
+                    }).indexOf(deleteRestaurant._id);
+                    likedUser.likedRestaurants.splice(removeIndex, 1);
+                    likedUser.save();
+                });
+                // Delete restaurant in user created restaurant list
                 var userId = deleteRestaurant._author;
                 User.findById(userId, function (err, user) {
                     var removeIndex = user.restaurants.map(function(restaurant){
