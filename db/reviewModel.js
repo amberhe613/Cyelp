@@ -10,8 +10,7 @@ const reviewSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Restaurant"
         },
-        name: String,
-
+        name: String
     },
     _author: {
         type: mongoose.Schema.Types.ObjectId,
