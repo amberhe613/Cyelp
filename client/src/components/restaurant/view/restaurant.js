@@ -1,9 +1,6 @@
 import React from 'react';
 import {findRestaurantById, findRestaurantReviews, saveRestaurant} from '../restaurantService';
-import NewReview from './components/review/view/newReview';
-
-// fix the number of review queries for now
-const MAX_REVIEWS = 10;
+import NewReview from '../../review/view/newReview'
 
 class ReviewRow extends React.Component {
     render() {
@@ -50,9 +47,8 @@ class RestaurantInfo extends React.Component {
             <div>
                 <ul>
                     <li>Name: {this.props.restaurant.name}</li>
-                    <li>Location: {this.props.restaurant.location}</li>
-                    <li>Food Type: {this.props.restaurant.foodType}</li>
-                    <li>Average Price: {this.props.restaurant.averagePrice}</li>
+                    <li>Location: {this.props.restaurant.address.zipcode}</li>
+                    <li>Food Type: {this.props.restaurant.cuisine}</li>
                     <li>Average Rating: {this.props.restaurant.averageRating}</li>
                 </ul>
                 <button onclick={this.props.reviewRestaurant}>Review me!</button>
@@ -67,29 +63,41 @@ export default class Restaurant extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            restaurantInfo: '',
-            reviews: [{}],
-            renderNewRevie: false,
+            restaurant: '',
+            reviews: [
+                {}
+            ],
+            renderNewReview: false
         };
-        this.saveRestaurant = this.saveRestaurant.bind(this);
-        this.reviewRestaurant = this.reviewRestaurant.bind(this);
+        this.saveRestaurant = this
+            .saveRestaurant
+            .bind(this);
+        this.reviewRestaurant = this
+            .reviewRestaurant
+            .bind(this);
     }
 
     componentDidMount() {
         var restaurantId = this.props.params.restaurantId;
-        var restaurantInfo = findRestaurantById(restaurantId, MAX_REVIEWS);
-        var reviews = findRestaurantReviews(restaurantId, MAX_REVIEWS);
-        this.setState({restaurantId: restaurantId, restaurantInfo: restaurantInfo, reviews: reviews})
+        findRestaurantById(restaurantId).then((res) => {
+            this.setState({restaurant: res.restaurant})
+        })
+        findRestaurantReviews(restaurantId).then((res) => {
+            this.setState({reviews: res.reviews})
+        })
     }
 
     saveRestaurant() {
         if (this.props.userId !== '') {
-            saveRestaurant(this.props.userId, this.state.restaurantId).catch((err) => {
+            saveRestaurant(this.state.restaurantId).catch((err) => {
                 // TODO: alert if save not success
                 console.log("save restaurant not success")
             })
         } else {
-            this.props.history.push('/login');
+            this
+                .props
+                .history
+                .push('/login');
         }
     }
 
@@ -98,19 +106,25 @@ export default class Restaurant extends React.Component {
             this.setState({renderNewReview: true})
         } else {
             // TODO: alert user login first
-            this.props.history.push('/login');
+            this
+                .props
+                .history
+                .push('/login');
         }
     }
 
     render() {
         return (
             <div>
+                Hi from Restaurant
+                <a herf="/restaurants">go back to restaurants</a>
                 <RestaurantInfo
                     restaurant={this.state.restaurant}
                     reviewRestaurant={this.reviewRestaurant}
                     saveRestaurant={this.saveRestaurant}/>
-                <ReviewTable reviews={this.state.reviews}/>
-                {this.state.renderNewReview ? <NewReview restaurantInfo={this.state.restaurantInfo} userId={this.props.userId} /> : null}
+                <ReviewTable reviews={this.state.reviews}/> {this.state.renderNewReview
+                    ? <NewReview restaurant={this.state.restaurant} userId={this.props.userId}/>
+                    : null}
             </div>
         )
     }

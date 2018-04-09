@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-    findRestaurantsByType,
-    findRestaurantsByArea,
-    findRestaurantsByLowestRating
-} from '../restaurantService';
-
-// fix the number of query for now
-const N = 30;
+import {findRestaurant} from '../restaurantService';
 
 class RestaurantRow extends React.Component {
     render() {
@@ -14,13 +7,12 @@ class RestaurantRow extends React.Component {
 
         return (
             <tr>
-                <a herf={"/restaurant" + restaurant.id}>
+                <a herf={"/restaurants/" + restaurant._id}>
                     <td>{restaurant.name}</td>
                 </a>
-                <td>{restaurant.location}</td>
-                <td>{restaurant.footType}</td>
+                <td>{restaurant.address.zipcode}</td>
+                <td>{restaurant.cuisine}</td>
                 <td>{restaurant.averageRating}</td>
-                <td>{restaurant.averagePrice}</td>
             </tr>
         );
     }
@@ -29,14 +21,12 @@ class RestaurantRow extends React.Component {
 export class RestaurantTable extends React.Component {
     render() {
         const rows = [];
-        this.props.restaurants.forEach((restaurant) => {
-            rows.push(
-                <RestaurantRow
-                    restaurant={restaurant}
-                    key={restaurant.id}
-                />
-            );
-        });
+        this
+            .props
+            .restaurants
+            .forEach((restaurant) => {
+                rows.push(<RestaurantRow restaurant={restaurant} key={restaurant.id}/>);
+            });
 
         return (
             <table>
@@ -44,9 +34,8 @@ export class RestaurantTable extends React.Component {
                     <tr>
                         <th>Name</th>
                         <th>Location</th>
-                        <th>footType</th>
+                        <th>foodType</th>
                         <th>averageRating</th>
-                        <th>averagePrice</th>
                     </tr>
                 </thead>
                 <tbody>{rows}</tbody>
@@ -59,56 +48,62 @@ export class RestaurantTable extends React.Component {
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
-        this.handleFoodTypeChange = this.handleFoodTypeChange.bind(this);
-        this.handleAreaChange = this.handleAreaChange.bind(this);
-        this.handleLowestRatingChange = this.handleLowestRatingChange.bind(this);
+        this.handleFoodTypeChange = this
+            .handleFoodTypeChange
+            .bind(this);
+        this.handleAreaChange = this
+            .handleAreaChange
+            .bind(this);
+        this.handleLowestRatingChange = this
+            .handleLowestRatingChange
+            .bind(this);
     }
 
     handleFoodTypeChange(e) {
-        this.props.onFoodTypeChange(e.target.value);
+        this
+            .props
+            .onFoodTypeChange(e.target.value);
     }
 
     handleAreaChange(e) {
-        this.props.onAreaChange(e.target.value);
+        this
+            .props
+            .onAreaChange(e.target.value);
     }
 
     handleLowestRatingChange(e) {
-        this.props.onLowestRatingChange(e.target.value);
+        this
+            .props
+            .onLowestRatingChange(e.target.value);
     }
 
     render() {
         return (
             <form>
                 <p>
-                    Search restaurants by food type
-                    {' '}
+                    Search restaurants by food type {' '}
                     {/* TODO: value and onChange locally */}
                     <input
                         type="text"
                         placeholder="food type (sichuan, hunan...)"
                         value={this.props.foodType}
-                        onChange={this.handleFoodTypeChange}
-                    />
+                        onChange={this.handleFoodTypeChange}/>
                 </p>
                 <p>
-                    Search restaurants by area
-                    {' '}
+                    Search restaurants by area {' '}
                     <input
                         type="text"
                         placeholder="five digit zip code"
                         value={this.props.area}
-                        onChange={this.handleAreaChange}
-                    />
+                        onChange={this.handleAreaChange}/>
                 </p>
                 <p>
-                    Search restaurants by lowest rating
-                    {' '}
+                    Search restaurants by lowest rating {' '}
                     <input
                         type="text"
                         placeholder="lowest rating (0-5)"
                         value={this.props.lowestRating}
-                        onChange={this.handleLowestRatingChange}
-                    />
+                        onChange={this.handleLowestRatingChange}/>
                 </p>
             </form>
         );
@@ -125,34 +120,46 @@ export class RestaurantList extends React.Component {
             restaurants: []
         };
 
-        this.handleFoodTypeChange = this.handleFoodTypeChange.bind(this);
-        this.handleAreaChange = this.handleAreaChange.bind(this);
-        this.handleLowestRatingChange = this.handleLowestRatingChange.bind(this);
+        this.handleFoodTypeChange = this
+            .handleFoodTypeChange
+            .bind(this);
+        this.handleAreaChange = this
+            .handleAreaChange
+            .bind(this);
+        this.handleLowestRatingChange = this
+            .handleLowestRatingChange
+            .bind(this);
     }
-
     handleAreaChange(area) {
-        // may need to use async function here
-        var restaurants = findRestaurantsByArea(area, N);
-
-        this.setState({
-            restaurants: restaurants
+        var queryBody = {
+            address: {
+                zipcode: area
+            }
+        };
+        findRestaurant(queryBody).then((res) => {
+            this.setState({restaurants: res.restaurants})
         })
-    }
-
+    };
 
     handleLowestRatingChange(lowestRating) {
-        var restaurants = findRestaurantsByLowestRating(lowestRating, N);
+        var queryBody = {
+            averageRating: {
+                $gte: lowestRating
+            }
+        };
 
-        this.setState({
-            restaurants: restaurants
+        findRestaurant(queryBody).then((res) => {
+            this.setState({restaurants: res.restaurants})
         })
     }
 
     handleFoodTypeChange(foodType) {
-        var restaurants = findRestaurantsByType(foodType, N);
+        var queryBody = {
+            cuisine: foodType
+        };
 
-        this.setState({
-            restaurants: restaurants
+        findRestaurant(queryBody).then((res) => {
+            this.setState({restaurants: res.restaurants})
         })
     }
 
@@ -165,13 +172,9 @@ export class RestaurantList extends React.Component {
                     lowestRating={this.state.lowestRating}
                     onFoodTypeChange={this.handleFoodTypeChange}
                     onAreaChange={this.handleAreaChange}
-                    onLowestRatingChange={this.handleLowestRatingChange}
-                />
-                <RestaurantTable
-                    restaurants={this.state.restaurants}
-                />
+                    onLowestRatingChange={this.handleLowestRatingChange}/>
+                <RestaurantTable restaurants={this.state.restaurants}/>
             </div>
         );
     }
 }
-

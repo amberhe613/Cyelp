@@ -38,7 +38,10 @@ export default class NewRestaurant extends React.Component {
     }
 
     handleSubmit() {
-        createRestaurant(this.props.match.params.userId, this.name, this.location, this.foodType);
+        createRestaurant(this.name, this.location, this.foodType)
+        .catch((err)=>{
+            console.log(err)
+        })
     }
 
     render() {
@@ -68,7 +71,7 @@ export default class NewRestaurant extends React.Component {
                             Food Type {' '}
                             <input
                                 type="text"
-                                placeholder="hunan, sichuan..."
+                                placeholder="Hunan, Sichuan..."
                                 value={this.props.foodType}
                                 onChange={this.handleFoodTypeChange}/>
                         </p>

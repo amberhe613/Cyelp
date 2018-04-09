@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {Link, Route} from 'react-router-dom';
-import {Cookies} from 'react-cookie';
+import {Link, Route, Redirect} from 'react-router-dom';
 import Login from './components/user/view/Login';
 import Profile from './components/user/view/Profile';
 import Restaurant from './components/restaurant/view/restaurant';
-import {RestaurantList} from './components/restaurant/view/restaurantList';
 import NewRestaurant from './components/restaurant/view/newRestaurant';
-import logo from './logo.svg';
-import './App.css';
+import {checkLogin} from './components/user/userService';
+import {RestaurantList} from './components/restaurant/view/restaurantList';
 
 class App extends Component {
     constructor(props) {
@@ -16,24 +14,15 @@ class App extends Component {
             isAuthenticated: false,
             userId: ''
         };
-        this.handleLogin = this
-            .handleLogin
-            .bind(this);
-        this.handleLogout = this
-            .handleLogout
-            .bind(this);
-    }
+   }
 
     componentWillMount() {
-        /*
-        now use cookies to handle login status
-        user may modify cookies so its unsafe
-        may need better authentication method
-        */
-        var cookies = new Cookies()
-        this.setState({
-            isAuthenticated: cookies.get('isAuthenticated'),
-            userId: cookies.get('userId')
+        checkLogin().then((res) => {
+            this.setState({
+                userId: res._id,
+                isAuthenticated: res._id === null
+            })
+
         })
     }
 
@@ -44,14 +33,17 @@ class App extends Component {
     render() {
         return (
             <div>
+                {window.location.pathname === "/" ? <Redirect to="/restaurants"/>:null}
+                {/* TODO: login no page */}
                 <Link to="/login"></Link>
                 <Link to="/user/:userId"></Link>
                 <Link to="/restaurants"></Link>
-                <Link to="/user/:userId/newrestaurant"></Link>
+                <Link to="/newrestaurant"></Link>
                 <Route
                     exact
                     path="/login"
                     render={props => <Login {...props} authenticateUser={this.authenticateUser}/>}/>
+                <Route exact path="/restaurants" compoennt={RestaurantList}/>
                 <Route
                     exact
                     path="/user/:userId"
@@ -59,11 +51,11 @@ class App extends Component {
                 <Route exact path="/restaurants" compoennt={RestaurantList}/>
                 <Route
                     exact
-                    path="/restaurants/a/:restaurantId"
+                    path="/restaurants/:restaurantId"
                     render={props => <Restaurant {...props} userId={this.state.userId}/>}/>
                 <Route
                     exact
-                    path="/user/:userId/newRestaurant"
+                    path="/newRestaurant"
                     render={() => <NewRestaurant isAuthenticated={this.state.isAuthenticated}/>}/>
             </div>
         );
