@@ -5,7 +5,7 @@ var Review = require("../db/reviewModel");
 var User = require("../db/userModel");
 
 //User like this restaurant
-router.post('/restaurant/:restaurantId/like', function (req, res) {
+router.put('/restaurant/:restaurantId/save', function (req, res) {
     Restaurant.findById(req.params.restaurantId, function(err, likedRestaurant) {
         if (err) {
             console.log(err);
@@ -30,7 +30,7 @@ router.post('/restaurant/:restaurantId/like', function (req, res) {
 });
 
 //User dislike this restaurant
-router.delete('/restaurant/:restaurantId/like', function (req, res) {
+router.delete('/restaurant/:restaurantId/unsave', function (req, res) {
     Restaurant.findById(req.params.restaurantId, function(err, dislikedRestaurant) {
         if (err) {
             console.log(err);
@@ -64,7 +64,7 @@ router.delete('/restaurant/:restaurantId/like', function (req, res) {
 });
 
 // GET findLikedRestaurantsByUserId
-router.get('/user/:userId/liked', function(req, res){
+router.get('/user/:userId/savedrestaurants', function(req, res){
     if(!req.params.userId){
         res.status(400);
         res.json({message: "Bad Request"});
@@ -76,7 +76,7 @@ router.get('/user/:userId/liked', function(req, res){
                 user.likedRestaurants.forEach(function(restaurant){
                     restaurantMap.push(restaurant);
                 });
-                res.json(restaurantMap);
+                res.json({restaurants: restaurantMap});
             } else {
                 res.status(400);
                 res.json({message: "Not Found!"});

@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 // schema setup
 const reviewSchema = mongoose.Schema({
-    text: {type: String, required: true},
-    rating: {type: Number, required: true, min: 0, max: 5},
+    content: {type: String, required: true},
+    rating: {type: Number, required: true, min: 1, max: 5},
     price: {type: Number},
     _restaurant: {
         id: {

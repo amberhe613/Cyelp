@@ -19,7 +19,7 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
 
           var newReview =
               new Review({
-                  text: req.body.text,
+                  content: req.body.content,
                   rating: req.body.rating,
                   price: req.body.price,
                   _restaurant: {
@@ -37,6 +37,7 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
           restaurant.save();
           // Add review to user reviews list
           req.user.reviews.push(newReview._id);
+          req.user.reviewedRestaurants.push(restaurant._id);
           req.user.save();
 
           res.send({message: "New Review id " + newReview._id + "created."});
@@ -44,6 +45,27 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
     });
 });
 
+// GET findReviewedRestaurantsByUserId
+router.get('/user/:userId/reviewedrestaurants', function(req, res){
+    if(!req.params.userId){
+        res.status(400);
+        res.json({message: "Bad Request"});
+    } else {
+        User.findById(req.params.userId, function (err, user) {
+            if (user) {
+                var restaurantMap = [];
+
+                user.reviewedRestaurants.forEach(function(restaurant){
+                    restaurantMap.push(restaurant);
+                });
+                res.json({restaurants: restaurantMap});
+            } else {
+                res.status(400);
+                res.json({message: "Not Found!"});
+            }
+        });
+    }
+});
 
 // edit review
 router.put("/review/:reviewId", function(req, res){
@@ -70,7 +92,7 @@ router.put("/review/:reviewId", function(req, res){
 });
 
 // GET findReviewedRestaurantsByUserId
-router.get('/user/:userId/review', function(req, res){
+router.get('/user/:userId/reviews', function(req, res){
     if(!req.params.userId){
         res.status(400);
         res.json({message: "Bad Request"});
@@ -82,7 +104,7 @@ router.get('/user/:userId/review', function(req, res){
                 reviews.forEach(function(review){
                     reviewMap.push(review);
                 });
-                res.json(reviewMap);
+                res.json({reviews: reviewMap});
             } else {
                 res.status(400);
                 res.json({message: "Not Found!"});
@@ -92,7 +114,7 @@ router.get('/user/:userId/review', function(req, res){
 });
 
 // GET findReviewedRestaurantsByRestaurantId
-router.get('/restaurant/:restaurantId/review', function(req, res){
+router.get('/restaurant/:restaurantId/reviews', function(req, res){
     if(!req.params.userId){
         res.status(400);
         res.json({message: "Bad Request"});
@@ -104,7 +126,7 @@ router.get('/restaurant/:restaurantId/review', function(req, res){
                 reviews.forEach(function(review){
                     reviewMap.push(review);
                 });
-                res.json(reviewMap);
+                res.json({reviews: reviewMap});
             } else {
                 res.status(400);
                 res.json({message: "Not Found!"});
@@ -114,7 +136,7 @@ router.get('/restaurant/:restaurantId/review', function(req, res){
 });
 
 //Delete review
-router.delete("/reviews/:reviewId", function(req, res){
+router.delete("/review/:reviewId", function(req, res){
     //findByIdAndRemove
     Review.findByIdAndRemove(req.params.reviewId, function(err, deletedReview){
         if(err){
@@ -143,6 +165,13 @@ router.delete("/reviews/:reviewId", function(req, res){
                     }).indexOf(req.params.reviewId);
                     req.user.reviews.splice(removeIndexForUser, 1);
                     req.user.save();
+                    var removeRestaurantIndexForUser = req.user.reviewedRestaurants.map(function(restaurant){
+                        return restaurant._id;
+                    }).indexOf(deletedReview._restaurant.id);
+                    req.user.reviewedRestaurants.splice(removeRestaurantIndexForUser, 1);
+                    req.user.save();
+
+
                     res.status(200);
                     res.send({message: "successfully deleted review"});
                 }
