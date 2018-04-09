@@ -4,19 +4,35 @@ const mongoose = require('mongoose');
 const restaurantSchema = new mongoose.Schema( {
     name: {type: String, required: true},
     image: {type: String, required: true},
-    description: String,
-    foodType: String,
-    location: String,
+    cuisine: {
+        type: String,
+        enum : ['Cantonese', 'Sichuan', 'Hunan', 'Fujian', 'Jiangsu', 'Zhejiang', 'Anhui', 'Shandong']
+    },
+    address: {
+        street: String,
+        building: String,
+        city: String,
+        state: String,
+        zipcode: String
+    },
+    phone: String,
     averageRating: Number,
-    averagePrice: Number,
     _author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
+    reviewsNumber: {type: Number, default: 0},
     reviews: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Review"
+        }
+    ],
+    likedUserNumber: {type: Number, default: 0},
+    likedUser: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
         }
     ]
 }, {timestamps: true});

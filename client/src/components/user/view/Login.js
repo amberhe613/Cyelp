@@ -1,10 +1,7 @@
 import React from 'react';
-import {
-    login,
-} from '../userService';
+import {login} from '../userService';
 
-
-export default class NewRestaurant extends React.Component {
+export default class Login extends React.Component {
     // need a props for userId
     constructor(props) {
         super(props);
@@ -19,23 +16,29 @@ export default class NewRestaurant extends React.Component {
 
     }
 
-    handleUsernameChange(area) {
+    handleUsernameChange(username) {
         this.setState({
             username: username
         })
     }
 
-    handlePasswordChange(area) {
+    handlePasswordChange(password) {
         this.setState({
             password: password
         })
     }
 
-    handleLogin() {
-        var isLoginSuccess = login(this.username, this.password);
-        if (isLoginSuccess) {
-            this.props.handleLogin(userId)
-        }
+    handleLogin(event) {
+        // BUG: need to add preventdefault?
+        event.preventDefault();
+        login(this.state.username, this.state.password).then((res) => {
+            this.props.authenticateUser(res.userId)
+            // TODO: redirect to whatever the last page
+            this.props.history.goBack()
+        }).catch((err) => {
+            // TODO: now do nothing, may render alert later
+            console.log("Login failure")
+        });
     }
 
     render() {
@@ -61,11 +64,12 @@ export default class NewRestaurant extends React.Component {
                         onChange={this.handlePasswordChange}
                     />
                 </p>
-                <button onclick="handleLogin()">Login</button>
+                <button onclick={handleLogin}>Login</button>
             </form>
         )
     }
 }
+
 
 // Facebook SDK for Javascript For reference
 // <script>

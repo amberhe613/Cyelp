@@ -1,24 +1,55 @@
 export async function login(username, password) {
-    var loginInfoj = {
+    var loginInfo = {
         username: username,
         password: password,
    }
-
-    var isLoginSuccess = false;
-    await fetch('/restaurants/new', {
+    return fetch('/login', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(loginInf0)
-    }).then(function (response) {
-        isLoginSuccess = true;
-        console.log("ok");
-    }).catch(function (error) {
-        console.log("error");
-    });
-
-    return isLoginSuccess;
+        body: JSON.stringify(loginInfo)
+    }).then((response) => response.json())
 }
 
+export function findUserById(userId) {
+    return fetch('/user/'+userId, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then((response) => response.json())
+}
+
+
+export function findCreatedRestaurants(userId, N) {
+    return fetch('/user/'+userId+'/createdRestaurants', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then((response) => response.json())
+}
+
+export function findSavedRestaurants(userId, N) {
+    return fetch('/user/'+userId+'/savedRestaurants', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then((response) => response.json())
+}
+
+export function findReviewedRestaurants(userId, N) {
+    return fetch('/user/'+userId+'/reviewedRestaurants', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then((response) => response.json())
+}

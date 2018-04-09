@@ -4,4 +4,4 @@ cd client
 yarn run build
 
 ### Heroku link
-https://stormy-lake-53007.herokuapp.com
+https://cyelp.herokuapp.com/
