@@ -24,6 +24,7 @@ passport.use(
                     oauthID: profile.id,
                     username: profile.displayName,
                     oauthProvider: profile.provider,
+                    email: profile.email,
                     photo: profile.photos[0].value}).save();
                 done(null, user);
             }

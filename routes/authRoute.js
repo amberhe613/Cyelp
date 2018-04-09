@@ -28,7 +28,7 @@ module.exports = app => {
     app.get(
         "/githublogin",
         (req, res) => {
-            res.redirect('/auth/google');
+            res.redirect('/auth/github');
         }
     );
 
@@ -51,7 +51,6 @@ module.exports = app => {
         "/api/logout",
         (req, res) => {
             req.logout();
-            res.redirect('/restaurant');
         }
     );
 
