@@ -4,6 +4,13 @@ const User = mongoose.model('User');
 
 module.exports = app => {
     app.get(
+        "/googlelogin",
+        (req, res) => {
+            res.redirect('/auth/google');
+        }
+    );
+
+    app.get(
         "/auth/google",
         passport.authenticate("google", {
             scope: ['profile', 'email']
@@ -14,7 +21,14 @@ module.exports = app => {
         "/auth/google/callback",
         passport.authenticate("google"),
         (req, res) => {
-            res.redirect('/restaurant');
+            res.redirect('/api/account');
+        }
+    );
+
+    app.get(
+        "/githublogin",
+        (req, res) => {
+            res.redirect('/auth/github');
         }
     );
 
@@ -29,7 +43,7 @@ module.exports = app => {
         "/auth/github/callback",
         passport.authenticate("github"),
         (req, res) => {
-            res.redirect('/restaurant');
+            res.redirect('/api/account');
         }
     );
 
@@ -37,7 +51,6 @@ module.exports = app => {
         "/api/logout",
         (req, res) => {
             req.logout();
-            res.redirect('/restaurant');
         }
     );
 

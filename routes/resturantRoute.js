@@ -4,9 +4,9 @@ var Restaurant = require("../db/restaurantModel");
 var User = require("../db/userModel");
 
 // POST createRestaurant
-router.post('/user/:userId/restaurant', function(req, res){
+router.post('/restaurant/new', function(req, res){
     // Check if all fields are provided and are valid:
-    if(!req.body.name || !req.body.image){
+    if(!req.body.name || !req.body.address.zipcode){
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
@@ -54,16 +54,15 @@ router.post('/restaurant', function(req, res){
             restaurants.forEach(function(restaurant){
                 restaurantMap.push(restaurant);
             });
-            res.json(restaurantMap);
+            res.json({restaurants: restaurantMap});
         } else {
             res.status(400);
             res.json({message: "Not Found!"});
         }
     });
 });
-
 // GET findAllRestaurantsByUserId
-router.get('/user/:userId/restaurant', function(req, res){
+router.get('/user/:userId/createdrestaurants', function(req, res){
     if(!req.params.userId){
         res.status(400);
         res.json({message: "Bad Request"});
@@ -75,7 +74,7 @@ router.get('/user/:userId/restaurant', function(req, res){
                 restaurants.forEach(function(restaurant){
                     restaurantMap.push(restaurant);
                 });
-                res.json(restaurantMap);
+                res.json({restaurants:restaurantMap});
             } else {
                 res.status(400);
                 res.json({message: "Not Found!"});
@@ -93,7 +92,7 @@ router.get('/restaurant/:restaurantId', function(req, res){
     } else {
         Restaurant.findById(req.params.restaurantId, function (err, restaurant) {
             if (restaurant) {
-                res.json(restaurant);
+                res.json({restaurant: restaurant});
             } else {
                 res.status(400);
                 res.json({message: "Not Found"});
@@ -103,11 +102,10 @@ router.get('/restaurant/:restaurantId', function(req, res){
 });
 
 // PUT updateRestaurant
-router.put('/restaurant/:restaurantId', function(req, res){
+router.put('/restaurant/:restaurantId/edit', function(req, res){
     //Check if all fields are provided and are valid:
     if (!req.params.restaurantId
-        || !req.body.name
-        || !req.body.image) {
+        || !req.body.name) {
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
