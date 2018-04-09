@@ -6,7 +6,8 @@ export default class NewReview extends React.Component {
         super(props);
         this.state = {
             content: '',
-            rating: null
+            rating: null,
+            price: null,
         };
         this.handleChange = this
             .handleChange
@@ -23,9 +24,9 @@ export default class NewReview extends React.Component {
     }
 
     handleSubmit() {
-        createReview(this.props.restaurantInfo._id, this.props.userId, this.state.content, this.state.rating)
+        createReview(this.props.restaurant._id, this.state.content, this.state.rating, this.state.price)
         .then((res)=>{
-            this.props.history.push('restaurants')
+            this.props.history.push('/restaurants/'+this.props.restaurant._id)
         }).catch((err)=>{
             console.log(err)
         })
@@ -35,7 +36,7 @@ export default class NewReview extends React.Component {
         if (this.props.userId !== '') {
             return (
                 <div>
-                    Create a new review for restaurant {this.props.restaurantName}
+                    Create a new review for restaurant {this.props.restaurant.name}
                     <form>
                         <p>
                             Content
@@ -43,6 +44,23 @@ export default class NewReview extends React.Component {
                                 type="text"
                                 name="content"
                                 value={this.state.content}
+                                onChange={this.handleChange}/>
+                        </p>
+                         <p>
+                            Rating
+                            <input
+                                type="text"
+                                name="rating"
+                                placeholder="1-5"
+                                value={this.state.rating}
+                                onChange={this.handleChange}/>
+                        </p>
+                         <p>
+                            Price
+                            <input
+                                type="text"
+                                name="price"
+                                value={this.state.price}
                                 onChange={this.handleChange}/>
                         </p>
                     </form>

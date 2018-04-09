@@ -1,14 +1,12 @@
-export function createReview(restaurantId, userId, content, rating) {
-    var date = new Date();
+export function createReview(restaurantId, content, rating, price) {
     var newReview = {
         restaurantId: restaurantId,
-        userId: userId,
         content: content,
         rating: rating,
-        addedDate: date.getDate()
+        price: price,
     }
 
-    return fetch('/restaurants/' + restaurantId + 'newReview', {
+    return fetch('/api/restaurant/' + restaurantId + '/review', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

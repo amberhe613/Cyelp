@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
     oauthProvider: String,
     username: String,
     photo: String,
+    email: String,
     likedRestaurants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Restaurant"
