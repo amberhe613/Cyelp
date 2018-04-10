@@ -1,10 +1,11 @@
-// TODO: image
-// return promise, either success or failure
+// TODO: image return promise, either success or failure
 export function createRestaurant(name, location, foodType) {
     var newRestaurant = {
         name: name,
-        address: {zipcode: location},
-        cuisine: foodType,
+        address: {
+            zipcode: location
+        },
+        cuisine: foodType
     }
 
     return fetch('/api/restaurant/new', {
@@ -13,12 +14,11 @@ export function createRestaurant(name, location, foodType) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-            body: JSON.stringify(newRestaurant)
-        })
+        body: JSON.stringify(newRestaurant)
+    })
 }
 
-// TODO: client update restaurant
-// return promise, either success or failure
+// TODO: client update restaurant return promise, either success or failure
 export function updateRestaurant(restaurantId, key, value) {
     var updateInfo = {
         restaurantId: restaurantId,
@@ -31,8 +31,8 @@ export function updateRestaurant(restaurantId, key, value) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-            body: JSON.stringify(updateInfo)
-        })
+        body: JSON.stringify(updateInfo)
+    })
 }
 
 export function reviewRestaurant(userId, restaurantId, rating, cost) {
@@ -48,19 +48,13 @@ export function reviewRestaurant(userId, restaurantId, rating, cost) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-            body: JSON.stringify(rateInfo)
-        })
-        .then(function (response) {
-            console.log("ok");
-        })
-        .catch(function (error) {
-            console.log("error");
-        });
+        body: JSON.stringify(rateInfo)
+    })
 }
 
 /**
  *
- * @param {} queryBody: {cuisine: "sichuan", averageRating: {$gte: 3.5}, address: {zipcode: 94100}}
+ * @param {} queryBody: {cuisine: "sichuan", averageRating: {$gte: 3.5}, address.zipcode: '94100'}
  * @returns {restaurants: [{}]}
  */
 export function findRestaurant(queryBody) {
@@ -71,31 +65,31 @@ export function findRestaurant(queryBody) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(queryBody)
-    }).then((response) => response.json())
+    }).then((res) => {
+        return res.json()
+    }).catch((err) => {
+        console.log("restaurantService 71")
+    })
 }
 
 export async function findRestaurantReviews(restaurantId) {
     return fetch('/api/restaurant/' + restaurantId + '/reviews', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(function (response) {
-        return response.json()
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     })
 }
 
 // TODO: return a promise, catch error in the called function
 export function findRestaurantById(restaurantId) {
     return fetch('/api/restaurants/' + restaurantId, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(function (response) {
-        return response.json()
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     })
 }
 
