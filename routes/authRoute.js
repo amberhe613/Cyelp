@@ -21,7 +21,7 @@ module.exports = app => {
         "/auth/google/callback",
         passport.authenticate("google"),
         (req, res) => {
-            res.redirect('/api/account');
+            res.redirect('/login');
         }
     );
 
@@ -43,7 +43,7 @@ module.exports = app => {
         "/auth/github/callback",
         passport.authenticate("github"),
         (req, res) => {
-            res.redirect('/api/account');
+            res.redirect('/login');
         }
     );
 
@@ -58,8 +58,9 @@ module.exports = app => {
         User.findById(req.session.passport.user, function(err, user) {
             if(err) {
                 console.log(err);  // handle errors
+
             } else {
-                res.send(user);
+                res.json(user);
             }
         });
     });

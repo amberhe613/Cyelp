@@ -46,7 +46,6 @@ router.post('/restaurant/new', function(req, res){
 //     "cuisine": "Sichuan"
 // }
 router.post('/restaurant', function(req, res){
-    console.log(req.body);
     Restaurant.find(req.body, function (err, restaurants) {
         if (restaurants) {
             var restaurantMap = [];

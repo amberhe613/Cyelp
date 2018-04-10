@@ -5,10 +5,12 @@ export default class Login extends React.Component {
     // need a props for userId
     constructor(props) {
         super(props);
-        this.handleLogin = this
-            .handleLogin
+        this.handleGoogleLogin = this
+            .handleGoogleLogin
             .bind(this);
-
+        this.handleGithubLogin = this
+            .handleGithubLogin
+            .bind(this);
     }
 
     handleGoogleLogin(event) {
