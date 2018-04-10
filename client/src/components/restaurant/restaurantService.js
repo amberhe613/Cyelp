@@ -18,7 +18,6 @@ export function createRestaurant(name, location, foodType) {
     })
 }
 
-// TODO: client update restaurant return promise, either success or failure
 export function updateRestaurant(restaurantId, key, value) {
     var updateInfo = {
         restaurantId: restaurantId,
@@ -64,33 +63,33 @@ export function findRestaurant(queryBody) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(queryBody)
-    }).then((res) => {
-        return res.json()
-    }).catch((err) => {
-        console.log("restaurantService 71")
-    })
+            body: JSON.stringify(queryBody)
+        })
+        .then(res => res.json())
+        .catch(err => {
+            console.log("restaurantService 71")
+        })
 }
 
-export async function findRestaurantReviews(restaurantId) {
+export function findRestaurantReviews(restaurantId) {
     return fetch('/api/restaurant/' + restaurantId + '/reviews', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    })
+    }).then((res) => res.json())
 }
 
 // TODO: return a promise, catch error in the called function
 export function findRestaurantById(restaurantId) {
-    return fetch('/api/restaurants/' + restaurantId, {
+    return fetch('/api/restaurant/' + restaurantId, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    })
+    }).then(res => res.json())
 }
 
 export function sortRestaurantByRating(restaurants) {

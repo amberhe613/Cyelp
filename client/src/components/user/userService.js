@@ -5,29 +5,7 @@ export function checkLogin() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    }).then((res) => {
-       return res.json()
-    })
-}
-
-export function githubLogin() {
-    return fetch('/api/githublogin', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
-}
-
-export function googleLogin() {
-    return fetch('/api/googlelogin', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
+    }).then((res) => res.json())
 }
 
 export function findUserById(userId) {
@@ -37,7 +15,7 @@ export function findUserById(userId) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    })
+    }).then((res) => res.json())
 }
 
 export function findCreatedRestaurants(userId) {
@@ -47,7 +25,7 @@ export function findCreatedRestaurants(userId) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    })
+    }).then((res) => res.json())
 }
 
 export function findSavedRestaurants(userId) {
@@ -57,7 +35,7 @@ export function findSavedRestaurants(userId) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    })
+    }).then((res) => res.json())
 }
 
 export function findReviewedRestaurants(userId, N) {
@@ -67,5 +45,5 @@ export function findReviewedRestaurants(userId, N) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    })
+    }).then((res) => res.json())
 }

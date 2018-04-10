@@ -1,22 +1,12 @@
 import React from 'react';
-import {googleLogin, githubLogin} from '../userService';
+import {checkLogin} from '../userService';
 
 export default class Login extends React.Component {
-    // need a props for userId
-    constructor(props) {
-        super(props);
-        this.handleGoogleLogin = this
-            .handleGoogleLogin
-            .bind(this);
-        this.handleGithubLogin = this
-            .handleGithubLogin
-            .bind(this);
-    }
-
-    handleGoogleLogin(event) {
-        event.preventDefault();
-        googleLogin().then((res) => {
+    componentDidMount() {
+        checkLogin().then((res) => {
+            console.log(res)
             if (res._id !== null) {
+                console.log("Login 9: already logged in")
                 this
                     .props
                     .authenticateUser(res._id);
@@ -25,26 +15,7 @@ export default class Login extends React.Component {
                     .history
                     .goBack();
             } else {
-                // TODO: now do nothing, may render alert later
-                console.log("login failure")
-            }
-        })
-    }
-
-    handleGithubLogin(event) {
-        event.preventDefault();
-        githubLogin().then((res) => {
-            if (res.userId !== null) {
-                this
-                    .props
-                    .authenticateUser(res.userId);
-                this
-                    .props
-                    .history
-                    .goBack();
-            } else {
-                // TODO: now do nothing, may render alert later
-                console.log("login failure")
+                console.log("Login 18: not logged in")
             }
         })
     }
@@ -52,11 +23,12 @@ export default class Login extends React.Component {
     render() {
         return (
             <div>
-                Hi from Login
-                <button><a href="/auth/google">Google login</a> </button>
-                <button><a href="/auth/github">Github login</a> </button>
-                <button onClick={this.handleGoogleLogin}>Login using Google account</button>
-                <button onClick={this.handleGithubLogin}>Login using Github account</button>
+                <button>
+                    <a href="/auth/google">Google login</a>
+                </button>
+                <button>
+                    <a href="/auth/github">Github login</a>
+                </button>
             </div>
         )
     }

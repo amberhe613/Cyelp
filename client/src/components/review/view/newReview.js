@@ -6,8 +6,8 @@ export default class NewReview extends React.Component {
         super(props);
         this.state = {
             content: '',
-            rating: null,
-            price: null,
+            rating: '',
+            price: '',
         };
         this.handleChange = this
             .handleChange
@@ -18,6 +18,7 @@ export default class NewReview extends React.Component {
     }
 
     handleChange(e) {
+        e.preventDefault()
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -26,9 +27,9 @@ export default class NewReview extends React.Component {
     handleSubmit() {
         createReview(this.props.restaurant._id, this.state.content, this.state.rating, this.state.price)
         .then((res)=>{
-            this.props.history.push('/restaurants/'+this.props.restaurant._id)
+            window.location = "/restaurants/"+this.props.restaurant._id
         }).catch((err)=>{
-            console.log(err)
+            console.log("newReview 32"+err)
         })
     }
 
@@ -64,7 +65,7 @@ export default class NewReview extends React.Component {
                                 onChange={this.handleChange}/>
                         </p>
                     </form>
-                    <button onclick={this.handleSubmit}>Submit review</button>
+                    <button onClick={this.handleSubmit}>Submit review</button>
                 </div>
             );
         } else {

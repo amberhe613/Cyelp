@@ -115,7 +115,7 @@ router.get('/user/:userId/reviews', function(req, res){
 
 // GET findReviewedRestaurantsByRestaurantId
 router.get('/restaurant/:restaurantId/reviews', function(req, res){
-    if(!req.params.userId){
+    if(!req.params.restaurantId){
         res.status(400);
         res.json({message: "Bad Request"});
     } else {

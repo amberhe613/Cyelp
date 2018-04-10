@@ -51,8 +51,8 @@ class RestaurantInfo extends React.Component {
                     <li>Food Type: {this.props.restaurant.cuisine}</li>
                     <li>Average Rating: {this.props.restaurant.averageRating}</li>
                 </ul>
-                <button onclick={this.props.reviewRestaurant}>Review me!</button>
-                <button onclick={this.props.saveRestaurant}>Save me!</button>
+                <button onClick={this.props.reviewRestaurant}>Review me!</button>
+                <button onClick={this.props.saveRestaurant}>Save me!</button>
 
             </div>
         );
@@ -63,10 +63,8 @@ export default class Restaurant extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            restaurant: '',
-            reviews: [
-                {}
-            ],
+            restaurant: null,
+            reviews: null,
             renderNewReview: false
         };
         this.saveRestaurant = this
@@ -77,8 +75,8 @@ export default class Restaurant extends React.Component {
             .bind(this);
     }
 
-    componentDidMount() {
-        var restaurantId = this.props.params.restaurantId;
+    componentWillMount() {
+        var restaurantId = this.props.match.params.restaurantId;
         findRestaurantById(restaurantId).then((res) => {
             this.setState({restaurant: res.restaurant})
         })
@@ -116,15 +114,22 @@ export default class Restaurant extends React.Component {
     render() {
         return (
             <div>
-                Hi from Restaurant
-                <a herf="/restaurants">go back to restaurants</a>
-                <RestaurantInfo
-                    restaurant={this.state.restaurant}
-                    reviewRestaurant={this.reviewRestaurant}
-                    saveRestaurant={this.saveRestaurant}/>
-                <ReviewTable reviews={this.state.reviews}/> {this.state.renderNewReview
-                    ? <NewReview restaurant={this.state.restaurant} userId={this.props.userId}/>
+                <button>
+                    <a href="/restaurants">Go back to restaurants</a>
+                </button>
+                {this.state.restaurant !== null
+                    ? <RestaurantInfo
+                            restaurant={this.state.restaurant}
+                            reviewRestaurant={this.reviewRestaurant}
+                            saveRestaurant={this.saveRestaurant}/>
                     : null}
+                {this.state.reviews !== null
+                    ? <ReviewTable reviews={this.state.reviews}/>
+                    : null}
+                {this.state.renderNewReview
+                    ? <NewReview restaurant={this.state.restaurant} userId={this.props.userId}/>
+                    : null
+}
             </div>
         )
     }
