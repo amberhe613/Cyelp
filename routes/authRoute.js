@@ -3,35 +3,35 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 module.exports = app => {
-    app.get("/api/googlelogin", (req, res) => {
-        res.redirect('/auth/google');
-    });
-
-    app.get("/auth/google", passport.authenticate("google", {
+    app.get(
+        "/auth/google",
+        passport.authenticate("google", {
         scope: ['profile', 'email']
-    }), (req,res)=>{
-        console.log(req)
-    });
+    }));
 
-    app.get("/auth/google/callback", passport.authenticate("google"), (req, res) => {
-        res.redirect('/api/account');
-    });
-
-    app.get("/api/githublogin", (req, res) => {
-        res.redirect('/auth/github');
-    });
+    app.get(
+        "/auth/google/callback",
+        passport.authenticate("google"),
+        (req, res) => {
+            res.redirect('/login');
+        }
+    );
 
     app.get("/auth/github", passport.authenticate("github", {
         scope: ['profile', 'email']
     }));
 
-    app.get("/auth/github/callback", passport.authenticate("github"), (req, res) => {
-        res.redirect('/api/account');
-    });
-
+    app.get(
+        "/auth/github/callback",
+        passport.authenticate("github"),
+        (req, res) => {
+            res.redirect('/login');
+        }
+    );
     app.get("/api/logout", (req, res) => {
         req.logout();
     });
+
 
     // app.get('/api/account', ensureAuthenticated, function (req, res) {
     app.get('/api/account', function (req, res) {

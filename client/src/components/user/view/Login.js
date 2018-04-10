@@ -11,7 +11,6 @@ export default class Login extends React.Component {
         this.handleGithubLogin = this
             .handleGithubLogin
             .bind(this);
-
     }
 
     handleGoogleLogin(event) {
