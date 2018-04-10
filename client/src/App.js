@@ -14,7 +14,7 @@ class App extends Component {
             isAuthenticated: false,
             userId: ''
         };
-   }
+    }
 
     componentWillMount() {
         checkLogin().then((res) => {
@@ -33,22 +33,24 @@ class App extends Component {
     render() {
         return (
             <div>
-                {window.location.pathname === "/" ? <Redirect to="/restaurants"/>:null}
+                {window.location.pathname === "/"
+                    ? <Redirect to="/restaurants"/>
+                    : null}
                 {/* TODO: login no page */}
                 <Link to="/login"></Link>
                 <Link to="/user/:userId"></Link>
                 <Link to="/restaurants"></Link>
+                <Link to="/restaurants/:restaurantId"></Link>
                 <Link to="/newrestaurant"></Link>
                 <Route
                     exact
                     path="/login"
                     render={props => <Login {...props} authenticateUser={this.authenticateUser}/>}/>
-                <Route exact path="/restaurants" compoennt={RestaurantList}/>
                 <Route
                     exact
                     path="/user/:userId"
                     render={() => <Profile isAuthenticated={this.state.isAuthenticated}/>}/>
-                <Route exact path="/restaurants" compoennt={RestaurantList}/>
+                <Route exact path="/restaurants" component={RestaurantList}/>
                 <Route
                     exact
                     path="/restaurants/:restaurantId"

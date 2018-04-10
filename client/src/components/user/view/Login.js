@@ -5,8 +5,11 @@ export default class Login extends React.Component {
     // need a props for userId
     constructor(props) {
         super(props);
-        this.handleLogin = this
-            .handleLogin
+        this.handleGoogleLogin = this
+            .handleGoogleLogin
+            .bind(this);
+        this.handleGithubLogin = this
+            .handleGithubLogin
             .bind(this);
 
     }
@@ -51,8 +54,10 @@ export default class Login extends React.Component {
         return (
             <div>
                 Hi from Login
-                <button onclick={this.handleGoogleLogin}>Login using Google account</button>
-                <button onclick={this.handleGithubLogin}>Login using Github account</button>
+                <button><a href="/auth/google">Google login</a> </button>
+                <button><a href="/auth/github">Github login</a> </button>
+                <button onClick={this.handleGoogleLogin}>Login using Google account</button>
+                <button onClick={this.handleGithubLogin}>Login using Github account</button>
             </div>
         )
     }

@@ -71,6 +71,11 @@ server.listen(process.env.PORT || 3002, function(err) {
 });
 
 // serve static built files
+server.get('/login', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+
 server.get('/index.html*', function(req, res) {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
