@@ -7,9 +7,7 @@ class RestaurantRow extends React.Component {
 
         return (
             <tr>
-                <td>
-                    {restaurant.name}
-                </td>
+                <td>{restaurant.name}</td>
                 <td>{restaurant.address.zipcode}</td>
                 <td>{restaurant.cuisine}</td>
                 <td>{restaurant.averageRating}</td>
