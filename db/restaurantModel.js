@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 // schema setup
 const restaurantSchema = new mongoose.Schema( {
     name: {type: String, required: true},
-    image: {type: String, required: true},
+    image: {type: String},
     cuisine: {
         type: String,
+        required: true,
         enum : ['Cantonese', 'Sichuan', 'Hunan', 'Fujian', 'Jiangsu', 'Zhejiang', 'Anhui', 'Shandong']
     },
     address: {
@@ -13,7 +14,7 @@ const restaurantSchema = new mongoose.Schema( {
         building: String,
         city: String,
         state: String,
-        zipcode: String
+        zipcode: {type: String, required: true}
     },
     phone: String,
     averageRating: Number,
