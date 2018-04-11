@@ -5,11 +5,11 @@ import NewReview from '../../review/view/newReview'
 class ReviewRow extends React.Component {
     render() {
         const review = this.props.review;
- 
+
         return (
             <tr>
                 <td>
-                    <a href={"/user/"+review._author.id+"/reviews"}>{review._author.name}</a>
+                    <a href={"/user/" + review._author.id + "/reviews"}>{review._author.name}</a>
                 </td>
 
                 <td>{review.content}</td>
@@ -88,8 +88,10 @@ export default class Restaurant extends React.Component {
     }
 
     saveRestaurant() {
-        if (this.props.userId !== '') {
-            saveRestaurant(this.state.restaurantId).catch((err) => {
+        if (this.props.userId !== null) {
+            saveRestaurant(this.state.restaurant._id).then(res => {
+                console.log("save success")
+            }).catch((err) => {
                 // TODO: alert if save not success
                 console.log("save restaurant not success")
             })
