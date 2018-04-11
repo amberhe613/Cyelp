@@ -10,7 +10,6 @@ class RestaurantRow extends React.Component {
                 <td>
                     <a href={"/restaurants/" + restaurant._id}>{restaurant.name}</a>
                 </td>
-                <td>{restaurant.name}</td>
                 <td>{restaurant.address.zipcode}</td>
                 <td>{restaurant.cuisine}</td>
                 <td>{restaurant.averageRating}</td>

@@ -41,6 +41,9 @@ export default class NewRestaurant extends React.Component {
         console.log("newrestaurant 41")
         console.log(this.state.name)
         createRestaurant(this.state.name, this.state.area, this.state.foodType)
+        .then(res=>{
+            this.props.history.push("/user/"+this.state.userId)
+        })
         .catch((err)=>{
             console.log(err)
         })

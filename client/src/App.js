@@ -60,7 +60,7 @@ class App extends Component {
                 <Route
                     exact
                     path="/newRestaurant"
-                    render={() => <NewRestaurant isAuthenticated={this.state.isAuthenticated}/>}/>
+                    render={(props) => <NewRestaurant {...props} isAuthenticated={this.state.isAuthenticated}/>}/>
             </div>
         );
     }

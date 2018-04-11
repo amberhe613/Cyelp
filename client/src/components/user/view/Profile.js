@@ -51,9 +51,9 @@ export default class Profile extends React.Component {
 
     // BUG: this.findCreatedRestaurants vs findCreatedRestaurants? BUG: rerender
     // when restaurants change or need to add lifecycle
-    findCreatedRestaurants() {
-        findCreatedRestaurants(this.state.userInfo._id).then((res) => {
-            console.log("find success!")
+    async findCreatedRestaurants() {
+        await findCreatedRestaurants(this.state.userInfo._id).then((res) => {
+            console.log("find createdrestaurants success!")
             this.setState({restaurants: res.restaurants})
         }).catch((err) => {
             console.log("findCreatedRestaurants failure")
@@ -62,8 +62,10 @@ export default class Profile extends React.Component {
 
     findSavedRestaurants() {
         findSavedRestaurants(this.state.userInfo._id).then((res) => {
-            console.log("find success!")
+            console.log("find savedrestaurants success!")
             this.setState({restaurants: res.restaurants})
+            console.log(res.restaurants)
+            console.log(this.state.restaurants)
         }).catch((err) => {
             console.log("findSavedRestaurants failure")
         });

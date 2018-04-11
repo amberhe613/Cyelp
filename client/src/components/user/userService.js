@@ -35,7 +35,6 @@ export function findCreatedRestaurants(userId) {
 }
 
 export function findSavedRestaurants(userId) {
-    console.log("userservice 38")
     return fetch('/api/user/' + userId + '/savedrestaurants', {
         method: 'GET',
         credentials: "same-origin",
