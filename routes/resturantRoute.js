@@ -5,6 +5,8 @@ var User = require("../db/userModel");
 
 // POST createRestaurant
 router.post('/restaurant/new', function(req, res){
+    console.log("restaurantroute 8")
+    console.log(req.body)
     // Check if all fields are provided and are valid:
     if(!req.body.name || !req.body.address.zipcode){
         res.status(400);

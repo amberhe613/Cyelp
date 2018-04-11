@@ -12,8 +12,7 @@ export default class Login extends React.Component {
                     .props
                     .history
                     .push('/');
-            } else {
-            }
+            } else {}
         })
     }
 

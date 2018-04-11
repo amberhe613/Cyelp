@@ -1,12 +1,14 @@
 // TODO: image return promise, either success or failure
 export function createRestaurant(name, location, foodType) {
+    console.log("restaurantservice 3")
     var newRestaurant = {
         name: name,
         address: {
-            zipcode: location
+            "zipcode": location
         },
         cuisine: foodType
     }
+    console.log(newRestaurant)
 
     return fetch('/api/restaurant/new', {
         method: 'POST',
@@ -76,7 +78,6 @@ export function findRestaurant(queryBody) {
 }
 
 export function findRestaurantReviews(restaurantId) {
-    console.log("restaurant service 79 fetching reviews")
     return fetch('/api/restaurant/' + restaurantId + '/reviews', {
         method: 'GET',
         credentials: "same-origin",
