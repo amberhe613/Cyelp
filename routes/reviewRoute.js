@@ -136,16 +136,14 @@ router.get('/restaurant/:restaurantId/reviews', function (req, res) {
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-        Review.find({
-            _restaurant: req.params.restaurantId
-        }, function (err, reviews) {
+        Review.find({'_restaurant.id': req.params.restaurantId}, function (err, reviews) {
             if (reviews) {
+                console.log(reviews);
                 var reviewMap = [];
 
                 reviews.forEach(function (review) {
                     reviewMap.push(review);
                 });
-                console.log(reviewMap)
                 res.json({reviews: reviewMap});
             } else {
                 res.status(400);
