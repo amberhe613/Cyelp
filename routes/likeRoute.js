@@ -103,24 +103,6 @@ router.get('/user/:userId/savedrestaurants', function (req, res) {
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-<<<<<<< HEAD
-        User.findById(req.params.userId, function (err, user) {
-            if (user) {
-                var restaurantMap = [];
-
-                user.likedRestaurants.forEach(async function(restaurantId){
-                    const curRestaurant = await Restaurant.findById(restaurantId);
-                    restaurantMap.push(curRestaurant);
-                })
-
-                res.json({restaurants: restaurantMap});
-
-            } else {
-                res.status(400);
-                res.json({message: "Not Found!"});
-            }
-        });
-=======
         User
             .findById(req.params.userId, function (err, user) {
                 if (user) {
@@ -130,10 +112,10 @@ router.get('/user/:userId/savedrestaurants', function (req, res) {
                         (function (i) {
                             Restaurant
                                 .findById(user.likedRestaurants[i])
-                                .exec(function (err, o) {
+                                .exec(function (err, restaurant) {
                                     visited++;
-                                    if (o != null) {
-                                        restaurantMap.push(o);
+                                    if (restaurant != null) {
+                                        restaurantMap.push(restaurant);
                                     }
                                     if (visited === user.likedRestaurants.length) {
                                         res.json({restaurants: restaurantMap})
@@ -146,7 +128,6 @@ router.get('/user/:userId/savedrestaurants', function (req, res) {
                     res.json({message: "Not Found!"});
                 }
             });
->>>>>>> 61ca94045cd3fa210657201b826a542cea5b06b6
     }
 });
 
