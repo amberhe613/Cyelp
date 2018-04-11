@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var Restaurant = require("../db/restaurantModel");
-var Review = require("../db/reviewModel");
 var User = require("../db/userModel");
 
 //PUT userSaveRestaurant
@@ -21,10 +20,10 @@ router.put('/restaurant/:restaurantId/save', function (req, res) {
                 var curLikedNum = likedRestaurant.likedUserNumber || 0;
                 // Push user to restaurant likedUser list
                 likedRestaurant.likedUser.push(req.user._id);
-                likedRestaurant.reviewsNumber = curLikedNum + 1;
+                likedRestaurant.likedUserNumber = curLikedNum + 1;
                 likedRestaurant.save();
 
-                // Add review to user liked restaurant list
+                // Add Saved to user liked restaurant list
                 req.user.likedRestaurants.push(likedRestaurant._id);
                 req.user.save();
 
@@ -56,7 +55,7 @@ router.delete('/restaurant/:restaurantId/unsaved', function (req, res) {
             if (removeIndexForRestaurant === -1) {
                 res.json({message: "Not found"});
             } else {
-                dislikedRestaurant.reviewsNumber = curLikedNum - 1;
+                dislikedRestaurant.likedUserNumber = curLikedNum - 1;
                 dislikedRestaurant.likedUser.splice(removeIndexForRestaurant, 1);
                 dislikedRestaurant.save();
 
