@@ -81,13 +81,13 @@ router.get('/user/:userId/savedrestaurants', function(req, res){
             if (user) {
                 var restaurantMap = [];
 
-                user.likedRestaurants.forEach(function(restaurantId){
-                    Restaurant.findById(restaurantId, function(err, restaurant) {
-                        restaurantMap.push(restaurant);
-                    });
-                });
+                user.likedRestaurants.forEach(async function(restaurantId){
+                    const curRestaurant = await Restaurant.findById(restaurantId);
+                    restaurantMap.push(curRestaurant);
+                })
 
                 res.json({restaurants: restaurantMap});
+
             } else {
                 res.status(400);
                 res.json({message: "Not Found!"});
