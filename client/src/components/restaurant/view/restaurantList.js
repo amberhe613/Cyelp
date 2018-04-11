@@ -196,6 +196,9 @@ export class RestaurantList extends React.Component {
     render() {
         return (
             <div>
+                <button>
+                    <a href="/login">Login</a>
+                </button>
                 <SearchBar
                     foodType={this.state.foodType}
                     area={this.state.area}

@@ -4,13 +4,17 @@ export function checkLogin() {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        }
-    }).then((res) => res.json())
+        },
+        credentials: "same-origin",
+    }).then((res) => {
+        return res.json()
+    })
 }
 
 export function findUserById(userId) {
     return fetch('/user/' + userId, {
         method: 'GET',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -21,6 +25,7 @@ export function findUserById(userId) {
 export function findCreatedRestaurants(userId) {
     return fetch('/api/user/' + userId + '/createdrestaurants', {
         method: 'GET',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -31,6 +36,7 @@ export function findCreatedRestaurants(userId) {
 export function findSavedRestaurants(userId) {
     return fetch('/user/' + userId + '/savedrestaurants', {
         method: 'GET',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -41,6 +47,7 @@ export function findSavedRestaurants(userId) {
 export function findReviewedRestaurants(userId, N) {
     return fetch('/user/' + userId + '/reviewedrestaurants', {
         method: 'GET',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

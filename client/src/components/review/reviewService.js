@@ -8,6 +8,7 @@ export function createReview(restaurantId, content, rating, price) {
 
     return fetch('/api/restaurant/' + restaurantId + '/review', {
         method: 'POST',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

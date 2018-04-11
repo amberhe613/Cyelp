@@ -81,6 +81,8 @@ export default class Restaurant extends React.Component {
             this.setState({restaurant: res.restaurant})
         })
         findRestaurantReviews(restaurantId).then((res) => {
+            console.log("restaurant 84")
+            console.log(res)
             this.setState({reviews: res.reviews})
         })
     }
@@ -100,9 +102,11 @@ export default class Restaurant extends React.Component {
     }
 
     reviewRestaurant() {
-        if (this.props.userId !== '') {
+        if (this.props.userId !== null) {
+            console.log("restaurant 104 render review")
             this.setState({renderNewReview: true})
         } else {
+            console.log("restaurant 106 direct to login")
             // TODO: alert user login first
             this
                 .props
@@ -126,7 +130,7 @@ export default class Restaurant extends React.Component {
                 {this.state.reviews !== null
                     ? <ReviewTable reviews={this.state.reviews}/>
                     : null}
-                {this.state.renderNewReview
+                {this.state.renderNewReview === true
                     ? <NewReview restaurant={this.state.restaurant} userId={this.props.userId}/>
                     : null
 }

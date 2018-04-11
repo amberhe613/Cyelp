@@ -10,6 +10,7 @@ export function createRestaurant(name, location, foodType) {
 
     return fetch('/api/restaurant/new', {
         method: 'POST',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -26,6 +27,7 @@ export function updateRestaurant(restaurantId, key, value) {
 
     return fetch('/api/restaurant/' + restaurantId + '/edit', {
         method: 'PUT',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -43,6 +45,7 @@ export function reviewRestaurant(userId, restaurantId, rating, cost) {
 
     fetch('/restaurants/' + restaurantId, {
         method: 'PUT',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -59,6 +62,7 @@ export function reviewRestaurant(userId, restaurantId, rating, cost) {
 export function findRestaurant(queryBody) {
     return fetch('/api/restaurant', {
         method: 'POST',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -72,8 +76,10 @@ export function findRestaurant(queryBody) {
 }
 
 export function findRestaurantReviews(restaurantId) {
+    console.log("restaurant service 79 fetching reviews")
     return fetch('/api/restaurant/' + restaurantId + '/reviews', {
         method: 'GET',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -85,6 +91,7 @@ export function findRestaurantReviews(restaurantId) {
 export function findRestaurantById(restaurantId) {
     return fetch('/api/restaurant/' + restaurantId, {
         method: 'GET',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -123,6 +130,7 @@ export function sortRestaurantByPrice(restaurants) {
 export function saveRestaurant(restaurantId) {
     return fetch('/api/restaurant/' + restaurantId + '/save/', {
         method: 'PUT',
+        credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

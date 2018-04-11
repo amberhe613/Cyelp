@@ -12,8 +12,9 @@ class App extends Component {
         super(props);
         this.state = {
             isAuthenticated: false,
-            userId: ''
+            userId: null
         };
+        this.authenticateUser = this.authenticateUser.bind(this);
     }
 
     componentWillMount() {
