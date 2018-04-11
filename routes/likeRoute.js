@@ -8,23 +8,31 @@ var User = require("../db/userModel");
 router.put('/restaurant/:restaurantId/save', function (req, res) {
     Restaurant.findById(req.params.restaurantId, function(err, likedRestaurant) {
         if (err) {
-            console.log(err);
             res.status(400);
             res.json({
                 "error": "restaurant not found"
             });
         } else {
-            var curLikedNum = likedRestaurant.likedUserNumber;
-            // Push user to restaurant likedUser list
-            likedRestaurant.likedUser.push(req.user._id);
-            likedRestaurant.reviewsNumber = curLikedNum + 1;
-            likedRestaurant.save();
+            var existedIndex = likedRestaurant.likedUser.map(function(user){
+                return user._id;
+            }).indexOf(req.user._id);
+            if (existedIndex === -1) {
+                res.status(200);
+                res.json({message: "Already liked"});
+            } else {
+                var curLikedNum = likedRestaurant.likedUserNumber || 0;
+                // Push user to restaurant likedUser list
+                likedRestaurant.likedUser.push(req.user._id);
+                likedRestaurant.reviewsNumber = curLikedNum + 1;
+                likedRestaurant.save();
 
-            // Add review to user liked restaurant list
-            req.user.likedRestaurants.push(likedRestaurant._id);
-            req.user.save();
+                // Add review to user liked restaurant list
+                req.user.likedRestaurants.push(likedRestaurant._id);
+                req.user.save();
 
-            res.send({message: "User id " + req.user._id + " like restaurant id " + likedRestaurant._id});
+                res.send({message: "User id " + req.user._id + " like restaurant id " + likedRestaurant._id});
+
+            }
         }
     });
 });
@@ -65,7 +73,6 @@ router.delete('/restaurant/:restaurantId/unsaved', function (req, res) {
 
 // GET findSavedRestaurantsByUserId
 router.get('/user/:userId/savedrestaurants', function(req, res){
-    console.log("likeroute 68")
     if(!req.params.userId){
         res.status(400);
         res.json({message: "Bad Request"});
@@ -74,9 +81,12 @@ router.get('/user/:userId/savedrestaurants', function(req, res){
             if (user) {
                 var restaurantMap = [];
 
-                user.likedRestaurants.forEach(function(restaurant){
-                    restaurantMap.push(restaurant);
+                user.likedRestaurants.forEach(function(restaurantId){
+                    Restaurant.findById(restaurantId, function(err, restaurant) {
+                        restaurantMap.push(restaurant);
+                    });
                 });
+
                 res.json({restaurants: restaurantMap});
             } else {
                 res.status(400);
