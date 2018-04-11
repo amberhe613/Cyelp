@@ -14,16 +14,17 @@ class App extends Component {
             isAuthenticated: false,
             userId: null
         };
-        this.authenticateUser = this.authenticateUser.bind(this);
+        this.authenticateUser = this
+            .authenticateUser
+            .bind(this);
     }
 
     componentWillMount() {
         checkLogin().then((res) => {
             this.setState({
                 userId: res._id,
-                isAuthenticated: res._id === null
+                isAuthenticated: res._id !== null
             })
-
         })
     }
 

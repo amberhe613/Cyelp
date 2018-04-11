@@ -65,6 +65,7 @@ router.delete('/restaurant/:restaurantId/unsave', function (req, res) {
 
 // GET findLikedRestaurantsByUserId
 router.get('/user/:userId/savedrestaurants', function(req, res){
+    console.log("likeroute 68")
     if(!req.params.userId){
         res.status(400);
         res.json({message: "Bad Request"});

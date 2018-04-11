@@ -12,7 +12,8 @@ export function checkLogin() {
 }
 
 export function findUserById(userId) {
-    return fetch('/user/' + userId, {
+    console.log("userservice 15")
+    return fetch('/api/user/' + userId, {
         method: 'GET',
         credentials: "same-origin",
         headers: {
@@ -34,7 +35,8 @@ export function findCreatedRestaurants(userId) {
 }
 
 export function findSavedRestaurants(userId) {
-    return fetch('/user/' + userId + '/savedrestaurants', {
+    console.log("userservice 38")
+    return fetch('/api/user/' + userId + '/savedrestaurants', {
         method: 'GET',
         credentials: "same-origin",
         headers: {
@@ -45,7 +47,7 @@ export function findSavedRestaurants(userId) {
 }
 
 export function findReviewedRestaurants(userId, N) {
-    return fetch('/user/' + userId + '/reviewedrestaurants', {
+    return fetch('/api/user/' + userId + '/reviewedrestaurants', {
         method: 'GET',
         credentials: "same-origin",
         headers: {

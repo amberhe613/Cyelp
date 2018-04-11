@@ -76,7 +76,6 @@ export function findRestaurant(queryBody) {
 }
 
 export function findRestaurantReviews(restaurantId) {
-    console.log("restaurant service 79 fetching reviews")
     return fetch('/api/restaurant/' + restaurantId + '/reviews', {
         method: 'GET',
         credentials: "same-origin",

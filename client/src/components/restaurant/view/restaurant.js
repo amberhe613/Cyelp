@@ -5,12 +5,13 @@ import NewReview from '../../review/view/newReview'
 class ReviewRow extends React.Component {
     render() {
         const review = this.props.review;
-
+ 
         return (
             <tr>
-                <a herf={"/user/" + review.reviewer.id + "/reviews"}>
-                    <td>{review.reviewer.name}</td>
-                </a>
+                <td>
+                    <a href={"/user/"+review._author.id+"/reviews"}>{review._author.name}</a>
+                </td>
+
                 <td>{review.content}</td>
             </tr>
         );
@@ -24,14 +25,14 @@ class ReviewTable extends React.Component {
             .props
             .reviews
             .forEach((review) => {
-                rows.push(<ReviewRow review={review} key={review.id}/>);
+                rows.push(<ReviewRow review={review} key={review._id}/>);
             });
 
         return (
             <table>
                 <thead>
                     <tr>
-                        <th>Reviewr</th>
+                        <th>Reviewer</th>
                         <th>Review</th>
                     </tr>
                 </thead>
@@ -81,7 +82,6 @@ export default class Restaurant extends React.Component {
             this.setState({restaurant: res.restaurant})
         })
         findRestaurantReviews(restaurantId).then((res) => {
-            console.log("restaurant 84")
             console.log(res)
             this.setState({reviews: res.reviews})
         })
