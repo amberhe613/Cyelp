@@ -23,9 +23,13 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
                     _restaurant: {
                         id: restaurant._id,
                         name: restaurant.name
+                    },
+                    _author: {
+                        id: req.user._id,
+                        name: req.user.username,
+                        photo: req.user.photo
                     }
                 });
-                newReview._author = req.user._id;
                 newReview.save();
                 // Add review to restaurant reviews list
                 restaurant
@@ -36,17 +40,9 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
                 restaurant.averageRating = (curRatingTotal + req.body.rating) / restaurant.reviewsNumber;
                 restaurant.save();
                 // Add review to user reviews list
-                req
-                    .user
-                    .reviews
-                    .push(newReview._id);
-                req
-                    .user
-                    .reviewedRestaurants
-                    .push(restaurant._id);
-                req
-                    .user
-                    .save();
+                req.user.reviews.push(newReview._id);
+                req.user.reviewedRestaurants.push(restaurant._id);
+                req.user.save();
 
                 res.send({
                     message: "New Review id " + newReview._id + "created."
@@ -61,8 +57,7 @@ router.get('/user/:userId/reviewedrestaurants', function (req, res) {
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-        User
-            .findById(req.params.userId, function (err, user) {
+        User.findById(req.params.userId, function (err, user) {
                 if (user) {
                     var restaurantMap = [];
 
@@ -82,8 +77,7 @@ router.get('/user/:userId/reviewedrestaurants', function (req, res) {
 
 // edit review
 router.put("/review/:reviewId", function (req, res) {
-    Review
-        .findById(req.params.reviewId, function (err, updateReview) {
+    Review.findById(req.params.reviewId, function (err, updateReview) {
             if (err) {
                 console.log(err);
                 res.status(400);
@@ -111,10 +105,7 @@ router.get('/user/:userId/reviews', function (req, res) {
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-        Review
-            .find({
-                _author: req.params.userId
-            }, function (err, reviews) {
+        Review.find({'_author.id': req.params.userId}, function (err, reviews) {
                 if (reviews) {
                     var reviewMap = [];
 

@@ -13,8 +13,12 @@ const reviewSchema = new mongoose.Schema({
         name: String
     },
     _author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        name: String,
+        photo: String
     }
 }, {timestamps: true});
 
