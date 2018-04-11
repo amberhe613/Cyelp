@@ -25,18 +25,11 @@ router.post('/restaurant/new', function(req, res){
                 }
             });
         newRestaurant._author = req.user._id;
-        newRestaurant.save(function (err) {
-            if (err) {
-                res.status(400);
-                res.json({message: "Bad Request"});
-            } else {
-                user.restaurants.push(newRestaurant._id);
-                user.save();
-                res.json({message: "New Restaurant created.", location: "/api/restaurant/" + newRestaurant._id});
-            }
-        });
-
-    }
+        newRestaurant.save();
+        req.user.restaurants.push(newRestaurant._id);
+        req.user.save();
+        res.json({message: "New Restaurant created.", location: "/api/restaurant/" + newRestaurant._id});
+        }
 });
 
 // POST findRestaurantsByQuery
