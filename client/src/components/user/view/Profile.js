@@ -53,8 +53,6 @@ export default class Profile extends React.Component {
     // when restaurants change or need to add lifecycle
     findCreatedRestaurants() {
         findCreatedRestaurants(this.state.userInfo._id).then((res) => {
-            console.log("Profile 56 findcreatedrestaurants")
-            console.log(res)
             this.setState({restaurants: res.restaurants})
         }).catch((err) => {
             console.log("findCreatedRestaurants failure")
