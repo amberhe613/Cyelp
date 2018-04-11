@@ -4,7 +4,7 @@ var Restaurant = require("../db/restaurantModel");
 var Review = require("../db/reviewModel");
 var User = require("../db/userModel");
 
-// create new review
+// POST createReview
 router.post('/restaurant/:restaurantId/review', function (req, res) {
     Restaurant
         .findById(req.params.restaurantId, function (err, restaurant) {
@@ -75,31 +75,7 @@ router.get('/user/:userId/reviewedrestaurants', function (req, res) {
     }
 });
 
-// edit review
-router.put("/review/:reviewId", function (req, res) {
-    Review.findById(req.params.reviewId, function (err, updateReview) {
-            if (err) {
-                console.log(err);
-                res.status(400);
-                res.send({"error": "error while updating review"});
-            } else {
-                var oldRate = updateReview.rating;
-                updateReview = req.body;
-                Restaurant.findById(updateReview._restaurant.id, function (err, restaurant) {
-                    var curRatingTotal = (restaurant.averageRating || 0) * restaurant.reviewsNumber;
-                    restaurant.averageRating = (curRatingTotal + req.body.rating - oldRate) / restaurant.reviewsNumber;
-                    restaurant.save();
-                });
-                updateReview.save();
-                res.status(200);
-                res.send({
-                    message: "Review id " + req.params.reviewId + "has been updated"
-                });
-            }
-        });
-});
-
-// GET findReviewedRestaurantsByUserId
+// GET findReviewsByUserId
 router.get('/user/:userId/reviews', function (req, res) {
     if (!req.params.userId) {
         res.status(400);
@@ -121,7 +97,7 @@ router.get('/user/:userId/reviews', function (req, res) {
     }
 });
 
-// GET findReviewedRestaurantsByRestaurantId
+// GET findReviewsByRestaurantId
 router.get('/restaurant/:restaurantId/reviews', function (req, res) {
     if (!req.params.restaurantId) {
         res.status(400);
@@ -144,9 +120,32 @@ router.get('/restaurant/:restaurantId/reviews', function (req, res) {
     }
 });
 
-//Delete review
+// PUT updateReview
+router.put("/review/:reviewId", function (req, res) {
+    Review.findById(req.params.reviewId, function (err, updateReview) {
+        if (err) {
+            console.log(err);
+            res.status(400);
+            res.send({"error": "error while updating review"});
+        } else {
+            var oldRate = updateReview.rating;
+            updateReview = req.body;
+            Restaurant.findById(updateReview._restaurant.id, function (err, restaurant) {
+                var curRatingTotal = (restaurant.averageRating || 0) * restaurant.reviewsNumber;
+                restaurant.averageRating = (curRatingTotal + req.body.rating - oldRate) / restaurant.reviewsNumber;
+                restaurant.save();
+            });
+            updateReview.save();
+            res.status(200);
+            res.send({
+                message: "Review id " + req.params.reviewId + "has been updated"
+            });
+        }
+    });
+});
+
+//DELETE deleteReview
 router.delete("/review/:reviewId", function (req, res) {
-    //findByIdAndRemove
     Review
         .findByIdAndRemove(req.params.reviewId, function (err, deletedReview) {
             if (err) {

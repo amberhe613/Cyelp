@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require("../db/userModel");
 
-// GET findAllRestaurantsByUserId
+// GET findUserByUserId
 router.get('/user/:userId', function(req, res){
     if(!req.params.userId){
         res.status(400);

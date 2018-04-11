@@ -4,7 +4,7 @@ var Restaurant = require("../db/restaurantModel");
 var Review = require("../db/reviewModel");
 var User = require("../db/userModel");
 
-//User like this restaurant
+//PUT userSaveRestaurant
 router.put('/restaurant/:restaurantId/save', function (req, res) {
     Restaurant.findById(req.params.restaurantId, function(err, likedRestaurant) {
         if (err) {
@@ -29,8 +29,8 @@ router.put('/restaurant/:restaurantId/save', function (req, res) {
     });
 });
 
-//User dislike this restaurant
-router.delete('/restaurant/:restaurantId/unsave', function (req, res) {
+//DELETE userUnsavedRestaurant
+router.delete('/restaurant/:restaurantId/unsaved', function (req, res) {
     Restaurant.findById(req.params.restaurantId, function(err, dislikedRestaurant) {
         if (err) {
             console.log(err);
@@ -63,7 +63,7 @@ router.delete('/restaurant/:restaurantId/unsave', function (req, res) {
     });
 });
 
-// GET findLikedRestaurantsByUserId
+// GET findSavedRestaurantsByUserId
 router.get('/user/:userId/savedrestaurants', function(req, res){
     if(!req.params.userId){
         res.status(400);

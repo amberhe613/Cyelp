@@ -39,12 +39,7 @@ router.post('/restaurant/new', function(req, res){
     }
 });
 
-// POST findAllRestaurantByQuery
-// {
-//     "reviewsNumber" : {"$gte" : -1},
-//     "address.zipcode": "95131",
-//     "cuisine": "Sichuan"
-// }
+// POST findRestaurantsByQuery
 router.post('/restaurant', function(req, res){
     Restaurant.find(req.body, function (err, restaurants) {
         if (restaurants) {
@@ -60,7 +55,7 @@ router.post('/restaurant', function(req, res){
         }
     });
 });
-// GET findAllRestaurantsByUserId
+// GET findRestaurantsByUserId
 router.get('/user/:userId/createdrestaurants', function(req, res){
     if(!req.params.userId){
         res.status(400);
@@ -82,7 +77,7 @@ router.get('/user/:userId/createdrestaurants', function(req, res){
     }
 });
 
-// GET findRestaurantById
+// GET findRestaurantByRestaurantId
 router.get('/restaurant/:restaurantId', function(req, res){
     //Check if all fields are provided and are valid:
     if(!req.params.restaurantId){
@@ -120,7 +115,7 @@ router.put('/restaurant/:restaurantId/edit', function(req, res){
     }
 });
 
-// DELETE deleteUser
+// DELETE deleteRestaurant
 router.delete('/restaurant/:restaurantId', function(req, res){
     //Check if all fields are provided and are valid:
     if (!req.params.restaurantId) {
