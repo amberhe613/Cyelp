@@ -16,10 +16,8 @@ router.put('/restaurant/:restaurantId/save', function (req, res) {
             var existedIndex = likedRestaurant.likedUser.map(function(user){
                 return user._id;
             }).indexOf(req.user._id);
+
             if (existedIndex === -1) {
-                res.status(200);
-                res.json({message: "Already liked"});
-            } else {
                 var curLikedNum = likedRestaurant.likedUserNumber || 0;
                 // Push user to restaurant likedUser list
                 likedRestaurant.likedUser.push(req.user._id);
@@ -32,6 +30,9 @@ router.put('/restaurant/:restaurantId/save', function (req, res) {
 
                 res.send({message: "User id " + req.user._id + " like restaurant id " + likedRestaurant._id});
 
+            } else {
+                res.status(200);
+                res.json({message: "Already liked"});
             }
         }
     });
