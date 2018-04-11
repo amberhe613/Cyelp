@@ -1,6 +1,5 @@
 // TODO: image return promise, either success or failure
 export function createRestaurant(name, location, foodType) {
-    console.log("restaurantservice 3")
     var newRestaurant = {
         name: name,
         address: {
@@ -8,7 +7,6 @@ export function createRestaurant(name, location, foodType) {
         },
         cuisine: foodType
     }
-    console.log(newRestaurant)
 
     return fetch('/api/restaurant/new', {
         method: 'POST',
