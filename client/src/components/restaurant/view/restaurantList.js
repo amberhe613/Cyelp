@@ -206,7 +206,8 @@ export class RestaurantList extends React.Component {
         return (
             <div>
                 <nav>
-                    <div className="nav-wrapper">
+                    <div className="nav-wrapper container">
+                        <a href="/restaurants" class="brand-logo">Logo</a>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                             <li><a href="/login">Login</a></li>
                             <li><a href={"/user/"+this.state.userId}>Profile</a></li>
