@@ -12,17 +12,19 @@ class App extends Component {
         super(props);
         this.state = {
             isAuthenticated: false,
-            userId: ''
+            userId: null
         };
+        this.authenticateUser = this
+            .authenticateUser
+            .bind(this);
     }
 
     componentWillMount() {
         checkLogin().then((res) => {
             this.setState({
                 userId: res._id,
-                isAuthenticated: res._id === null
+                isAuthenticated: res._id !== null
             })
-
         })
     }
 
@@ -31,12 +33,16 @@ class App extends Component {
     }
 
     render() {
+
+        var styles = {
+            color: 'red'
+        }
         return (
             <div>
                 {window.location.pathname === "/"
                     ? <Redirect to="/restaurants"/>
                     : null}
-                {/* TODO: login no page */}
+                {/* <div className="header"> */}
                 <Link to="/login"></Link>
                 <Link to="/user/:userId"></Link>
                 <Link to="/restaurants"></Link>
@@ -58,7 +64,7 @@ class App extends Component {
                 <Route
                     exact
                     path="/newRestaurant"
-                    render={() => <NewRestaurant isAuthenticated={this.state.isAuthenticated}/>}/>
+                    render={(props) => <NewRestaurant {...props} isAuthenticated={this.state.isAuthenticated}/>}/>
             </div>
         );
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import {checkLogin} from '../../user/userService';
 import {createRestaurant} from '../restaurantService';
 
 export default class NewRestaurant extends React.Component {
@@ -11,34 +12,38 @@ export default class NewRestaurant extends React.Component {
             name: ''
         };
 
-        this.handleFoodTypeChange = this
-            .handleFoodTypeChange
-            .bind(this);
-        this.handleAreaChange = this
-            .handleAreaChange
-            .bind(this);
-        this.handleNameChange = this
-            .handleLowestRatingChange
+        this.handleChange = this
+            .handleChange
             .bind(this);
         this.handleSubmit = this
             .handleSubmit
             .bind(this);
     }
 
-    handleAreaChange(area) {
-        this.setState({area: area})
+    async componentDidMount() {
+        await checkLogin().then((res) => {
+            if (res._id !== null) {
+                this.setState({isAuthenticated: true, userId: res._id})
+            } else {}
+        })
+   }
+
+
+    handleChange(e) {
+        e.preventDefault()
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
 
-    handleNameChange(name) {
-        this.setState({name: name})
-    }
-
-    handleFoodTypeChange(foodType) {
-        this.setState({foodType: foodType})
-    }
 
     handleSubmit() {
-        createRestaurant(this.name, this.location, this.foodType)
+        console.log("newrestaurant 41")
+        console.log(this.state.name)
+        createRestaurant(this.state.name, this.state.area, this.state.foodType)
+        .then(res=>{
+            this.props.history.push("/user/"+this.state.userId)
+        })
         .catch((err)=>{
             console.log(err)
         })
@@ -46,7 +51,7 @@ export default class NewRestaurant extends React.Component {
 
     render() {
         // TODO: clean up codes use handlechange
-        if (this.props.isAuthenticated) {
+        if (this.state.isAuthenticated) {
             return (
                 <div>
                     Create a new restaurant
@@ -56,33 +61,36 @@ export default class NewRestaurant extends React.Component {
                             <input
                                 type="text"
                                 placeholder=""
-                                value={this.props.name}
-                                onChange={this.handleNameChange}/>
+                                name="name"
+                                value={this.state.name}
+                                onChange={this.handleChange}/>
                         </p>
                         <p>
                             Location {' '}
                             <input
                                 type="text"
+                                name="area"
                                 placeholder="five digit zip code"
-                                value={this.props.area}
-                                onChange={this.handleAreaChange}/>
+                                value={this.state.area}
+                                onChange={this.handleChange}/>
                         </p>
                         <p>
                             Food Type {' '}
                             <input
                                 type="text"
+                                name="foodType"
                                 placeholder="Hunan, Sichuan..."
-                                value={this.props.foodType}
-                                onChange={this.handleFoodTypeChange}/>
+                                value={this.state.foodType}
+                                onChange={this.handleChange}/>
                         </p>
                     </form>
-                    <button onclick={this.handleSubmit}>Create new restaurant</button>
+                    <button onClick={this.handleSubmit}>Create new restaurant</button>
                 </div>
             );
         } else {
             return (
                 <div>
-                    Invalid page! 
+                    Please login
                 </div>
             )
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {findUserById, findCreatedRestaurants, findSavedRestaurants, findReviewedRestaurants} from '../userService';
+import {checkLogin, findUserById, findCreatedRestaurants, findSavedRestaurants, findReviewedRestaurants} from '../userService';
 import {RestaurantTable} from '../../restaurant/view/restaurantList'
 
 class UserTable extends React.Component {
@@ -16,10 +16,10 @@ export default class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            restaurants: [
-                {}
-            ],
-            userInfo: {}
+            restaurants: null,
+            userInfo: {},
+            isAuthenticated: false,
+            userId: null
         };
         this.findCreatedRestaurants = this
             .findCreatedRestaurants
@@ -32,9 +32,16 @@ export default class Profile extends React.Component {
             .bind(this);
     }
 
-    componentDidMount() {
-        if (this.props.isAuthenticated) {
-            findUserById(this.props.userId).then((res) => {
+    async componentDidMount() {
+        await checkLogin().then((res) => {
+            if (res._id !== null) {
+                this.setState({isAuthenticated: true, userId: res._id})
+            } else {}
+        })
+
+        if (this.state.isAuthenticated) {
+            console.log("profile 35")
+            await findUserById(this.state.userId).then((res) => {
                 this.setState({userInfo: res})
             }).catch((err) => {
                 console.log("findUserById failure")
@@ -44,8 +51,9 @@ export default class Profile extends React.Component {
 
     // BUG: this.findCreatedRestaurants vs findCreatedRestaurants? BUG: rerender
     // when restaurants change or need to add lifecycle
-    findCreatedRestaurants() {
-        findCreatedRestaurants(this.state.userInfo.userId).then((res) => {
+    async findCreatedRestaurants() {
+        await findCreatedRestaurants(this.state.userInfo._id).then((res) => {
+            console.log("find createdrestaurants success!")
             this.setState({restaurants: res.restaurants})
         }).catch((err) => {
             console.log("findCreatedRestaurants failure")
@@ -53,8 +61,11 @@ export default class Profile extends React.Component {
     }
 
     findSavedRestaurants() {
-        findSavedRestaurants(this.state.userInfo.userId).then((res) => {
+        findSavedRestaurants(this.state.userInfo._id).then((res) => {
+            console.log("find savedrestaurants success!")
             this.setState({restaurants: res.restaurants})
+            console.log(res.restaurants)
+            console.log(this.state.restaurants)
         }).catch((err) => {
             console.log("findSavedRestaurants failure")
         });
@@ -62,6 +73,8 @@ export default class Profile extends React.Component {
 
     findReviewedRestaurants() {
         findReviewedRestaurants(this.state.userInfo.userId).then((res) => {
+            console.log("profile 76")
+            console.log(res.restaurants)
             this.setState({restaurants: res.restaurants})
         }).catch((err) => {
             console.log("findReviewedRestaurants failure")
@@ -69,7 +82,7 @@ export default class Profile extends React.Component {
     }
 
     render() {
-        if (this.props.isAuthenticated) {
+        if (this.state.isAuthenticated) {
             return (
                 <div>
                     <UserTable userInfo={this.state.userInfo}/> {/* BUG: create own history instance? */}
@@ -80,13 +93,18 @@ export default class Profile extends React.Component {
                             history.push('/user/' + this.state.userInfo.userId + '/newRestaurant')
                         }}>Create New Restaurant</button>
                     )}/> */}
+                    <button>
+                        <a href="/">Home</a>
+                    </button>
                     <a href="/newRestaurant">
                         Create New Restaurant
                     </a>
-                    <button onclick={this.findCreatedRestaurants}>Get All Created Restaurants</button>
-                    <button onclick={this.findSavedRestaurants}>Get All Saved Restaurants</button>
+                    <button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</button>
+                    <button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</button>
                     {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}
-                    <RestaurantTable restaurants={this.props.restaurants}/>
+                    {this.state.restaurants !== null
+                        ? <RestaurantTable restaurants={this.state.restaurants}/>
+                        : null}
                 </div>
             );
         } else {

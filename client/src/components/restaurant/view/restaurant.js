@@ -1,4 +1,5 @@
 import React from 'react';
+import {checkLogin} from '../../user/userService'
 import {findRestaurantById, findRestaurantReviews, saveRestaurant} from '../restaurantService';
 import NewReview from '../../review/view/newReview'
 
@@ -8,9 +9,10 @@ class ReviewRow extends React.Component {
 
         return (
             <tr>
-                <a herf={"/user/" + review.reviewer.id + "/reviews"}>
-                    <td>{review.reviewer.name}</td>
-                </a>
+                <td>
+                    <a href={"/user/" + review._author.id + "/reviews"}>{review._author.name}</a>
+                </td>
+
                 <td>{review.content}</td>
             </tr>
         );
@@ -24,14 +26,14 @@ class ReviewTable extends React.Component {
             .props
             .reviews
             .forEach((review) => {
-                rows.push(<ReviewRow review={review} key={review.id}/>);
+                rows.push(<ReviewRow review={review} key={review._id}/>);
             });
 
         return (
             <table>
                 <thead>
                     <tr>
-                        <th>Reviewr</th>
+                        <th>Reviewer</th>
                         <th>Review</th>
                     </tr>
                 </thead>
@@ -65,7 +67,9 @@ export default class Restaurant extends React.Component {
         this.state = {
             restaurant: null,
             reviews: null,
-            renderNewReview: false
+            renderNewReview: false,
+            isAuthenticated: false,
+            userId: null
         };
         this.saveRestaurant = this
             .saveRestaurant
@@ -75,19 +79,28 @@ export default class Restaurant extends React.Component {
             .bind(this);
     }
 
-    componentWillMount() {
+    async componentWillMount() {
+        await checkLogin().then((res) => {
+            if (res._id !== null) {
+                this.setState({isAuthenticated: true, userId: res._id})
+            } else {}
+        })
+
         var restaurantId = this.props.match.params.restaurantId;
         findRestaurantById(restaurantId).then((res) => {
             this.setState({restaurant: res.restaurant})
         })
         findRestaurantReviews(restaurantId).then((res) => {
+            console.log(res)
             this.setState({reviews: res.reviews})
         })
     }
 
     saveRestaurant() {
-        if (this.props.userId !== '') {
-            saveRestaurant(this.state.restaurantId).catch((err) => {
+        if (this.state.userId !== null) {
+            saveRestaurant(this.state.restaurant._id).then(res => {
+                console.log("save success")
+            }).catch((err) => {
                 // TODO: alert if save not success
                 console.log("save restaurant not success")
             })
@@ -100,9 +113,11 @@ export default class Restaurant extends React.Component {
     }
 
     reviewRestaurant() {
-        if (this.props.userId !== '') {
+        if (this.state.userId !== null) {
+            console.log("restaurant 104 render review")
             this.setState({renderNewReview: true})
         } else {
+            console.log("restaurant 106 direct to login")
             // TODO: alert user login first
             this
                 .props
@@ -126,7 +141,7 @@ export default class Restaurant extends React.Component {
                 {this.state.reviews !== null
                     ? <ReviewTable reviews={this.state.reviews}/>
                     : null}
-                {this.state.renderNewReview
+                {this.state.renderNewReview === true
                     ? <NewReview restaurant={this.state.restaurant} userId={this.props.userId}/>
                     : null
 }

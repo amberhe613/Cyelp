@@ -168,7 +168,6 @@ export class RestaurantList extends React.Component {
                 this.setState({isAuthenticated: true, userId: res._id})
             } else {}
         })
-
     }
 
 

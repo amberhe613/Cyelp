@@ -25,26 +25,14 @@ router.post('/restaurant/new', function(req, res){
                 }
             });
         newRestaurant._author = req.user._id;
-        newRestaurant.save(function (err) {
-            if (err) {
-                res.status(400);
-                res.json({message: "Bad Request"});
-            } else {
-                user.restaurants.push(newRestaurant._id);
-                user.save();
-                res.json({message: "New Restaurant created.", location: "/api/restaurant/" + newRestaurant._id});
-            }
-        });
-
-    }
+        newRestaurant.save();
+        req.user.restaurants.push(newRestaurant._id);
+        req.user.save();
+        res.json({message: "New Restaurant created.", location: "/api/restaurant/" + newRestaurant._id});
+        }
 });
 
-// POST findAllRestaurantByQuery
-// {
-//     "reviewsNumber" : {"$gte" : -1},
-//     "address.zipcode": "95131",
-//     "cuisine": "Sichuan"
-// }
+// POST findRestaurantsByQuery
 router.post('/restaurant', function(req, res){
     Restaurant.find(req.body, function (err, restaurants) {
         if (restaurants) {
@@ -60,7 +48,7 @@ router.post('/restaurant', function(req, res){
         }
     });
 });
-// GET findAllRestaurantsByUserId
+// GET findRestaurantsByUserId
 router.get('/user/:userId/createdrestaurants', function(req, res){
     if(!req.params.userId){
         res.status(400);
@@ -82,7 +70,7 @@ router.get('/user/:userId/createdrestaurants', function(req, res){
     }
 });
 
-// GET findRestaurantById
+// GET findRestaurantByRestaurantId
 router.get('/restaurant/:restaurantId', function(req, res){
     //Check if all fields are provided and are valid:
     if(!req.params.restaurantId){
@@ -120,7 +108,7 @@ router.put('/restaurant/:restaurantId/edit', function(req, res){
     }
 });
 
-// DELETE deleteUser
+// DELETE deleteRestaurant
 router.delete('/restaurant/:restaurantId', function(req, res){
     //Check if all fields are provided and are valid:
     if (!req.params.restaurantId) {
