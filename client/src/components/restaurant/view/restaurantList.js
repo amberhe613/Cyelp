@@ -206,20 +206,24 @@ export class RestaurantList extends React.Component {
     render() {
         return (
             <div>
-                <button>
-                    <a href="/login">Login</a>
-                </button>
-                <button>
-                    <a href={"/user/"+this.state.userId}>Profile</a>
-                </button>
-                <SearchBar
-                    foodType={this.state.foodType}
-                    area={this.state.area}
-                    lowestRating={this.state.lowestRating}
-                    onFoodTypeChange={this.handleFoodTypeChange}
-                    onAreaChange={this.handleAreaChange}
-                    onLowestRatingChange={this.handleLowestRatingChange}/>
-                <RestaurantTable restaurants={this.state.restaurants}/>
+                <nav>
+                    <div className="nav-wrapper">
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li><a href="/login">Login</a></li>
+                            <li><a href={"/user/"+this.state.userId}>Profile</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div className={"container"}>
+                    <SearchBar
+                        foodType={this.state.foodType}
+                        area={this.state.area}
+                        lowestRating={this.state.lowestRating}
+                        onFoodTypeChange={this.handleFoodTypeChange}
+                        onAreaChange={this.handleAreaChange}
+                        onLowestRatingChange={this.handleLowestRatingChange}/>
+                    <RestaurantTable restaurants={this.state.restaurants}/>
+                </div>
             </div>
         );
     }
