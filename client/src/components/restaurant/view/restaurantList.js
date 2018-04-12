@@ -1,5 +1,6 @@
 import React from 'react';
 import {findRestaurant} from '../restaurantService';
+import {checkLogin} from '../../user/userService';
 
 class RestaurantRow extends React.Component {
     render() {
@@ -10,7 +11,6 @@ class RestaurantRow extends React.Component {
                 <td>
                     <a href={"/restaurants/" + restaurant._id}>{restaurant.name}</a>
                 </td>
-                <td>{restaurant.name}</td>
                 <td>{restaurant.address.zipcode}</td>
                 <td>{restaurant.cuisine}</td>
                 <td>{restaurant.averageRating}</td>
@@ -32,12 +32,12 @@ export class RestaurantTable extends React.Component {
         return (
             <table>
                 <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Location</th>
-                        <th>foodType</th>
-                        <th>averageRating</th>
-                    </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>foodType</th>
+                    <th>averageRating</th>
+                </tr>
                 </thead>
                 <tbody>{rows}</tbody>
             </table>
@@ -162,6 +162,16 @@ export class RestaurantList extends React.Component {
             .bind(this);
     }
 
+    async componentDidMount() {
+        await checkLogin().then((res) => {
+            if (res._id !== null) {
+                this.setState({isAuthenticated: true, userId: res._id})
+            } else {}
+        })
+
+    }
+
+
     handleAreaChange(area) {
         var queryBody = {
             "address.zipcode": area
@@ -196,6 +206,12 @@ export class RestaurantList extends React.Component {
     render() {
         return (
             <div>
+                <button>
+                    <a href="/login">Login</a>
+                </button>
+                <button>
+                    <a href={"/user/"+this.state.userId}>Profile</a>
+                </button>
                 <SearchBar
                     foodType={this.state.foodType}
                     area={this.state.area}
