@@ -112,10 +112,10 @@ router.get('/user/:userId/savedrestaurants', function (req, res) {
                         (function (i) {
                             Restaurant
                                 .findById(user.likedRestaurants[i])
-                                .exec(function (err, o) {
+                                .exec(function (err, restaurant) {
                                     visited++;
-                                    if (o != null) {
-                                        restaurantMap.push(o);
+                                    if (restaurant != null) {
+                                        restaurantMap.push(restaurant);
                                     }
                                     if (visited === user.likedRestaurants.length) {
                                         res.json({restaurants: restaurantMap})

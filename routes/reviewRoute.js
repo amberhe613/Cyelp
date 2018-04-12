@@ -60,13 +60,23 @@ router.get('/user/:userId/reviewedrestaurants', function (req, res) {
         User.findById(req.params.userId, function (err, user) {
                 if (user) {
                     var restaurantMap = [];
+                    var visited = 0;
 
-                    user
-                        .reviewedRestaurants
-                        .forEach(function (restaurant) {
-                            restaurantMap.push(restaurant);
-                        });
-                    res.json({restaurants: restaurantMap});
+                    for (var i = 0; i < user.reviewedRestaurants.length; i++) {
+                        (function (i) {
+                            Restaurant
+                                .findById(user.reviewedRestaurants[i])
+                                .exec(function (err, restaurant) {
+                                    visited++;
+                                    if (restaurant != null) {
+                                        restaurantMap.push(restaurant);
+                                    }
+                                    if (visited === user.reviewedRestaurants.length) {
+                                        res.json({restaurants: restaurantMap})
+                                    }
+                                })
+                        })(i)
+                    }
                 } else {
                     res.status(400);
                     res.json({message: "Not Found!"});
@@ -75,7 +85,7 @@ router.get('/user/:userId/reviewedrestaurants', function (req, res) {
     }
 });
 
-// GET findReviewsByUserId
+// GET findReviewedRestaurantsByUserId
 router.get('/user/:userId/reviews', function (req, res) {
     if (!req.params.userId) {
         res.status(400);
@@ -144,8 +154,9 @@ router.put("/review/:reviewId", function (req, res) {
     });
 });
 
-//DELETE deleteReview
+//DELETE review
 router.delete("/review/:reviewId", function (req, res) {
+    //findByIdAndRemove
     Review
         .findByIdAndRemove(req.params.reviewId, function (err, deletedReview) {
             if (err) {
