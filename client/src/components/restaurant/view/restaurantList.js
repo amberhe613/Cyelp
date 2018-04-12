@@ -1,5 +1,6 @@
 import React from 'react';
 import {findRestaurant} from '../restaurantService';
+import {checkLogin} from '../../user/userService';
 
 class RestaurantRow extends React.Component {
     render() {
@@ -161,6 +162,16 @@ export class RestaurantList extends React.Component {
             .bind(this);
     }
 
+    async componentDidMount() {
+        await checkLogin().then((res) => {
+            if (res._id !== null) {
+                this.setState({isAuthenticated: true, userId: res._id})
+            } else {}
+        })
+
+   }
+
+ 
     handleAreaChange(area) {
         var queryBody = {
             "address.zipcode": area
@@ -198,7 +209,10 @@ export class RestaurantList extends React.Component {
                 <button>
                     <a href="/login">Login</a>
                 </button>
-                <SearchBar
+                 <button>
+                    <a href={"/user/"+this.state.userId}>Profile</a>
+                </button>
+                <SearchBar 
                     foodType={this.state.foodType}
                     area={this.state.area}
                     lowestRating={this.state.lowestRating}

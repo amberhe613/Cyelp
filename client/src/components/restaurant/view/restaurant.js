@@ -1,4 +1,5 @@
 import React from 'react';
+import {checkLogin} from '../../user/userService'
 import {findRestaurantById, findRestaurantReviews, saveRestaurant} from '../restaurantService';
 import NewReview from '../../review/view/newReview'
 
@@ -66,7 +67,9 @@ export default class Restaurant extends React.Component {
         this.state = {
             restaurant: null,
             reviews: null,
-            renderNewReview: false
+            renderNewReview: false,
+            isAuthenticated: false,
+            userId: null
         };
         this.saveRestaurant = this
             .saveRestaurant
@@ -76,7 +79,13 @@ export default class Restaurant extends React.Component {
             .bind(this);
     }
 
-    componentWillMount() {
+    async componentWillMount() {
+        await checkLogin().then((res) => {
+            if (res._id !== null) {
+                this.setState({isAuthenticated: true, userId: res._id})
+            } else {}
+        })
+
         var restaurantId = this.props.match.params.restaurantId;
         findRestaurantById(restaurantId).then((res) => {
             this.setState({restaurant: res.restaurant})
@@ -88,7 +97,7 @@ export default class Restaurant extends React.Component {
     }
 
     saveRestaurant() {
-        if (this.props.userId !== null) {
+        if (this.state.userId !== null) {
             saveRestaurant(this.state.restaurant._id).then(res => {
                 console.log("save success")
             }).catch((err) => {
@@ -104,7 +113,7 @@ export default class Restaurant extends React.Component {
     }
 
     reviewRestaurant() {
-        if (this.props.userId !== null) {
+        if (this.state.userId !== null) {
             console.log("restaurant 104 render review")
             this.setState({renderNewReview: true})
         } else {

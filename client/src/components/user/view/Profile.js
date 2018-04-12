@@ -93,6 +93,9 @@ export default class Profile extends React.Component {
                             history.push('/user/' + this.state.userInfo.userId + '/newRestaurant')
                         }}>Create New Restaurant</button>
                     )}/> */}
+                    <button>
+                        <a href="/">Home</a>
+                    </button>
                     <a href="/newRestaurant">
                         Create New Restaurant
                     </a>

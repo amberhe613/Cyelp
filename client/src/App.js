@@ -6,6 +6,7 @@ import Restaurant from './components/restaurant/view/restaurant';
 import NewRestaurant from './components/restaurant/view/newRestaurant';
 import {checkLogin} from './components/user/userService';
 import {RestaurantList} from './components/restaurant/view/restaurantList';
+import styles from './index.css'
 
 class App extends Component {
     constructor(props) {
@@ -33,12 +34,21 @@ class App extends Component {
     }
 
     render() {
+
+        var styles = {
+            color: 'red'
+        }
         return (
             <div>
                 {window.location.pathname === "/"
                     ? <Redirect to="/restaurants"/>
                     : null}
-                {/* TODO: login no page */}
+                {/* <div className="header"> */}
+                <div style={styles}>
+                    <navbar>
+                        "this should be nav bar"
+                    </navbar>
+                </div>
                 <Link to="/login"></Link>
                 <Link to="/user/:userId"></Link>
                 <Link to="/restaurants"></Link>
