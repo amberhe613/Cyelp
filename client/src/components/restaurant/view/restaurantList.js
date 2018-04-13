@@ -1,7 +1,7 @@
 import React from 'react';
 import {findRestaurant} from '../restaurantService';
 import {checkLogin} from '../../user/userService';
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container } from 'reactstrap';
+import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container, Input, Button, Table } from 'reactstrap';
 
 class RestaurantRow extends React.Component {
     render() {
@@ -31,7 +31,7 @@ export class RestaurantTable extends React.Component {
             });
 
         return (
-            <table>
+            <Table>
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -41,7 +41,7 @@ export class RestaurantTable extends React.Component {
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>
-            </table>
+            </Table>
         );
     }
 }
@@ -109,33 +109,43 @@ class SearchBar extends React.Component {
                 <p>
                     Search restaurants by food type {' '}
                     {/* TODO: value and onChange locally */}
-                    <input
-                        type="text"
+                    <Input
+                        type="select"
                         name="foodType"
-                        placeholder="food type (sichuan, hunan...)"
                         value={this.state.foodType}
-                        onChange={this.handleChange}/>
-                    <button onClick={this.handleFoodTypeChange}>Search</button>
+                        onChange={this.handleChange}>
+                        <option>Cantonese</option>
+                        <option>Sichuan</option>
+                        <option>Hunan</option>
+                        <option>Fujian</option>
+                        <option>Jiangsu</option>
+                        <option>Zhejiang</option>
+                        <option>Anhui</option>
+                        <option>Shandong</option>
+                    </Input>
+                    <Button onClick={this.handleFoodTypeChange}>Search</Button>
                 </p>
                 <p>
                     Search restaurants by area {' '}
-                    <input
+                    <Input
                         type="text"
                         name="area"
                         placeholder="five digit zip code"
                         value={this.state.area}
                         onChange={this.handleChange}/>
-                    <button onClick={this.handleAreaChange}>Search</button>
+                    <Button onClick={this.handleAreaChange}>Search</Button>
                 </p>
                 <p>
                     Search restaurants by lowest rating {' '}
-                    <input
-                        type="text"
+                    <Input
+                        type="number"
+                        min="1"
+                        max="5"
                         name="lowestRating"
-                        placeholder="lowest rating (0-5)"
+                        placeholder="lowest rating (1-5)"
                         value={this.state.lowestRating}
                         onChange={this.handleChange}/>
-                    <button onClick={this.handleLowestRatingChange}>Search</button>
+                    <Button onClick={this.handleLowestRatingChange}>Search</Button>
                 </p>
             </form>
         );
@@ -231,7 +241,7 @@ export class RestaurantList extends React.Component {
                         <p className="lead"></p>
                     </Container>
                 </Jumbotron>
-                <div className={"container"}>
+                <Container fluid>
                     <SearchBar
                         foodType={this.state.foodType}
                         area={this.state.area}
@@ -240,7 +250,7 @@ export class RestaurantList extends React.Component {
                         onAreaChange={this.handleAreaChange}
                         onLowestRatingChange={this.handleLowestRatingChange}/>
                     <RestaurantTable restaurants={this.state.restaurants}/>
-                </div>
+                </Container>
             </div>
         );
     }
