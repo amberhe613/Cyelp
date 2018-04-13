@@ -2,6 +2,7 @@ import React from 'react';
 import {checkLogin} from '../../user/userService'
 import {findRestaurantById, findRestaurantReviews, saveRestaurant} from '../restaurantService';
 import NewReview from '../../review/view/newReview'
+import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Container, Input, Button, Table } from 'reactstrap'
 
 class ReviewRow extends React.Component {
     render() {
@@ -129,6 +130,17 @@ export default class Restaurant extends React.Component {
     render() {
         return (
             <div>
+                <Navbar color="light" light expand="xs">
+                    <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <NavLink href="/login">Login</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
+                        </NavItem>
+                    </Nav>
+                </Navbar>
                 <button>
                     <a href="/restaurants">Go back to restaurants</a>
                 </button>
