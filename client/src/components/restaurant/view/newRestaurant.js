@@ -1,6 +1,7 @@
 import React from 'react';
 import {checkLogin} from '../../user/userService';
 import {createRestaurant} from '../restaurantService';
+import {Navbar, NavbarBrand, NavItem, NavLink, Nav } from 'reactstrap';
 
 export default class NewRestaurant extends React.Component {
     // need a props for userId
@@ -54,37 +55,49 @@ export default class NewRestaurant extends React.Component {
         if (this.state.isAuthenticated) {
             return (
                 <div>
-                    Create a new restaurant
-                    <form>
-                        <p>
-                            Restaurant Name {' '}
-                            <input
-                                type="text"
-                                placeholder=""
-                                name="name"
-                                value={this.state.name}
-                                onChange={this.handleChange}/>
-                        </p>
-                        <p>
-                            Location {' '}
-                            <input
-                                type="text"
-                                name="area"
-                                placeholder="five digit zip code"
-                                value={this.state.area}
-                                onChange={this.handleChange}/>
-                        </p>
-                        <p>
-                            Food Type {' '}
-                            <input
-                                type="text"
-                                name="foodType"
-                                placeholder="Hunan, Sichuan..."
-                                value={this.state.foodType}
-                                onChange={this.handleChange}/>
-                        </p>
-                    </form>
-                    <button onClick={this.handleSubmit}>Create new restaurant</button>
+                    <Navbar color="light" light expand="md">
+                        <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
+                        <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <NavLink href="/login">Login</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
+                            </NavItem>
+                        </Nav>
+                    </Navbar>
+                    <div className="container">
+                        <form>
+                            <p>
+                                Restaurant Name {' '}
+                                <input
+                                    type="text"
+                                    placeholder=""
+                                    name="name"
+                                    value={this.state.name}
+                                    onChange={this.handleChange}/>
+                            </p>
+                            <p>
+                                Location {' '}
+                                <input
+                                    type="text"
+                                    name="area"
+                                    placeholder="five digit zip code"
+                                    value={this.state.area}
+                                    onChange={this.handleChange}/>
+                            </p>
+                            <p>
+                                Food Type {' '}
+                                <input
+                                    type="text"
+                                    name="foodType"
+                                    placeholder="Hunan, Sichuan..."
+                                    value={this.state.foodType}
+                                    onChange={this.handleChange}/>
+                            </p>
+                        </form>
+                        <button onClick={this.handleSubmit}>Create new restaurant</button>
+                    </div>
                 </div>
             );
         } else {

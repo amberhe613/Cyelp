@@ -34,9 +34,6 @@ class App extends Component {
 
     render() {
 
-        var styles = {
-            color: 'red'
-        }
         return (
             <div>
                 {window.location.pathname === "/"

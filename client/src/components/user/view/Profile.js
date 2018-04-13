@@ -1,13 +1,21 @@
 import React from 'react';
 import {checkLogin, findUserById, findCreatedRestaurants, findSavedRestaurants, findReviewedRestaurants} from '../userService';
-import {RestaurantTable} from '../../restaurant/view/restaurantList'
+import {RestaurantTable} from '../../restaurant/view/restaurantList';
+import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container } from 'reactstrap';
 
 class UserTable extends React.Component {
     render() {
         return (
-            <form>
-                Hi {this.props.userInfo.username}
-            </form>
+            <div>
+                <Navbar color="light" light expand="xs">
+                    <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            Hi, {this.props.userInfo.username}
+                        </NavItem>
+                    </Nav>
+                </Navbar>
+            </div>
         );
     }
 }
@@ -93,18 +101,20 @@ export default class Profile extends React.Component {
                             history.push('/user/' + this.state.userInfo.userId + '/newRestaurant')
                         }}>Create New Restaurant</button>
                     )}/> */}
-                    <button>
-                        <a href="/">Home</a>
-                    </button>
-                    <a href="/newRestaurant">
-                        Create New Restaurant
-                    </a>
-                    <button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</button>
-                    <button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</button>
-                    {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}
-                    {this.state.restaurants !== null
-                        ? <RestaurantTable restaurants={this.state.restaurants}/>
-                        : null}
+                    {/*<button>*/}
+                        {/*<a href="/">Home</a>*/}
+                    {/*</button>*/}
+                    <div className="container">
+                        <a href="/newRestaurant">
+                            Create New Restaurant
+                        </a>
+                        <button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</button>
+                        <button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</button>
+                        {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}
+                        {this.state.restaurants !== null
+                            ? <RestaurantTable restaurants={this.state.restaurants}/>
+                            : null}
+                    </div>
                 </div>
             );
         } else {

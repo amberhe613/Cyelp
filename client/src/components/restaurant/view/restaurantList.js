@@ -1,6 +1,7 @@
 import React from 'react';
 import {findRestaurant} from '../restaurantService';
 import {checkLogin} from '../../user/userService';
+import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container } from 'reactstrap';
 
 class RestaurantRow extends React.Component {
     render() {
@@ -35,8 +36,8 @@ export class RestaurantTable extends React.Component {
                 <tr>
                     <th>Name</th>
                     <th>Location</th>
-                    <th>foodType</th>
-                    <th>averageRating</th>
+                    <th>FoodType</th>
+                    <th>AverageRating</th>
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>
@@ -141,6 +142,15 @@ class SearchBar extends React.Component {
     }
 }
 
+const jumbotronStyle = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundImage: `url(' /images/jumbotronImg.jpg ')`,
+    backgroundPosition: "top center",
+    minHeight: "300px",
+    boxShadow: "0px 2px 3px rgba(0,0,0,0.2), 0px 6px 8px rgba(0,0,0,0.1), 0px 10px 15px rgba(0,0,0,0.1)"
+};
+
 export class RestaurantList extends React.Component {
     constructor(props) {
         super(props);
@@ -205,15 +215,22 @@ export class RestaurantList extends React.Component {
     render() {
         return (
             <div>
-                <nav>
-                    <div className="nav-wrapper container">
-                        <a href="/restaurants" class="brand-logo">Logo</a>
-                        <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li><a href="/login">Login</a></li>
-                            <li><a href={"/user/"+this.state.userId}>Profile</a></li>
-                        </ul>
-                    </div>
-                </nav>
+                <Navbar color="light" light expand="xs">
+                    <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <NavLink href="/login">Login</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
+                        </NavItem>
+                    </Nav>
+                </Navbar>
+                <Jumbotron style={jumbotronStyle} fluid>
+                    <Container fluid>
+                        <p className="lead"></p>
+                    </Container>
+                </Jumbotron>
                 <div className={"container"}>
                     <SearchBar
                         foodType={this.state.foodType}
