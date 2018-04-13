@@ -156,10 +156,20 @@ const jumbotronStyle = {
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundImage: `url(' /images/jumbotronImg.jpg ')`,
-    backgroundPosition: "top center",
+    backgroundPosition: "center",
     minHeight: "300px",
     boxShadow: "0px 2px 3px rgba(0,0,0,0.2), 0px 6px 8px rgba(0,0,0,0.1), 0px 10px 15px rgba(0,0,0,0.1)"
 };
+
+// const style = {
+//     backgroundSize: "cover",
+//     backgroundPosition: "top center",
+//     backgroundImage: `url(' /images/jumbotronImg.jpg ')`,
+//     display: "block",
+//     minHeight: "300px",
+//     transform: "translateY(0px)",
+//     boxShadow: "0px 2px 3px rgba(0,0,0,0.2), 0px 6px 8px rgba(0,0,0,0.1), 0px 10px 15px rgba(0,0,0,0.1)"
+// }
 
 export class RestaurantList extends React.Component {
     constructor(props) {
@@ -236,8 +246,11 @@ export class RestaurantList extends React.Component {
                         </NavItem>
                     </Nav>
                 </Navbar>
+                {/*<div style={style}>*/}
+                {/*</div>*/}
                 <Jumbotron style={jumbotronStyle} fluid>
                     <Container fluid>
+                        <h1 className="display-3"></h1>
                         <p className="lead"></p>
                     </Container>
                 </Jumbotron>
