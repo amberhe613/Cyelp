@@ -20,12 +20,12 @@ class App extends Component {
     }
 
     componentWillMount() {
-        checkLogin().then((res) => {
-            this.setState({
-                userId: res._id,
-                isAuthenticated: res._id !== null
-            })
-        })
+        // checkLogin().then((res) => {
+        //     this.setState({
+        //         userId: res._id,
+        //         isAuthenticated: res._id !== null
+        //     })
+        // })
     }
 
     authenticateUser(userId) {

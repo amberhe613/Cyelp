@@ -10,3 +10,5 @@ https://cyelp.herokuapp.com/
 ### TODO
 frontend: login->should direct to the last visited page
 profile userid
+frontend: user review page
+frontend: check login in individual pages rather than app.js
