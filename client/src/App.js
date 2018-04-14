@@ -48,20 +48,20 @@ class App extends Component {
                 <Route
                     exact
                     path="/login"
-                    render={props => <Login {...props} authenticateUser={this.authenticateUser}/>}/>
+                    render={props => <Login {...props}/>}/>
                 <Route
                     exact
                     path="/user/:userId"
-                    render={() => <Profile isAuthenticated={this.state.isAuthenticated}/>}/>
+                    render={() => <Profile />}/>
                 <Route exact path="/restaurants" component={RestaurantList}/>
                 <Route
                     exact
                     path="/restaurants/:restaurantId"
-                    render={props => <Restaurant {...props} userId={this.state.userId}/>}/>
+                    render={props => <Restaurant {...props} />}/>
                 <Route
                     exact
                     path="/newRestaurant"
-                    render={(props) => <NewRestaurant {...props} isAuthenticated={this.state.isAuthenticated}/>}/>
+                    render={(props) => <NewRestaurant {...props} />}/>
             </div>
         );
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import {createReview} from '../reviewService';
+import {checkLogin} from '../../user/userService';
 
 export default class NewReview extends React.Component {
     constructor(props) {
@@ -8,6 +9,8 @@ export default class NewReview extends React.Component {
             content: '',
             rating: '',
             price: '',
+            isAuthenticated: false,
+            userId: null,
         };
         this.handleChange = this
             .handleChange
@@ -16,6 +19,14 @@ export default class NewReview extends React.Component {
             .handleSubmit
             .bind(this);
     }
+
+    async componentDidMount() {
+        await checkLogin().then((res) => {
+            if (res._id !== null) {
+                this.setState({isAuthenticated: true, userId: res._id})
+            } else {}
+        })
+   }
 
     handleChange(e) {
         e.preventDefault()
@@ -34,7 +45,7 @@ export default class NewReview extends React.Component {
     }
 
     render() {
-        if (this.props.userId !== '') {
+        if (this.state.userId !== null) {
             return (
                 <div>
                     Create a new review for restaurant {this.props.restaurant.name}
