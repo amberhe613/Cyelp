@@ -79,7 +79,7 @@ class SearchBar extends React.Component {
     }
 
     handleAreaChange(e) {
-        console.log("restaurantList 81")
+        // console.log("restaurantList 81")
         e.preventDefault();
         this
             .props
@@ -202,6 +202,9 @@ export class RestaurantList extends React.Component {
 
 
     handleAreaChange(area) {
+        if (area === '') {
+            return;
+        }
         var queryBody = {
             "address.zipcode": area
         };
@@ -211,6 +214,9 @@ export class RestaurantList extends React.Component {
     };
 
     handleLowestRatingChange(lowestRating) {
+        if (lowestRating === '') {
+            return;
+        }
         var queryBody = {
             averageRating: {
                 $gte: lowestRating
@@ -223,6 +229,9 @@ export class RestaurantList extends React.Component {
     }
 
     handleFoodTypeChange(foodType) {
+        if (foodType === '') {
+            return;
+        }
         var queryBody = {
             cuisine: foodType
         };
