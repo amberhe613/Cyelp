@@ -154,7 +154,7 @@ export default class Restaurant extends React.Component {
                     ? <ReviewTable reviews={this.state.reviews}/>
                     : null}
                 {this.state.renderNewReview === true
-                    ? <NewReview restaurant={this.state.restaurant} userId={this.props.userId}/>
+                    ? <NewReview restaurant={this.state.restaurant}/>
                     : null
 }
             </div>

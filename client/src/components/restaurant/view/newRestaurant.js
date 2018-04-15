@@ -10,7 +10,9 @@ export default class NewRestaurant extends React.Component {
         this.state = {
             foodType: '',
             area: '',
-            name: ''
+            name: '',
+            isAuthenticated: false,
+            userId: null,
         };
 
         this.handleChange = this
