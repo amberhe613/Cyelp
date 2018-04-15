@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link, Route, Redirect} from 'react-router-dom';
 import Login from './components/user/view/Login';
 import Profile from './components/user/view/Profile';
-import Restaurant from './components/restaurant/view/restaurant';
+import {Restaurant} from './components/restaurant/view/restaurant';
 import NewRestaurant from './components/restaurant/view/newRestaurant';
 import {checkLogin} from './components/user/userService';
 import {RestaurantList} from './components/restaurant/view/restaurantList';
@@ -45,6 +45,7 @@ class App extends Component {
                 <Link to="/restaurants"></Link>
                 <Link to="/restaurants/:restaurantId"></Link>
                 <Link to="/newrestaurant"></Link>
+                <Link to="/user/:userId/reviews"></Link>
                 <Route
                     exact
                     path="/login"
@@ -62,6 +63,11 @@ class App extends Component {
                     exact
                     path="/newRestaurant"
                     render={(props) => <NewRestaurant {...props} />}/>
+                <Route
+                    exact
+                    path="/user/:userId/reviews"
+                    render={props => <Reviews {...props}/>}/>
+ 
             </div>
         );
     }
