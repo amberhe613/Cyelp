@@ -23,8 +23,10 @@ export default class NewRestaurant extends React.Component {
             foodType: '',
             area: '',
             name: '',
+            image: null,
             isAuthenticated: false,
-            userId: null
+            userId: null,
+            createSuccess: false
         };
 
         this.handleChange = this
@@ -53,11 +55,11 @@ export default class NewRestaurant extends React.Component {
     handleSubmit() {
         console.log("newrestaurant 41")
         console.log(this.state.name)
-        createRestaurant(this.state.name, this.state.area, this.state.foodType).then(res => {
+        createRestaurant(this.state.name, this.state.area, this.state.foodType, this.state.image).then(res => {
+            // this.setState({createSuccess: true})
             this
                 .props
-                .history
-                .push("/user/" + this.state.userId)
+                .onSuccess()
         }).catch((err) => {
             console.log(err)
         })
@@ -66,9 +68,12 @@ export default class NewRestaurant extends React.Component {
     render() {
         // TODO: clean up codes use handlechange
         if (this.state.isAuthenticated) {
+            if (this.state.createSuccess) {
+                return <div>Create Success!</div>
+            }
             return (
                 <div>
-                    <Navbar color="light" light expand="xs">
+                    {/* <Navbar color="light" light expand="xs">
                         <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
                         <Nav className="ml-auto" navbar>
                             {this.state.isAuthenticated
@@ -81,7 +86,7 @@ export default class NewRestaurant extends React.Component {
                                 <NavLink href={"/user/" + this.state.userId}>Profile</NavLink>
                             </NavItem>
                         </Nav>
-                    </Navbar>
+                    </Navbar> */}
                     <Container fluid>
                         <Form>
                             <FormGroup>
@@ -122,6 +127,15 @@ export default class NewRestaurant extends React.Component {
                                     <option>Shandong</option>
                                 </Input>
                             </FormGroup>
+                            <FormGroup>
+                                <Label for="image">Restaurant image {' '}</Label>
+                                <Input
+                                    type="file"
+                                    onChange={(e) => 
+                                    this.setState({image: e.target.files[0]})
+                                }/>
+                            </FormGroup>
+
                         </Form>
                         <Button onClick={this.handleSubmit}>Create new restaurant</Button>
                     </Container>
@@ -129,11 +143,8 @@ export default class NewRestaurant extends React.Component {
             );
         } else {
             return (
-                <div>
-                    Please login
-                </div>
+                <div></div >
             )
-
         }
     }
 }

@@ -1,21 +1,28 @@
 // TODO: image return promise, either success or failure
-export function createRestaurant(name, location, foodType) {
-    var newRestaurant = {
-        name: name,
-        address: {
-            "zipcode": location
-        },
-        cuisine: foodType
-    }
+export function createRestaurant(name, location, foodType, image) {
+    // var newRestaurant = {
+    //     name: name,
+    //     address: {
+    //         "zipcode": location
+    //     },
+    //     cuisine: foodType,
+    //     image: image
+    // }
+    
+    var formData = new FormData();
+    formData.append('name', name);
+    formData.append('zipcode', location);
+    formData.append('cuisine', foodType);
+    formData.append('file', image);
 
     return fetch('/api/restaurant/new', {
         method: 'POST',
         credentials: "same-origin",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newRestaurant)
+        // headers: {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'multipart/form-data'
+        // },
+        body: formData
     })
 }
 
