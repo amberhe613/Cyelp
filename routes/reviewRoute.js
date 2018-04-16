@@ -132,22 +132,25 @@ router.get('/restaurant/:restaurantId/reviews', function (req, res) {
 
 // PUT updateReview
 router.put("/review/:reviewId", function (req, res) {
-    console.log("reviewroutes 135")
-    console.log(req.body)
     Review.findById(req.params.reviewId, function (err, updateReview) {
         if (err) {
-            console.log(err);
             res.status(400);
             res.send({"error": "error while updating review"});
         } else {
+            if (updateReview != null) {
+
+            }
             var oldRate = updateReview.rating;
-            updateReview = req.body;
+            updateReview.content = req.body.content;
+            updateReview.rating = req.body.rating;
+            updateReview.price = req.body.price;
+            updateReview.save();
             Restaurant.findById(updateReview._restaurant.id, function (err, restaurant) {
                 var curRatingTotal = (restaurant.averageRating || 0) * restaurant.reviewsNumber;
-                restaurant.averageRating = (curRatingTotal + req.body.rating - oldRate) / restaurant.reviewsNumber;
+                restaurant.averageRating = (parseInt(curRatingTotal) + parseInt(req.body.rating) - parseInt(oldRate)) / restaurant.reviewsNumber;
                 restaurant.save();
             });
-            updateReview.save();
+
             res.status(200);
             res.send({
                 message: "Review id " + req.params.reviewId + "has been updated"
