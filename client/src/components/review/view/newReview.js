@@ -1,13 +1,14 @@
 import React from 'react';
 import {createReview} from '../reviewService';
 import {checkLogin} from '../../user/userService';
+import StarRatingComponent from 'react-star-rating-component';
 
 export default class NewReview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             content: '',
-            rating: '',
+            rating: 1,
             price: '',
             isAuthenticated: false,
             userId: null,
@@ -18,6 +19,10 @@ export default class NewReview extends React.Component {
         this.handleSubmit = this
             .handleSubmit
             .bind(this);
+    }
+
+    onStarClick(nextValue, prevValue, name) {
+        this.setState({rating: nextValue});
     }
 
     async componentDidMount() {
@@ -45,6 +50,7 @@ export default class NewReview extends React.Component {
     }
 
     render() {
+        const { rating } = this.state;
         if (this.state.userId !== null) {
             return (
                 <div>
@@ -60,12 +66,19 @@ export default class NewReview extends React.Component {
                         </p>
                          <p>
                             Rating
-                            <input
-                                type="text"
-                                name="rating"
-                                placeholder="1-5"
-                                value={this.state.rating}
-                                onChange={this.handleChange}/>
+                             <StarRatingComponent
+                                 name="rate"
+                                 starCount={5}
+                                 value={rating}
+                                 onStarClick={this.onStarClick.bind(this)}
+                             />
+
+                            {/*<input*/}
+                                {/*type="text"*/}
+                                {/*name="rating"*/}
+                                {/*placeholder="1-5"*/}
+                                {/*value={this.state.rating}*/}
+                                {/*onChange={this.handleChange}/>*/}
                         </p>
                          <p>
                             Price
