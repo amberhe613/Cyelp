@@ -22,9 +22,9 @@
 
 - [x] Implement search function(Opitional)
 - [ ] Add google map to detail page(Opitional)
-- [ ] Polish front-end views
-- [ ] Testing
-- [ ] Cleaning up the code
+- [x] Polish front-end views
+- [x] Testing
+- [x] Cleaning up the code
 - [ ] Write documents
 - [ ] Depoly to heroku
 
