@@ -14,7 +14,9 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
                 res.json({"error": "restaurant not found"});
             } else {
                 var curReviewNum = restaurant.reviewsNumber;
+                console.log(curReviewNum);
                 var curRatingTotal = (restaurant.averageRating || 0) * curReviewNum;
+                console.log(curRatingTotal);
                 var newReview = new Review({
                     content: req.body.content,
                     rating: req.body.rating,
@@ -36,7 +38,7 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
                     .push(newReview._id);
                 // update reviews number and calculate avg rate
                 restaurant.reviewsNumber = curReviewNum + 1;
-                restaurant.averageRating = (parseInt(curRatingTotal) + parseInt(req.body.rating)) / restaurant.reviewsNumber;
+                restaurant.averageRating = (parseIntcurRatingTotal + req.body.rating) / restaurant.reviewsNumber;
                 restaurant.save();
                 // Add review to user reviews list
                 req.user.reviews.push(newReview._id);
