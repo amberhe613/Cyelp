@@ -13,5 +13,5 @@ frontend: login->should direct to the last visited page
 frontend: user review page -not tested, confirm review service with server 
 frontend: search restaurants default null -not tested
 backend: correct average rating algorithm
-frountend: add restaurant image add input for image url
-
+frontend: add restaurant image add input for image url
+frontend: add logout
