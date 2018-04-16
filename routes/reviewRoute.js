@@ -71,8 +71,8 @@ router.get('/user/:userId/reviewedrestaurants', function (req, res) {
                                         restaurantMap.push(restaurant);
                                     }
                                     if (visited === user.reviewedRestaurants.length) {
-                                        console.log("reviewroutes 74:")
-                                        console.log(restaurantMap)
+                                        // console.log("reviewroutes 74:")
+                                        // console.log(restaurantMap)
                                         res.json({restaurants: restaurantMap})
                                     }
                                 })
@@ -132,6 +132,8 @@ router.get('/restaurant/:restaurantId/reviews', function (req, res) {
 
 // PUT updateReview
 router.put("/review/:reviewId", function (req, res) {
+    console.log("reviewroutes 135")
+    console.log(req.body)
     Review.findById(req.params.reviewId, function (err, updateReview) {
         if (err) {
             console.log(err);
