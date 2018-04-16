@@ -7,8 +7,12 @@ import {
     NavItem,
     NavLink,
     Nav,
-    Jumbotron,
-    Container
+    Button,
+    Container,
+    Row,
+    Col,
+    ListGroup,
+    ListGroupItem
 } from 'reactstrap';
 import NewRestaurant from '../../restaurant/view/newRestaurant'
 
@@ -124,18 +128,19 @@ export default class Profile extends React.Component {
                     {/*<button>*/}
                     {/*<a href="/">Home</a>*/}
                     {/*</button>*/}
-                    <div className="container">
-                        <button onClick={this.renderNewRestaurant}>Creat New Restaurants</button>
-                        <button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</button>
-                        <button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</button>
-                        <button onClick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button>
+
+                    <Container fluid>
+                        <Button onClick={this.renderNewRestaurant}>Create New Restaurants</Button>
+                        <Button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</Button>
+                        <Button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</Button>
+                        <Button onClick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</Button>
                         {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}
                         {this.state.restaurants !== null
                             ? <RestaurantTable restaurants={this.state.restaurants}/>
                             : null}
                         {this.state.toRenderNewRestaurant
                             ? <NewRestaurant
-                                    onSuccess={() => {
+                                onSuccess={() => {
                                     this.setState({toRenderNewRestaurant: false, toRenderCreateSuccess: true})
                                 }}/>
                             : null}
@@ -143,7 +148,7 @@ export default class Profile extends React.Component {
                             ? <div>Create success!</div>
                             : null}
 
-                    </div>
+                    </Container>
                 </div>
             );
         } else {
