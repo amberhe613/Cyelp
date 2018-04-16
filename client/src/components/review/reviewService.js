@@ -29,5 +29,30 @@ export function findReviewsByUserId(userId) {
     }).then((res) => {
         return res.json()
     })
-
 }
+
+export function updateReview(reviewId, review) {
+    return fetch('/api/review/' + reviewId, {
+        method: 'PUT',
+        credentials: "same-origin",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(review)
+    })
+}
+
+export function deleteReview(reviewId) {
+    return fetch('/api/review/' + reviewId, {
+        method: 'DELETE',
+        credentials: "same-origin",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+
+

@@ -100,6 +100,7 @@ export default class Profile extends React.Component {
     }
 
     findReviewedRestaurants() {
+        this.setState({toRenderCreateSuccess: false});
         findReviewedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("profile 76")
             console.log(res.restaurants)
