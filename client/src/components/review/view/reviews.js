@@ -7,30 +7,24 @@ export default class Reviews extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            reviews: null,
-            isAuthenticated: false,
-            userId: null
+            reviews: null
         };
     }
 
     async componentDidMount() {
-        await checkLogin().then((res) => {
-            if (res._id !== null) {
-                this.setState({isAuthenticated: true, userId: res._id})
-            } else {}
-        })
-        findReviewsByUserId(queryBody).then((res) => {
-            this.setState({reviews: res.reviews})
+        findReviewsByUserId().then((res) => {
+            // TODO: set reviews
+            // this.setState({reviews: res.reviews})
         })
     }
 
     render() {
-        if (this.state.userId !== null) {
+        if (this.state.reviews !== null) {
             return (<ReviewTable reviews={this.state.reviews}/>);
         } else {
             return (
                 <div>
-                    Please log in!
+                    No reviews for this user
                 </div>
             )
 

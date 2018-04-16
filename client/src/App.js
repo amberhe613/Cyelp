@@ -4,7 +4,8 @@ import Login from './components/user/view/Login';
 import Profile from './components/user/view/Profile';
 import {Restaurant} from './components/restaurant/view/restaurant';
 import NewRestaurant from './components/restaurant/view/newRestaurant';
-import {checkLogin} from './components/user/userService';
+import Reviews from './components/review/view/reviews';
+// import {checkLogin} from './components/user/userService';
 import {RestaurantList} from './components/restaurant/view/restaurantList';
 
 class App extends Component {

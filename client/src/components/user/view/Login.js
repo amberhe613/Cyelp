@@ -5,10 +5,7 @@ export default class Login extends React.Component {
     componentDidMount() {
         checkLogin().then((res) => {
             if (res._id !== null) {
-                this
-                    .props
-                    .authenticateUser(res._id);
-                this
+               this
                     .props
                     .history
                     .push('/');
