@@ -1,5 +1,5 @@
 import React from 'react';
-import {checkLogin} from '../../user/userService'
+import {checkLogin, logout} from '../../user/userService'
 import {findRestaurantById, findRestaurantReviews, saveRestaurant} from '../restaurantService';
 import NewReview from '../../review/view/newReview'
 import {
@@ -11,7 +11,12 @@ import {
     Container,
     Input,
     Button,
-    Table
+    Table,
+    Card,
+    CardTitle,
+    CardText,
+    CardBody,
+    CardImg
 } from 'reactstrap'
 import StarRatingComponent from 'react-star-rating-component';
 
@@ -26,12 +31,7 @@ class ReviewRow extends React.Component {
                 </td>
                 <td>{review.content}</td>
                 <td>
-                    <StarRatingComponent
-                        name="rate"
-                        starCount={5}
-                        value={review.rating}
-                        editing={false}
-                    />
+                    <StarRatingComponent name="rate" starCount={5} value={review.rating}/>
                 </td>
                 <td>{review.price}</td>
                 <td>{review.createdAt}</td>
@@ -71,23 +71,28 @@ class RestaurantInfo extends React.Component {
     render() {
         return (
             <div>
-                <ul>
-                    <li>Name: {this.props.restaurant.name}</li>
-                    <li>Location: {this.props.restaurant.address.zipcode}</li>
-                    <li>Food Type: {this.props.restaurant.cuisine}</li>
-                    <li>Average Rating:
-                        <StarRatingComponent
-                            name="rate"
-                            starCount={5}
-                            value={this.props.restaurant.averageRating}
-                            editing={false}
-                        />
-                    </li>
-                    <img src={"/productImg/" + this.props.restaurant.image} alt="" className="" />
-                </ul>
-                <button onClick={this.props.reviewRestaurant}>Review me!</button>
-                <button onClick={this.props.saveRestaurant}>Save me!</button>
-
+                <Container fluid>
+                    <Card>
+                        <CardImg top width="100%" src={"/productImg/" + this.props.restaurant.image} alt="restaurant image"/>
+                        <CardBody>
+                            <CardTitle>{this.props.restaurant.name}</CardTitle>
+                        </CardBody>
+                        <CardText>
+                            <div>Location: {this.props.restaurant.address.zipcode}</div>
+                            <div>Food Type: {this.props.restaurant.cuisine}</div>
+                            <div>Average Rating:
+                                <StarRatingComponent
+                                    name="rate"
+                                    starCount={5}
+                                    value={this.props.restaurant.averageRating}
+                                    editing={false}
+                                />
+                            </div>
+                        </CardText>
+                        <button onClick={this.props.reviewRestaurant}>Review me!</button>
+                        <button onClick={this.props.saveRestaurant}>Save me!</button>
+                    </Card>
+                </Container>
             </div>
         );
     }
@@ -108,6 +113,9 @@ export class Restaurant extends React.Component {
             .bind(this);
         this.reviewRestaurant = this
             .reviewRestaurant
+            .bind(this);
+        this.logout = this
+            .logout
             .bind(this);
     }
 
@@ -158,6 +166,12 @@ export class Restaurant extends React.Component {
         }
     }
 
+    logout(e) {
+        console.log("restaurant 158: hit logout ")
+        e.preventDefault();
+        logout();
+    }
+
     render() {
         return (
             <div>
@@ -172,11 +186,12 @@ export class Restaurant extends React.Component {
                         <NavItem>
                             <NavLink href={"/user/" + this.state.userId}>Profile</NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink onClick={this.logout}>Logout</NavLink>
+                        </NavItem>
+
                     </Nav>
                 </Navbar>
-                <button>
-                    <a href="/restaurants">Go back to restaurants</a>
-                </button>
                 {this.state.restaurant !== null
                     ? <RestaurantInfo
                             restaurant={this.state.restaurant}

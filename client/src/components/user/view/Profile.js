@@ -78,7 +78,7 @@ export default class Profile extends React.Component {
     // BUG: this.findCreatedRestaurants vs findCreatedRestaurants? BUG: rerender
     // when restaurants change or need to add lifecycle
     async findCreatedRestaurants() {
-        this.setState({toRenderCreateSuccess: false});
+        this.setState({toRenderNewRestaurant: false});
         await findCreatedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("find createdrestaurants success!")
             this.setState({restaurants: res.restaurants})
@@ -88,22 +88,21 @@ export default class Profile extends React.Component {
     }
 
     async findSavedRestaurants() {
-        this.setState({toRenderCreateSuccess: false});
+        this.setState({toRenderNewRestaurant: false});
         await findSavedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("find savedrestaurants success!")
             this.setState({restaurants: res.restaurants})
-            console.log(res.restaurants)
-            console.log(this.state.restaurants)
+            // console.log(res.restaurants) console.log(this.state.restaurants)
         }).catch((err) => {
             console.log("findSavedRestaurants failure")
         });
     }
 
     findReviewedRestaurants() {
-        this.setState({toRenderCreateSuccess: false});
+        this.setState({toRenderNewRestaurant: false});
         findReviewedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("profile 76")
-            console.log(res.restaurants)
+            // console.log(res.restaurants)
             this.setState({restaurants: res.restaurants})
         }).catch((err) => {
             console.log("findReviewedRestaurants failure")
@@ -132,6 +131,11 @@ export default class Profile extends React.Component {
 
                     <Container fluid>
                         <Button onClick={this.renderNewRestaurant}>Create New Restaurants</Button>
+                        <a href={"/user/" + this.state.userId + "/reviews"}>
+                            <Button>
+                                Get all reviews
+                            </Button>
+                        </a>
                         <Button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</Button>
                         <Button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</Button>
                         <Button onClick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</Button>
@@ -141,7 +145,7 @@ export default class Profile extends React.Component {
                             : null}
                         {this.state.toRenderNewRestaurant
                             ? <NewRestaurant
-                                onSuccess={() => {
+                                    onSuccess={() => {
                                     this.setState({toRenderNewRestaurant: false, toRenderCreateSuccess: true})
                                 }}/>
                             : null}
