@@ -1,7 +1,15 @@
 import React from 'react';
 import {checkLogin, findUserById, findCreatedRestaurants, findSavedRestaurants, findReviewedRestaurants} from '../userService';
 import {RestaurantTable} from '../../restaurant/view/restaurantList';
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container } from 'reactstrap';
+import {
+    Navbar,
+    NavbarBrand,
+    NavItem,
+    NavLink,
+    Nav,
+    Jumbotron,
+    Container
+} from 'reactstrap';
 
 class UserTable extends React.Component {
     render() {
@@ -102,12 +110,15 @@ export default class Profile extends React.Component {
                         }}>Create New Restaurant</button>
                     )}/> */}
                     {/*<button>*/}
-                        {/*<a href="/">Home</a>*/}
+                    {/*<a href="/">Home</a>*/}
                     {/*</button>*/}
                     <div className="container">
-                        <a href="/newRestaurant">
-                            Create New Restaurant
-                        </a>
+                        <button>
+                            <a href="/newRestaurant">
+                                Create New Restaurant
+                            </a>
+                        </button>
+
                         <button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</button>
                         <button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</button>
                         {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}

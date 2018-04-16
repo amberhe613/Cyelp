@@ -245,10 +245,12 @@ export class RestaurantList extends React.Component {
                 <Navbar color="light" light expand="xs">
                     <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
                     <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <NavLink href="/login">Login</NavLink>
-                        </NavItem>
-                        <NavItem>
+                        {this.state.isAuthenticated
+                            ? null
+                            : <NavItem>
+                                <NavLink href="/login">Login</NavLink>
+                            </NavItem>}
+                       <NavItem>
                             <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
                         </NavItem>
                     </Nav>
