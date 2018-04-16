@@ -162,7 +162,7 @@ class SearchBar extends React.Component {
 const jumbotronStyle = {
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    backgroundImage: `url(' /images/jumbotronImg.jpg ')`,
+    backgroundImage: `url('/images/jumbotronImg.jpg')`,
     backgroundPosition: "center",
     minHeight: "300px",
     boxShadow: "0px 2px 3px rgba(0,0,0,0.2), 0px 6px 8px rgba(0,0,0,0.1), 0px 10px 15px rgba(0,0,0,0.1)"
