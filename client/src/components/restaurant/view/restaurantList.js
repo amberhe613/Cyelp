@@ -175,9 +175,14 @@ const jumbotronStyle = {
     backgroundImage: `url('/images/jumbotronImg.jpg')`,
     backgroundPosition: "center",
     minHeight: "300px",
+    textAlign: "center",
     boxShadow: "0px 2px 3px rgba(0,0,0,0.2), 0px 6px 8px rgba(0,0,0,0.1), 0px 10px 15px rgba(0,0" +
             ",0,0.1)"
 };
+
+const textStyle = {
+    color: "white",
+}
 
 export class RestaurantList extends React.Component {
     constructor(props) {
@@ -279,11 +284,11 @@ export class RestaurantList extends React.Component {
                 </Navbar>
                 <Jumbotron style={jumbotronStyle} fluid>
                     <Container fluid>
-                        <h1 className="display-3"></h1>
-                        <p className="lead"></p>
+                        <h1 className="display-4" style={textStyle}>Welcome to Cyelp!</h1>
+                        <Button onClick={this.findAllRestaurants}>See all restaurants</Button>
+                        {/*<p className="lead" style={textStyle}>View our hand picked authentic Chinese restaurants!</p>*/}
                     </Container>
                 </Jumbotron>
-                <Button onClick={this.findAllRestaurants}>See all restaurants</Button>
                 <Container fluid>
                     <SearchBar
                         foodType={this.state.foodType}

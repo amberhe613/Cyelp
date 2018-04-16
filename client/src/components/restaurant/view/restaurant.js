@@ -25,7 +25,13 @@ class ReviewRow extends React.Component {
                     <a href={"/user/" + review._author.id + "/reviews"}>{review._author.name}</a>
                 </td>
                 <td>{review.content}</td>
-                <td>{review.rating}</td>
+                <td>
+                    <StarRatingComponent
+                        name="rate"
+                        starCount={5}
+                        value={review.rating}
+                    />
+                </td>
                 <td>{review.price}</td>
                 <td>{review.createdAt}</td>
             </tr>
@@ -44,7 +50,7 @@ export class ReviewTable extends React.Component {
             });
 
         return (
-            <table>
+            <Table>
                 <thead>
                     <tr>
                         <th>Reviewer</th>
@@ -55,7 +61,7 @@ export class ReviewTable extends React.Component {
                     </tr>
                 </thead>
                 <tbody>{rows}</tbody>
-            </table>
+            </Table>
         );
     }
 }
