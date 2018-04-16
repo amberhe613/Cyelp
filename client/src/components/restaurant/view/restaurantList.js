@@ -1,4 +1,5 @@
 import React from 'react';
+import StarRatingComponent from 'react-star-rating-component';
 import {findRestaurant} from '../restaurantService';
 import {checkLogin} from '../../user/userService';
 import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container, Input, Button, Table } from 'reactstrap';
@@ -6,7 +7,6 @@ import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container, Input,
 class RestaurantRow extends React.Component {
     render() {
         const restaurant = this.props.restaurant;
-
         return (
             <tr>
                 <td>
@@ -15,8 +15,13 @@ class RestaurantRow extends React.Component {
                 <td>{restaurant.address.zipcode}</td>
                 <td>{restaurant.cuisine}</td>
                 <td>
-                    {restaurant.averageRating}
-                    </td>
+                    <StarRatingComponent
+                        name="rate"
+                        starCount={5}
+                        value={restaurant.averageRating}
+                    />
+                </td>
+
             </tr>
         );
     }
