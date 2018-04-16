@@ -2,7 +2,17 @@ import React from 'react';
 import {checkLogin} from '../../user/userService'
 import {findRestaurantById, findRestaurantReviews, saveRestaurant} from '../restaurantService';
 import NewReview from '../../review/view/newReview'
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Container, Input, Button, Table } from 'reactstrap'
+import {
+    Navbar,
+    NavbarBrand,
+    NavItem,
+    NavLink,
+    Nav,
+    Container,
+    Input,
+    Button,
+    Table
+} from 'reactstrap'
 
 class ReviewRow extends React.Component {
     render() {
@@ -20,7 +30,7 @@ class ReviewRow extends React.Component {
     }
 }
 
-class ReviewTable extends React.Component {
+export class ReviewTable extends React.Component {
     render() {
         const rows = [];
         this
@@ -62,7 +72,7 @@ class RestaurantInfo extends React.Component {
     }
 }
 
-export default class Restaurant extends React.Component {
+export class Restaurant extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -137,7 +147,7 @@ export default class Restaurant extends React.Component {
                             <NavLink href="/login">Login</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
+                            <NavLink href={"/user/" + this.state.userId}>Profile</NavLink>
                         </NavItem>
                     </Nav>
                 </Navbar>
