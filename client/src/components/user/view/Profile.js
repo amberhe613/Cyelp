@@ -28,6 +28,12 @@ class UserTable extends React.Component {
     }
 }
 
+const ButtonLinkStyle = {
+    color: "black",
+    textDecoration: "",
+};
+
+
 export default class Profile extends React.Component {
     constructor(props) {
         super(props);
@@ -114,7 +120,7 @@ export default class Profile extends React.Component {
                     {/*</button>*/}
                     <div className="container">
                         <button>
-                            <a href="/newRestaurant">
+                            <a style={ButtonLinkStyle} href="/newRestaurant">
                                 Create New Restaurant
                             </a>
                         </button>
