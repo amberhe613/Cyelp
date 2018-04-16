@@ -45,5 +45,5 @@ People in the Bay Area who are interested in chinese food.
 3. Search exsiting resturants.
 4. Leave reviews about resturants and edit or delete comments whenever users need.
 5. Rate resturants on a five-star rating scale according to food quality, service and etc.
-6. Login with facebook account or google account.
+6. Login with github and google account.
 7. Display resturant location on Google Maps.
