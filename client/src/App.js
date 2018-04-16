@@ -7,6 +7,7 @@ import NewRestaurant from './components/restaurant/view/newRestaurant';
 import Reviews from './components/review/view/reviews';
 // import {checkLogin} from './components/user/userService';
 import {RestaurantList} from './components/restaurant/view/restaurantList';
+import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container, Input, Button, Table } from 'reactstrap';
 
 class App extends Component {
     constructor(props) {
@@ -41,6 +42,18 @@ class App extends Component {
                     ? <Redirect to="/restaurants"/>
                     : null}
                 {/* <div className="header"> */}
+                {/* <Navbar color="light" light expand="xs">
+                    <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <NavLink href="/login">Login</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
+                        </NavItem>
+                    </Nav>
+                </Navbar> */}
+ 
                 <Link to="/login"></Link>
                 <Link to="/user/:userId"></Link>
                 <Link to="/restaurants"></Link>
