@@ -253,8 +253,6 @@ export class RestaurantList extends React.Component {
                         </NavItem>
                     </Nav>
                 </Navbar>
-                {/*<div style={style}>*/}
-                {/*</div>*/}
                 <Jumbotron style={jumbotronStyle} fluid>
                     <Container fluid>
                         <h1 className="display-3"></h1>
