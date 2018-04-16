@@ -1,7 +1,19 @@
 import React from 'react';
 import {checkLogin} from '../../user/userService';
 import {createRestaurant} from '../restaurantService';
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Container, Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import {
+    Navbar,
+    NavbarBrand,
+    NavItem,
+    NavLink,
+    Nav,
+    Container,
+    Button,
+    Form,
+    FormGroup,
+    Input,
+    Label
+} from 'reactstrap';
 
 export default class NewRestaurant extends React.Component {
     // need a props for userId
@@ -12,7 +24,7 @@ export default class NewRestaurant extends React.Component {
             area: '',
             name: '',
             isAuthenticated: false,
-            userId: null,
+            userId: null
         };
 
         this.handleChange = this
@@ -29,8 +41,7 @@ export default class NewRestaurant extends React.Component {
                 this.setState({isAuthenticated: true, userId: res._id})
             } else {}
         })
-   }
-
+    }
 
     handleChange(e) {
         e.preventDefault()
@@ -39,15 +50,15 @@ export default class NewRestaurant extends React.Component {
         })
     }
 
-
     handleSubmit() {
         console.log("newrestaurant 41")
         console.log(this.state.name)
-        createRestaurant(this.state.name, this.state.area, this.state.foodType)
-        .then(res=>{
-            this.props.history.push("/user/"+this.state.userId)
-        })
-        .catch((err)=>{
+        createRestaurant(this.state.name, this.state.area, this.state.foodType).then(res => {
+            this
+                .props
+                .history
+                .push("/user/" + this.state.userId)
+        }).catch((err) => {
             console.log(err)
         })
     }
@@ -60,11 +71,14 @@ export default class NewRestaurant extends React.Component {
                     <Navbar color="light" light expand="xs">
                         <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
                         <Nav className="ml-auto" navbar>
+                            {this.state.isAuthenticated
+                                ? null
+                                : <NavItem>
+                                    <NavLink href="/login">Login</NavLink>
+                                </NavItem>}
+
                             <NavItem>
-                                <NavLink href="/login">Login</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
+                                <NavLink href={"/user/" + this.state.userId}>Profile</NavLink>
                             </NavItem>
                         </Nav>
                     </Navbar>
