@@ -1,7 +1,18 @@
 import React from 'react';
 import {findReviewsByUserId, updateReview, deleteReview} from '../reviewService';
 import {checkLogin} from '../../user/userService';
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container, Input, Button, Table } from 'reactstrap';
+import {
+    Navbar,
+    NavbarBrand,
+    NavItem,
+    NavLink,
+    Nav,
+    Jumbotron,
+    Container,
+    Input,
+    Button,
+    Table
+} from 'reactstrap';
 import StarRatingComponent from 'react-star-rating-component';
 
 class UserReviewRow extends React.Component {
@@ -46,7 +57,6 @@ class UserReviewRow extends React.Component {
     render() {
         const review = this.props.review;
 
-<<<<<<< HEAD
         if (this.props.showModify) {
             return (
                 <tr>
@@ -78,8 +88,13 @@ class UserReviewRow extends React.Component {
                             placeholder={review.price}/>
                     </td>
                     <td>{review.createdAt}</td>
-                    <button onClick={this.handleSubmit}>Update</button>
-                    <button onClick={this.handleDelete}>Delete</button>
+                    <td>
+                        <button onClick={this.handleSubmit}>Update</button>
+                    </td>
+                    <td>
+                        <button onClick={this.handleDelete}>Delete</button>
+                    </td>
+
                 </tr>
             )
         } else {
@@ -87,35 +102,14 @@ class UserReviewRow extends React.Component {
                 <tr>
                     <td>{review._restaurant.name}</td>
                     <td>{review.content}</td>
-                    <td>{review.rating}</td>
+                    <td>
+                        <StarRatingComponent name="rate" starCount={5} value={review.rating}/>
+                    </td>
                     <td>{review.price}</td>
                     <td>{review.createdAt}</td>
                 </tr>
             )
         }
-=======
-        return (
-            <tr>
-                <td>{review._restaurant.name}</td>
-                <td>{review.content}</td>
-                <td>
-                    <StarRatingComponent
-                        name="rate"
-                        starCount={5}
-                        value={review.rating}
-                    />
-                </td>
-                <td>{review.price}</td>
-                <td>{review.createdAt}</td>
-                {this.props.showModify
-                    ? <button>Modify</button>
-                    : null}
-                 {this.props.showDelete
-                    ? <button>Delete</button>
-                    : null}
-            </tr>
-        );
->>>>>>> 0e803fe665daeb47bb86e27401501256ed4d91a6
     }
 }
 
@@ -178,22 +172,15 @@ export default class Reviews extends React.Component {
     render() {
         if (this.state.reviews !== null) {
             return (
-<<<<<<< HEAD
-                <div>
-                    All reviews of {this.state.username}
-                    <UserReviewsTable
-                        showModify={this.state.showModify}
-                        reviews={this.state.reviews}/>
-                </div>
-=======
                 <Container fluid>
                     <div>
                         <h3>All reviews of {this.state.username}</h3>
-                        <UserReviewsTable reviews={this.state.reviews}/>
+                        <UserReviewsTable
+                            showModify={this.state.showModify}
+                            reviews={this.state.reviews}/>
                     </div>
                 </Container>
->>>>>>> 0e803fe665daeb47bb86e27401501256ed4d91a6
-            );
+            )
         } else {
             return (
                 <div>
