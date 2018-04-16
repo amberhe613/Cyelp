@@ -209,11 +209,11 @@ export class RestaurantList extends React.Component {
     }
 
     async componentDidMount() {
-        await checkLogin().then((res) => {
-            if (res._id !== null) {
-                this.setState({isAuthenticated: true, userId: res._id})
-            } else {}
-        })
+        // await checkLogin().then((res) => {
+        //     if (res._id !== null) {
+        //         this.setState({isAuthenticated: true, userId: res._id})
+        //     } else {}
+        // })
         findRestaurant({}).then((res) => {
             this.setState({restaurants: res.restaurants})
         })

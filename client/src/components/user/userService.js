@@ -8,6 +8,8 @@ export function checkLogin() {
         credentials: "same-origin",
     }).then((res) => {
         return res.json()
+    }).catch((err)=>{
+        console.log(err)
     })
 }
 
@@ -54,4 +56,16 @@ export function findReviewedRestaurants(userId, N) {
             'Content-Type': 'application/json'
         }
     }).then((res) => res.json())
+}
+
+export function logout(){
+    console.log("user service 60")
+    return fetch('/api/logout', {
+        method: 'GET',
+        credentials: "same-origin",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
 }

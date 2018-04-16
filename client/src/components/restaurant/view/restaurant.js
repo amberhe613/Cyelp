@@ -1,5 +1,5 @@
 import React from 'react';
-import {checkLogin} from '../../user/userService'
+import {checkLogin, logout} from '../../user/userService'
 import {findRestaurantById, findRestaurantReviews, saveRestaurant} from '../restaurantService';
 import NewReview from '../../review/view/newReview'
 import {
@@ -26,11 +26,7 @@ class ReviewRow extends React.Component {
                 </td>
                 <td>{review.content}</td>
                 <td>
-                    <StarRatingComponent
-                        name="rate"
-                        starCount={5}
-                        value={review.rating}
-                    />
+                    <StarRatingComponent name="rate" starCount={5} value={review.rating}/>
                 </td>
                 <td>{review.price}</td>
                 <td>{review.createdAt}</td>
@@ -78,10 +74,9 @@ class RestaurantInfo extends React.Component {
                         <StarRatingComponent
                             name="rate"
                             starCount={5}
-                            value={this.props.restaurant.averageRating}
-                        />
+                            value={this.props.restaurant.averageRating}/>
                     </li>
-                    <img src={"/productImg/" + this.props.restaurant.image} alt="" className="" />
+                    <img src={"/productImg/" + this.props.restaurant.image} alt="" className=""/>
                 </ul>
                 <button onClick={this.props.reviewRestaurant}>Review me!</button>
                 <button onClick={this.props.saveRestaurant}>Save me!</button>
@@ -106,6 +101,9 @@ export class Restaurant extends React.Component {
             .bind(this);
         this.reviewRestaurant = this
             .reviewRestaurant
+            .bind(this);
+        this.logout = this
+            .logout
             .bind(this);
     }
 
@@ -156,6 +154,12 @@ export class Restaurant extends React.Component {
         }
     }
 
+    logout(e) {
+        console.log("restaurant 158: hit logout ")
+        e.preventDefault();
+        logout();
+    }
+
     render() {
         return (
             <div>
@@ -170,6 +174,10 @@ export class Restaurant extends React.Component {
                         <NavItem>
                             <NavLink href={"/user/" + this.state.userId}>Profile</NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink onClick={this.logout}>Logout</NavLink>
+                        </NavItem>
+
                     </Nav>
                 </Navbar>
                 <button>
