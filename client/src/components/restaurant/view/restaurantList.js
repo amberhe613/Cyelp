@@ -254,9 +254,7 @@ export class RestaurantList extends React.Component {
                             <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
                         </NavItem>
                     </Nav>
-                </Navbar> 
-                {/*<div style={style}>
-                {/*</div>*/}
+                </Navbar>
                 <Jumbotron style={jumbotronStyle} fluid>
                     <Container fluid>
                         <h1 className="display-3"></h1>
