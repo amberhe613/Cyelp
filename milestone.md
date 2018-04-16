@@ -12,15 +12,15 @@
 
 ### week 4.02-4.08: 
 
-- [ ] Complete remaining parts of front-end views and services
-- [ ] Add user authentication with facebook
-- [ ] Add authorization middleware for edit and delete
-- [ ] Add home page with simply anmiation
+- [x] Complete remaining parts of front-end views and services
+- [x] Add user authentication with github
+- [x] Add authorization middleware for edit and delete
+- [x] Add home page with simply anmiation
 - [ ] Implement sorting service in list page
 
 ### week 4.09-4.15: 
 
-- [ ] Implement search function(Opitional)
+- [x] Implement search function(Opitional)
 - [ ] Add google map to detail page(Opitional)
 - [ ] Polish front-end views
 - [ ] Testing
