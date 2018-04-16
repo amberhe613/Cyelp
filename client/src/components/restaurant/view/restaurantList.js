@@ -29,7 +29,9 @@ class RestaurantRow extends React.Component {
                     <StarRatingComponent
                         name="rate"
                         starCount={5}
-                        value={restaurant.averageRating}/>
+                        value={restaurant.averageRating}
+                        editing={false}
+                    />
                 </td>
 
             </tr>

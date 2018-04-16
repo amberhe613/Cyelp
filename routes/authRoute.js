@@ -18,18 +18,21 @@ module.exports = app => {
     app.get("/auth/github/callback", passport.authenticate("github"), (req, res) => {
         res.redirect('/login');
     });
-    app.get("/api/logout", (req, res) => {
+
+    app.get('/api/logout', function(req, res){
         req.logout();
+        res.redirect('/');
     });
 
-    // app.get('/api/account', ensureAuthenticated, function (req, res) {
     app.get('/api/account', function (req, res) {
         if (req.session.passport) {
             User.findById(req.session.passport.user, function (err, user) {
                 if (err) {
                     console.log(err); // handle errors
-                } else {
+                } else if (user !== null) {
                     res.json(user);
+                } else {
+                    res.json({_id: null})
                 }
             });
         } else {

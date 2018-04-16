@@ -74,7 +74,9 @@ class RestaurantInfo extends React.Component {
                         <StarRatingComponent
                             name="rate"
                             starCount={5}
-                            value={this.props.restaurant.averageRating}/>
+                            value={this.props.restaurant.averageRating}
+                            editing={false}
+                        />
                     </li>
                     <img src={"/productImg/" + this.props.restaurant.image} alt="" className=""/>
                 </ul>
