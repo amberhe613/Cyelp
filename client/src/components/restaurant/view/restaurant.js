@@ -24,8 +24,10 @@ class ReviewRow extends React.Component {
                 <td>
                     <a href={"/user/" + review._author.id + "/reviews"}>{review._author.name}</a>
                 </td>
-
                 <td>{review.content}</td>
+                <td>{review.rating}</td>
+                <td>{review.price}</td>
+                <td>{review.createdAt}</td>
             </tr>
         );
     }
@@ -46,7 +48,10 @@ export class ReviewTable extends React.Component {
                 <thead>
                     <tr>
                         <th>Reviewer</th>
-                        <th>Review</th>
+                        <th>Content</th>
+                        <th>Rating</th>
+                        <th>Reported price</th>
+                        <th>Review time</th>
                     </tr>
                 </thead>
                 <tbody>{rows}</tbody>

@@ -21,6 +21,12 @@ class UserReviewRow extends React.Component {
                 </td>
                 <td>{review.price}</td>
                 <td>{review.createdAt}</td>
+                {this.props.showModify
+                    ? <button>Modify</button>
+                    : null}
+                 {this.props.showDelete
+                    ? <button>Delete</button>
+                    : null}
             </tr>
         );
     }
@@ -33,6 +39,7 @@ class UserReviewsTable extends React.Component {
             .props
             .reviews
             .forEach((review) => {
+                // TODO: props show modify
                 rows.push(<UserReviewRow review={review} key={review._id}/>);
             });
 

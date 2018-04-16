@@ -71,6 +71,8 @@ router.get('/user/:userId/reviewedrestaurants', function (req, res) {
                                         restaurantMap.push(restaurant);
                                     }
                                     if (visited === user.reviewedRestaurants.length) {
+                                        console.log("reviewroutes 74:")
+                                        console.log(restaurantMap)
                                         res.json({restaurants: restaurantMap})
                                     }
                                 })
