@@ -149,6 +149,7 @@ router.put("/review/:reviewId", function (req, res) {
                 var curRatingTotal = (restaurant.averageRating || 0) * restaurant.reviewsNumber;
                 restaurant.averageRating = (parseInt(curRatingTotal) + parseInt(req.body.rating) - parseInt(oldRate)) / restaurant.reviewsNumber;
                 restaurant.save();
+                console.log(restaurant.averageRating);
             });
 
             res.status(200);
@@ -162,68 +163,56 @@ router.put("/review/:reviewId", function (req, res) {
 //DELETE review
 router.delete("/review/:reviewId", function (req, res) {
     //findByIdAndRemove
-    Review
-        .findByIdAndRemove(req.params.reviewId, function (err, deletedReview) {
-            if (err) {
-                res.status(400);
-                res.send({"error": "error while deleting review"});
-            } else {
-                // Remove review id in restaurant reviews list
-                Restaurant
-                    .findById(deletedReview._restaurant.id, function (err, restaurant) {
-                        var curReviewNum = restaurant.reviewsNumber;
-                        var curRatingTotal = (restaurant.averageRating || 0) * restaurant.reviewsNumber;
-                        var removeIndexForRestaurant = restaurant
+    Review.findByIdAndRemove(req.params.reviewId, function (err, deletedReview) {
+        if (err) {
+            res.status(400);
+            res.send({"error": "error while deleting review"});
+        } else {
+            // Remove review id in restaurant reviews list
+            Restaurant.findById(deletedReview._restaurant.id, function (err, restaurant) {
+                    var curReviewNum = restaurant.reviewsNumber;
+                    var curRatingTotal = (restaurant.averageRating || 0) * restaurant.reviewsNumber;
+                    var removeIndexForRestaurant = restaurant.reviews.map(function (review) {
+                            return review._id;
+                        })
+                        .indexOf(req.params.reviewId);
+                    if (removeIndexForRestaurant === -1) {
+                        res.json({message: "Not found"});
+                    } else {
+                        restaurant.reviewsNumber = curReviewNum - 1;
+                        restaurant.averageRating = (curRatingTotal - deletedReview.rating) / restaurant.reviewsNumber;
+                        restaurant.reviews.splice(removeIndexForRestaurant, 1);
+                        restaurant.save();
+
+                        var removeIndexForUser = req
+                            .user
                             .reviews
                             .map(function (review) {
                                 return review._id;
                             })
                             .indexOf(req.params.reviewId);
-                        if (removeIndexForRestaurant === -1) {
-                            res.json({message: "Not found"});
-                        } else {
-                            restaurant.reviewsNumber = curReviewNum - 1;
-                            restaurant.averageRating = (curRatingTotal - deletedReview.rating) / restaurant.reviewsNumber;
-                            restaurant
-                                .reviews
-                                .splice(removeIndexForRestaurant, 1);
-                            restaurant.save();
-
-                            var removeIndexForUser = req
-                                .user
-                                .reviews
-                                .map(function (review) {
-                                    return review._id;
-                                })
-                                .indexOf(req.params.reviewId);
-                            req
-                                .user
-                                .reviews
-                                .splice(removeIndexForUser, 1);
-                            req
-                                .user
-                                .save();
-                            var removeRestaurantIndexForUser = req
-                                .user
-                                .reviewedRestaurants
-                                .map(function (restaurant) {
-                                    return restaurant._id;
-                                })
-                                .indexOf(deletedReview._restaurant.id);
-                            req
-                                .user
-                                .reviewedRestaurants
-                                .splice(removeRestaurantIndexForUser, 1);
-                            req
-                                .user
-                                .save();
-
-                            res.status(200);
-                            res.send({message: "successfully deleted review"});
-                        }
-                    });
-            }
-        });
+                        req
+                            .user
+                            .reviews
+                            .splice(removeIndexForUser, 1);
+                        req
+                            .user
+                            .save();
+                        var removeRestaurantIndexForUser = req
+                            .user
+                            .reviewedRestaurants
+                            .map(function (restaurant) {
+                                return restaurant._id;
+                            })
+                            .indexOf(deletedReview._restaurant.id);
+                        req.user.reviewedRestaurants
+                            .splice(removeRestaurantIndexForUser, 1);
+                        req.user.save();
+                        res.status(200);
+                    }
+                });
+        }
+    });
 });
 
 module.exports = router;
