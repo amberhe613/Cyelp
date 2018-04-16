@@ -37,10 +37,11 @@ class UserReviewRow extends React.Component {
         })
     }
 
-    handleSubmit() {
-        updateReview(this.props.review._id, this.state).then((res) => {
+    async handleSubmit() {
+        console.log(this.props.review)
+        await updateReview(this.props.review._id, this.state).then((res) => {
             console.log("update review success")
-        }).catch((err) => {
+       }).catch((err) => {
             console.log("reviews 35" + err)
         })
     }
@@ -48,10 +49,9 @@ class UserReviewRow extends React.Component {
     handleDelete() {
         deleteReview(this.props.review._id).then((res) => {
             console.log("delete review success")
-        }).catch((err) => {
-            console.log("reviews 42" + err)
+       }).catch((err) => {
+            console.log("delete reviews failure")
         })
-
     }
 
     render() {
@@ -61,7 +61,9 @@ class UserReviewRow extends React.Component {
             return (
                 <tr>
                     <td>
-                        {review._restaurant.name}
+                        <a href={"/restaurants/" + review._restaurant.id}>
+                            {review._restaurant.name}
+                        </a>
                     </td>
                     <td>
                         <input
@@ -100,7 +102,11 @@ class UserReviewRow extends React.Component {
         } else {
             return (
                 <tr>
-                    <td>{review._restaurant.name}</td>
+                    <td>
+                        <a href={"/restaurants/" + review._restaurant.id}>
+                            {review._restaurant.name}
+                        </a>
+                    </td>
                     <td>{review.content}</td>
                     <td>
                         <StarRatingComponent name="rate" starCount={5} value={review.rating} editing={false}/>
@@ -156,8 +162,9 @@ export default class Reviews extends React.Component {
 
     async componentDidMount() {
         findReviewsByUserId(this.props.match.params.userId).then((res) => {
-            // TODO: set reviews console.log("reviews 17: reviews") console.log(res)
-            this.setState({reviews: res.reviews, username: res.reviews[0]._author.name})
+            if (res.reviews.length !== 0) {
+                this.setState({reviews: res.reviews, username: res.reviews[0]._author.name})
+            }
         })
 
         await checkLogin().then((res) => {

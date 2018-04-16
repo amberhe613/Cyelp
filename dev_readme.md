@@ -16,3 +16,6 @@ https://cyelp.herokuapp.com/
 - [x] frontend: add restaurant image add input for image url
 - [ ] frontend: add logout
 - [ ] css: format user reviews table 
+- [ ] can't create new restaurant
+- [ ] create new restaurant always under get restaurants
+- [x] reviews delete not update
