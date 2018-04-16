@@ -249,7 +249,8 @@ export class RestaurantList extends React.Component {
                             ? null
                             : <NavItem>
                                 <NavLink href="/login">Login</NavLink>
-                            </NavItem>}
+                            </NavItem>
+                        }
                        <NavItem>
                             <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
                         </NavItem>
