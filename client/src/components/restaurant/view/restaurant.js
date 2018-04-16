@@ -76,21 +76,20 @@ class RestaurantInfo extends React.Component {
                         <CardImg top width="100%" src={"/productImg/" + this.props.restaurant.image} alt="restaurant image"/>
                         <CardBody>
                             <CardTitle>{this.props.restaurant.name}</CardTitle>
-                        </CardBody>
-                        <CardText>
+                            <StarRatingComponent
+                                name="rate"
+                                starCount={5}
+                                value={this.props.restaurant.averageRating}
+                                editing={false}
+                            />
                             <div>Location: {this.props.restaurant.address.zipcode}</div>
                             <div>Food Type: {this.props.restaurant.cuisine}</div>
-                            <div>Average Rating:
-                                <StarRatingComponent
-                                    name="rate"
-                                    starCount={5}
-                                    value={this.props.restaurant.averageRating}
-                                    editing={false}
-                                />
-                            </div>
-                        </CardText>
-                        <button onClick={this.props.reviewRestaurant}>Review me!</button>
-                        <button onClick={this.props.saveRestaurant}>Save me!</button>
+
+                            <CardText>
+                            </CardText>
+                            <Button onClick={this.props.reviewRestaurant}>Review me!</Button>
+                            <Button onClick={this.props.saveRestaurant}>Save me!</Button>
+                        </CardBody>
                     </Card>
                 </Container>
             </div>
