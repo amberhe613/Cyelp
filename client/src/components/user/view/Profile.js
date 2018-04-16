@@ -10,6 +10,7 @@ import {
     Jumbotron,
     Container
 } from 'reactstrap';
+import NewRestaurant from '../../restaurant/view/newRestaurant'
 
 class UserTable extends React.Component {
     render() {
@@ -28,12 +29,6 @@ class UserTable extends React.Component {
     }
 }
 
-const ButtonLinkStyle = {
-    color: "black",
-    textDecoration: "",
-};
-
-
 export default class Profile extends React.Component {
     constructor(props) {
         super(props);
@@ -41,7 +36,9 @@ export default class Profile extends React.Component {
             restaurants: null,
             userInfo: {},
             isAuthenticated: false,
-            userId: null
+            userId: null,
+            toRenderNewRestaurant: false,
+            toRenderCreateSuccess: false
         };
         this.findCreatedRestaurants = this
             .findCreatedRestaurants
@@ -51,6 +48,9 @@ export default class Profile extends React.Component {
             .bind(this);
         this.findReviewedRestaurants = this
             .findReviewedRestaurants
+            .bind(this);
+        this.renderNewRestaurant = this
+            .renderNewRestaurant
             .bind(this);
     }
 
@@ -74,6 +74,7 @@ export default class Profile extends React.Component {
     // BUG: this.findCreatedRestaurants vs findCreatedRestaurants? BUG: rerender
     // when restaurants change or need to add lifecycle
     async findCreatedRestaurants() {
+        this.setState({toRenderCreateSuccess: false});
         await findCreatedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("find createdrestaurants success!")
             this.setState({restaurants: res.restaurants})
@@ -82,8 +83,9 @@ export default class Profile extends React.Component {
         });
     }
 
-    findSavedRestaurants() {
-        findSavedRestaurants(this.state.userInfo._id).then((res) => {
+    async findSavedRestaurants() {
+        this.setState({toRenderCreateSuccess: false});
+        await findSavedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("find savedrestaurants success!")
             this.setState({restaurants: res.restaurants})
             console.log(res.restaurants)
@@ -103,6 +105,10 @@ export default class Profile extends React.Component {
         });
     }
 
+    renderNewRestaurant() {
+        this.setState({toRenderNewRestaurant: true, restaurants: null})
+    }
+
     render() {
         if (this.state.isAuthenticated) {
             return (
@@ -119,18 +125,23 @@ export default class Profile extends React.Component {
                     {/*<a href="/">Home</a>*/}
                     {/*</button>*/}
                     <div className="container">
-                        <button>
-                            <a style={ButtonLinkStyle} href="/newRestaurant">
-                                Create New Restaurant
-                            </a>
-                        </button>
-
+                        <button onClick={this.renderNewRestaurant}>Creat New Restaurants</button>
                         <button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</button>
                         <button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</button>
                         {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}
                         {this.state.restaurants !== null
                             ? <RestaurantTable restaurants={this.state.restaurants}/>
                             : null}
+                        {this.state.toRenderNewRestaurant
+                            ? <NewRestaurant
+                                    onSuccess={() => {
+                                    this.setState({toRenderNewRestaurant: false, toRenderCreateSuccess: true})
+                                }}/>
+                            : null}
+                        {this.state.toRenderCreateSuccess
+                            ? <div>Create success!</div>
+                            : null}
+
                     </div>
                 </div>
             );

@@ -17,14 +17,17 @@ export function createReview(restaurantId, content, rating, price) {
     })
 }
 
-export function findReviewsByUserId() {
+export function findReviewsByUserId(userId) {
     // TODO: get reviews
-    return fetch('/api/reviews', {
+    return fetch('/api/user/'+userId+'/reviews', {
         method: 'GET',
         credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
+    }).then((res) => {
+        return res.json()
     })
+
 }

@@ -63,6 +63,7 @@ class RestaurantInfo extends React.Component {
                     <li>Location: {this.props.restaurant.address.zipcode}</li>
                     <li>Food Type: {this.props.restaurant.cuisine}</li>
                     <li>Average Rating: {this.props.restaurant.averageRating}</li>
+                    <img src={"/productImg/" + this.props.restaurant.image} alt="" className="" />
                 </ul>
                 <button onClick={this.props.reviewRestaurant}>Review me!</button>
                 <button onClick={this.props.saveRestaurant}>Save me!</button>
