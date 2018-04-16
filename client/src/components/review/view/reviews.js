@@ -103,7 +103,7 @@ class UserReviewRow extends React.Component {
                     <td>{review._restaurant.name}</td>
                     <td>{review.content}</td>
                     <td>
-                        <StarRatingComponent name="rate" starCount={5} value={review.rating}/>
+                        <StarRatingComponent name="rate" starCount={5} value={review.rating} editing={false}/>
                     </td>
                     <td>{review.price}</td>
                     <td>{review.createdAt}</td>

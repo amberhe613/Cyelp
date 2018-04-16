@@ -30,6 +30,7 @@ class ReviewRow extends React.Component {
                         name="rate"
                         starCount={5}
                         value={review.rating}
+                        editing={false}
                     />
                 </td>
                 <td>{review.price}</td>
@@ -79,6 +80,7 @@ class RestaurantInfo extends React.Component {
                             name="rate"
                             starCount={5}
                             value={this.props.restaurant.averageRating}
+                            editing={false}
                         />
                     </li>
                     <img src={"/productImg/" + this.props.restaurant.image} alt="" className="" />
