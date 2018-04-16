@@ -1,6 +1,8 @@
 import React from 'react';
 import {findReviewsByUserId} from '../reviewService';
 import {checkLogin} from '../../user/userService';
+import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container, Input, Button, Table } from 'reactstrap';
+import StarRatingComponent from 'react-star-rating-component';
 
 class UserReviewRow extends React.Component {
     render() {
@@ -10,7 +12,13 @@ class UserReviewRow extends React.Component {
             <tr>
                 <td>{review._restaurant.name}</td>
                 <td>{review.content}</td>
-                <td>{review.rating}</td>
+                <td>
+                    <StarRatingComponent
+                        name="rate"
+                        starCount={5}
+                        value={review.rating}
+                    />
+                </td>
                 <td>{review.price}</td>
                 <td>{review.createdAt}</td>
             </tr>
@@ -29,18 +37,18 @@ class UserReviewsTable extends React.Component {
             });
 
         return (
-            <table>
+            <Table>
                 <thead>
                     <tr>
                         <th>Restaurant name</th>
-                        <th>Review content</th>
+                        <th>Review</th>
                         <th>Rating</th>
                         <th>Reported price</th>
                         <th>Review time</th>
                     </tr>
                 </thead>
                 <tbody>{rows}</tbody>
-            </table>
+            </Table>
         );
     }
 }
@@ -66,15 +74,20 @@ export default class Reviews extends React.Component {
     render() {
         if (this.state.reviews !== null) {
             return (
-                <div>
-                    All reviews of {this.state.username}
-                    <UserReviewsTable reviews={this.state.reviews}/>
-                </div>
+                <Container fluid>
+                    <div>
+                        <h3>All reviews of {this.state.username}</h3>
+                        <UserReviewsTable reviews={this.state.reviews}/>
+                    </div>
+                </Container>
             );
         } else {
             return (
                 <div>
-                    No reviews for this user
+                    <h3>
+                        No reviews for this user
+                    </h3>
+
                 </div>
             )
 
