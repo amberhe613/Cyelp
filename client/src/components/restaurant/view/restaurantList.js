@@ -242,18 +242,20 @@ export class RestaurantList extends React.Component {
     render() {
         return (
             <div>
-                {/* <Navbar color="light" light expand="xs">
+                <Navbar color="light" light expand="xs">
                     <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
                     <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <NavLink href="/login">Login</NavLink>
-                        </NavItem>
-                        <NavItem>
+                        {this.state.isAuthenticated
+                            ? null
+                            : <NavItem>
+                                <NavLink href="/login">Login</NavLink>
+                            </NavItem>}
+                       <NavItem>
                             <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
                         </NavItem>
                     </Nav>
-                </Navbar> */}
-                {/*<div style={style}>*/}
+                </Navbar> 
+                {/*<div style={style}>
                 {/*</div>*/}
                 <Jumbotron style={jumbotronStyle} fluid>
                     <Container fluid>
