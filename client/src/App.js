@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link, Route, Redirect} from 'react-router-dom';
+import Landing from './components/landing/Landing';
 import Login from './components/user/view/Login';
 import Profile from './components/user/view/Profile';
 import {Restaurant} from './components/restaurant/view/restaurant';
@@ -60,6 +61,10 @@ class App extends Component {
                 <Link to="/restaurants/:restaurantId"></Link>
                 <Link to="/newrestaurant"></Link>
                 <Link to="/user/:userId/reviews"></Link>
+                <Route
+                    exact
+                    path="/home"
+                    render={props => <Landing/>}/>
                 <Route
                     exact
                     path="/login"

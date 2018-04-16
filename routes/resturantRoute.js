@@ -7,29 +7,40 @@ var User = require("../db/userModel");
 
 // POST createRestaurant
 router.post('/restaurant/new', upload.single('file'), function (req, res) {
-    console.log("restaurant route 10")
-    console.log(req.body)
-    console.log(req.file)
     // Check if all fields are provided and are valid:
     if (!req.body.name || !req.body.zipcode) {
-        console.log("restaurant route 14")
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-        console.log("restaurant route 18")
-        var newRestaurant = new Restaurant({
-            name: req.body.name,
-            image: req.file.filename,
-            cuisine: req.body.cuisine,
-            phone: req.body.phone,
-            address: {
-                street: req.body.street,
-                building: req.body.building,
-                city: req.body.city,
-                state: req.body.state,
-                zipcode: req.body.zipcode
-            }
-        });
+        if (req.file) {
+            var newRestaurant = new Restaurant({
+                name: req.body.name,
+                image: req.file.filename,
+                cuisine: req.body.cuisine,
+                phone: req.body.phone,
+                address: {
+                    street: req.body.street,
+                    building: req.body.building,
+                    city: req.body.city,
+                    state: req.body.state,
+                    zipcode: req.body.zipcode
+                }
+            });
+        } else {
+            var newRestaurant = new Restaurant({
+                name: req.body.name,
+                image: "",
+                cuisine: req.body.cuisine,
+                phone: req.body.phone,
+                address: {
+                    street: req.body.street,
+                    building: req.body.building,
+                    city: req.body.city,
+                    state: req.body.state,
+                    zipcode: req.body.zipcode
+                }
+            });
+        }
         newRestaurant._author = req.user._id;
         newRestaurant.save();
         req
