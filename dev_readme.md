@@ -8,10 +8,10 @@ https://cyelp.herokuapp.com/
 
 
 ### TODO
-frontend: check login in individual pages rather than app.js -done
-frontend: login->should direct to the last visited page 
-frontend: user review page -not tested, confirm review service with server 
-frontend: search restaurants default null -not tested
-backend: correct average rating algorithm
-frontend: add restaurant image add input for image url
-frontend: add logout
+- [x] frontend: check login in individual pages rather than app.js -done
+- [ ] frontend: login->should direct to the last visited page 
+- [ ] frontend: user review page -not tested, confirm review service with server 
+- [ ] frontend: search restaurants default null -not tested
+- [ ] backend: correct average rating algorithm
+- [ ] frontend: add restaurant image add input for image url
+- [ ] frontend: add logout
