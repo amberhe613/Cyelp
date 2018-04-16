@@ -17,7 +17,7 @@ router.post('/restaurant/new', upload.single('file'), function (req, res) {
                 name: req.body.name,
                 image: req.file.filename,
                 cuisine: req.body.cuisine,
-                phone: req.body.phone,
+                description: req.body.description,
                 address: {
                     street: req.body.street,
                     building: req.body.building,
@@ -31,7 +31,7 @@ router.post('/restaurant/new', upload.single('file'), function (req, res) {
                 name: req.body.name,
                 image: "",
                 cuisine: req.body.cuisine,
-                phone: req.body.phone,
+                description: req.body.description,
                 address: {
                     street: req.body.street,
                     building: req.body.building,
