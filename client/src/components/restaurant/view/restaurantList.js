@@ -2,7 +2,18 @@ import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import {findRestaurant} from '../restaurantService';
 import {checkLogin} from '../../user/userService';
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container, Input, Button, Table } from 'reactstrap';
+import {
+    Navbar,
+    NavbarBrand,
+    NavItem,
+    NavLink,
+    Nav,
+    Jumbotron,
+    Container,
+    Input,
+    Button,
+    Table
+} from 'reactstrap';
 
 class RestaurantRow extends React.Component {
     render() {
@@ -18,8 +29,7 @@ class RestaurantRow extends React.Component {
                     <StarRatingComponent
                         name="rate"
                         starCount={5}
-                        value={restaurant.averageRating}
-                    />
+                        value={restaurant.averageRating}/>
                 </td>
 
             </tr>
@@ -40,12 +50,12 @@ export class RestaurantTable extends React.Component {
         return (
             <Table>
                 <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>FoodType</th>
-                    <th>AverageRating</th>
-                </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>FoodType</th>
+                        <th>AverageRating</th>
+                    </tr>
                 </thead>
                 <tbody>{rows}</tbody>
             </Table>
@@ -165,9 +175,9 @@ const jumbotronStyle = {
     backgroundImage: `url('/images/jumbotronImg.jpg')`,
     backgroundPosition: "center",
     minHeight: "300px",
-    boxShadow: "0px 2px 3px rgba(0,0,0,0.2), 0px 6px 8px rgba(0,0,0,0.1), 0px 10px 15px rgba(0,0,0,0.1)"
+    boxShadow: "0px 2px 3px rgba(0,0,0,0.2), 0px 6px 8px rgba(0,0,0,0.1), 0px 10px 15px rgba(0,0" +
+            ",0,0.1)"
 };
-
 
 export class RestaurantList extends React.Component {
     constructor(props) {
@@ -188,6 +198,9 @@ export class RestaurantList extends React.Component {
         this.handleLowestRatingChange = this
             .handleLowestRatingChange
             .bind(this);
+        this.findAllRestaurants = this
+            .findAllRestaurants
+            .bind(this);
     }
 
     async componentDidMount() {
@@ -196,8 +209,17 @@ export class RestaurantList extends React.Component {
                 this.setState({isAuthenticated: true, userId: res._id})
             } else {}
         })
-    }
+        findRestaurant({}).then((res) => {
+            this.setState({restaurants: res.restaurants})
+        })
 
+    }
+    findAllRestaurants() {
+        findRestaurant({}).then((res) => {
+            this.setState({restaurants: res.restaurants})
+        })
+
+    }
 
     handleAreaChange(area) {
         if (area === '') {
@@ -250,8 +272,8 @@ export class RestaurantList extends React.Component {
                             : <NavItem>
                                 <NavLink href="/login">Login</NavLink>
                             </NavItem>}
-                       <NavItem>
-                            <NavLink href={"/user/"+this.state.userId}>Profile</NavLink>
+                        <NavItem>
+                            <NavLink href={"/user/" + this.state.userId}>Profile</NavLink>
                         </NavItem>
                     </Nav>
                 </Navbar>
@@ -261,6 +283,7 @@ export class RestaurantList extends React.Component {
                         <p className="lead"></p>
                     </Container>
                 </Jumbotron>
+                <Button onClick={this.findAllRestaurants}>See all restaurants</Button>
                 <Container fluid>
                     <SearchBar
                         foodType={this.state.foodType}

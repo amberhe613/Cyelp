@@ -96,7 +96,7 @@ export default class Profile extends React.Component {
     }
 
     findReviewedRestaurants() {
-        findReviewedRestaurants(this.state.userInfo.userId).then((res) => {
+        findReviewedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("profile 76")
             console.log(res.restaurants)
             this.setState({restaurants: res.restaurants})
@@ -128,6 +128,7 @@ export default class Profile extends React.Component {
                         <button onClick={this.renderNewRestaurant}>Creat New Restaurants</button>
                         <button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</button>
                         <button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</button>
+                        <button onClick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button>
                         {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}
                         {this.state.restaurants !== null
                             ? <RestaurantTable restaurants={this.state.restaurants}/>
