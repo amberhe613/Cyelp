@@ -332,9 +332,9 @@ export class RestaurantList extends React.Component {
                         onFoodTypeChange={this.handleFoodTypeChange}
                         onAreaChange={this.handleAreaChange}
                         onLowestRatingChange={this.handleLowestRatingChange}/>
-                    <button onClick={this.sortBySavedNumber}>Sort by saved number</button>
-                    <button onClick={this.sortByReviewedNumber}>Sort by reviewed number</button>
-                    <button onClick={this.sortByRating}>Sort by rating</button>
+                    <Button onClick={this.sortBySavedNumber}>Sort by saved times</Button>
+                    <Button onClick={this.sortByReviewedNumber}>Sort by reviewed times</Button>
+                    <Button onClick={this.sortByRating}>Sort by rating</Button>
                     <RestaurantTable restaurants={this.state.restaurants}/>
                 </Container>
             </div>
