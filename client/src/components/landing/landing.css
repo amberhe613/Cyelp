@@ -1,0 +1,78 @@
+#landing-header {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding-top: 40vh;
+}
+
+#landing-header h1 {
+    color: #fff;
+}
+
+.slideshow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.slideshow li {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    z-index: 0;
+    animation: imageAnimation 50s linear infinite;
+}
+
+.slideshow li:nth-child(1) {
+    background-image: url(http://toutiaoabc.com/fangimg.php?url=http://mmbiz.qpic.cn/mmbiz_jpg/RiacFDBX14xC5GibATwA0C6yHC2O9yjfRq4cRWFtQqHSgwD6nngRosTKSb9BLUwyMBicFViaxBvjstju78xn98ALIQ/0?wx_fmt=jpeg)
+}
+.slideshow li:nth-child(2) {
+    background-image: url(https://i2.wp.com/theimpression.com/wp-content/uploads/Chloe-spring-2017-ad-campaign-the-impression-04.jpg);
+    animation-delay: 5s;
+}
+.slideshow li:nth-child(3) {
+    background-image: url(https://i2.wp.com/theimpression.com/wp-content/uploads/Gucci-bloom-fragrance-takeover-the-impression-08.jpg);
+    animation-delay: 10s;
+}
+.slideshow li:nth-child(4) {
+    background-image: url(https://i.pinimg.com/originals/63/9d/48/639d48fb6e96a93a6423a767a0464811.jpg);
+    animation-delay: 15s;
+}
+.slideshow li:nth-child(5) {
+    background-image: url(https://i.pinimg.com/originals/12/b1/f9/12b1f9801527b6c3f1491e3f602c55a6.jpg);
+    animation-delay: 20s;
+}
+
+@keyframes imageAnimation {
+    0% {
+        opacity: 0;
+        animation-timing-function: ease-in;
+    }
+    10% {
+        opacity: 1;
+        animation-timing-function: ease-out;
+    }
+    20% {
+        opacity: 1
+    }
+    30% {
+        opacity: 0
+    }
+}
+
+/* Older browser support - .no-cssanimations class added by modernizr */
+.no-cssanimations .slideshow li {
+    opacity: 1;
+}
