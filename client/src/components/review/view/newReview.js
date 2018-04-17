@@ -2,6 +2,14 @@ import React from 'react';
 import {createReview} from '../reviewService';
 import {checkLogin} from '../../user/userService';
 import StarRatingComponent from 'react-star-rating-component';
+import {
+    Container,
+    Button,
+    Form,
+    FormGroup,
+    Input,
+    Label
+} from 'reactstrap';
 
 export default class NewReview extends React.Component {
     constructor(props) {
@@ -54,42 +62,38 @@ export default class NewReview extends React.Component {
         if (this.state.userId !== null) {
             return (
                 <div>
-                    Create a new review for restaurant {this.props.restaurant.name}
-                    <form>
-                        <p>
-                            Content
-                            <input
+                    <h3>Create a new review for restaurant {this.props.restaurant.name}</h3>
+                    <Form>
+                        <FormGroup>
+                            <Label for="content">Content</Label>
+                            <Input
                                 type="text"
                                 name="content"
+                                id="content"
                                 value={this.state.content}
                                 onChange={this.handleChange}/>
-                        </p>
-                         <p>
-                            Rating
-                             <StarRatingComponent
-                                 name="rate"
-                                 starCount={5}
-                                 value={rating}
-                                 onStarClick={this.onStarClick.bind(this)}
-                             />
-
-                            {/*<input*/}
-                                {/*type="text"*/}
-                                {/*name="rating"*/}
-                                {/*placeholder="1-5"*/}
-                                {/*value={this.state.rating}*/}
-                                {/*onChange={this.handleChange}/>*/}
-                        </p>
-                         <p>
-                            Price
-                            <input
+                        </FormGroup>
+                        <FormGroup>
+                            <div>Rating</div>
+                            <StarRatingComponent
+                                name="rate"
+                                id="rate"
+                                starCount={5}
+                                value={rating}
+                                onStarClick={this.onStarClick.bind(this)}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="price">Price</Label>
+                            <Input
                                 type="text"
                                 name="price"
+                                id="price"
                                 value={this.state.price}
                                 onChange={this.handleChange}/>
-                        </p>
-                    </form>
-                    <button onClick={this.handleSubmit}>Submit review</button>
+                        </FormGroup>
+                    </Form>
+                    <Button onClick={this.handleSubmit}>Submit review</Button>
                 </div>
             );
         } else {
