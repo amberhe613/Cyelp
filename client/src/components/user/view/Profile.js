@@ -11,15 +11,14 @@ import {RestaurantTable} from '../../restaurant/view/restaurantList';
 import {
     Navbar,
     NavbarBrand,
-    NavItem,
     NavLink,
     Nav,
     Button,
     Container,
-    Row,
-    Col,
-    ListGroup,
-    ListGroupItem
+    ButtonDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
 } from 'reactstrap';
 import NewRestaurant from '../../restaurant/view/newRestaurant'
 
@@ -59,8 +58,10 @@ export default class Profile extends React.Component {
             isFireDelete: false,
             userId: null,
             toRenderNewRestaurant: false,
-            toRenderCreateSuccess: false
+            toRenderCreateSuccess: false,
+            dropdownOpen: false
         };
+        this.toggle = this.toggle.bind(this);
         this.findCreatedRestaurants = this
             .findCreatedRestaurants
             .bind(this);
@@ -115,6 +116,12 @@ export default class Profile extends React.Component {
         });
     }
 
+    toggle() {
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen
+        });
+    }
+
     findReviewedRestaurants() {
         this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false});
         findReviewedRestaurants(this.state.userInfo._id).then((res) => {
@@ -147,15 +154,35 @@ export default class Profile extends React.Component {
                     {/*</button>*/}
 
                     <Container fluid>
-                        <Button onClick={this.renderNewRestaurant}>Create New Restaurants</Button>
-                        <a href={"/user/" + this.state.userId + "/reviews"}>
-                            <Button>
-                                Get all reviews
-                            </Button>
-                        </a>
-                        <Button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</Button>
-                        <Button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</Button>
-                        <Button onClick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</Button>
+
+                        <span> I want to </span>
+
+                        <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                            <DropdownToggle caret>
+                                Choose options
+                            </DropdownToggle>
+                            <DropdownMenu>
+                                <DropdownItem onClick={this.renderNewRestaurant}> Create New Restaurants</DropdownItem>
+                                <a href={"/user/" + this.state.userId + "/reviews"}>
+                                    <DropdownItem>
+                                        Get all reviews
+                                    </DropdownItem>
+                                </a>
+                                <DropdownItem onClick={this.findCreatedRestaurants}>Get All Created Restaurants</DropdownItem>
+                                <DropdownItem onClick={this.findSavedRestaurants}>Get All Saved Restaurants</DropdownItem>
+                                <DropdownItem onClick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</DropdownItem>
+                            </DropdownMenu>
+                        </ButtonDropdown>
+
+                        {/*<Button onClick={this.renderNewRestaurant}>Create New Restaurants</Button>*/}
+                        {/*<a href={"/user/" + this.state.userId + "/reviews"}>*/}
+                            {/*<Button>*/}
+                                {/*Get all reviews*/}
+                            {/*</Button>*/}
+                        {/*</a>*/}
+                        {/*<Button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</Button>*/}
+                        {/*<Button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</Button>*/}
+                        {/*<Button onClick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</Button>*/}
                         {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}
                         {this.state.restaurants !== null
                             ? <RestaurantTable
