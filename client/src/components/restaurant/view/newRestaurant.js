@@ -128,6 +128,7 @@ export default class NewRestaurant extends React.Component {
                                     id="foodType"
                                     value={this.state.foodType}
                                     onChange={this.handleChange}>
+                                    <option>Choose food type</option>
                                     <option>Cantonese</option>
                                     <option>Sichuan</option>
                                     <option>Hunan</option>

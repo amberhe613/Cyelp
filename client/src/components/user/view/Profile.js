@@ -79,6 +79,7 @@ export default class Profile extends React.Component {
     // when restaurants change or need to add lifecycle
     async findCreatedRestaurants() {
         this.setState({toRenderNewRestaurant: false});
+        this.setState({toRenderCreateSuccess: false});
         await findCreatedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("find createdrestaurants success!")
             this.setState({restaurants: res.restaurants})
@@ -89,6 +90,7 @@ export default class Profile extends React.Component {
 
     async findSavedRestaurants() {
         this.setState({toRenderNewRestaurant: false});
+        this.setState({toRenderCreateSuccess: false});
         await findSavedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("find savedrestaurants success!")
             this.setState({restaurants: res.restaurants})
@@ -100,6 +102,7 @@ export default class Profile extends React.Component {
 
     findReviewedRestaurants() {
         this.setState({toRenderNewRestaurant: false});
+        this.setState({toRenderCreateSuccess: false});
         findReviewedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("profile 76")
             // console.log(res.restaurants)
