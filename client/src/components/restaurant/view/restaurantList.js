@@ -2,18 +2,8 @@ import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import {markRestaurant, findRestaurant, sortRestaurantByReviewedNumber, sortRestaurantBySavedNumber, sortRestaurantByRating} from '../restaurantService';
 import {checkLogin, logout} from '../../user/userService';
-import {
-    Navbar,
-    NavbarBrand,
-    NavItem,
-    NavLink,
-    Nav,
-    Jumbotron,
-    Container,
-    Input,
-    Button,
-    Table
-} from 'reactstrap';
+import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container, Input, Button, Table, ButtonDropdown,
+    DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
 
 class RestaurantRow extends React.Component {
     constructor(props) {
@@ -234,9 +224,10 @@ export class RestaurantList extends React.Component {
             foodType: '',
             area: '',
             lowestRating: '',
-            restaurants: []
+            restaurants: [],
+            dropdownOpen: false
         };
-
+        this.toggle = this.toggle.bind(this);
         this.handleFoodTypeChange = this
             .handleFoodTypeChange
             .bind(this);
@@ -269,6 +260,12 @@ export class RestaurantList extends React.Component {
         findRestaurant({}).then((res) => {
             this.setState({restaurants: res.restaurants})
         })
+    }
+
+    toggle() {
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen
+        });
     }
 
     sortByReviewedNumber() {
@@ -375,9 +372,16 @@ export class RestaurantList extends React.Component {
                         onFoodTypeChange={this.handleFoodTypeChange}
                         onAreaChange={this.handleAreaChange}
                         onLowestRatingChange={this.handleLowestRatingChange}/>
-                    <Button onClick={this.sortBySavedNumber}>Sort by saved times</Button>
-                    <Button onClick={this.sortByReviewedNumber}>Sort by reviewed times</Button>
-                    <Button onClick={this.sortByRating}>Sort by rating</Button>
+                    <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                        <DropdownToggle caret>
+                            Sort By
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem onClick={this.sortBySavedNumber}>Saved times</DropdownItem>
+                            <DropdownItem onClick={this.sortByReviewedNumber}>Reviewed times</DropdownItem>
+                            <DropdownItem onClick={this.sortByRating}>Rating</DropdownItem>
+                        </DropdownMenu>
+                    </ButtonDropdown>
                     <RestaurantTable restaurants={this.state.restaurants}/>
                 </Container>
             </div>
