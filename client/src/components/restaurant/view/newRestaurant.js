@@ -23,6 +23,7 @@ export default class NewRestaurant extends React.Component {
             foodType: '',
             area: '',
             name: '',
+            description: '',
             image: null,
             isAuthenticated: false,
             userId: null,
@@ -55,7 +56,7 @@ export default class NewRestaurant extends React.Component {
     handleSubmit() {
         console.log("newrestaurant 41")
         console.log(this.state.name)
-        createRestaurant(this.state.name, this.state.area, this.state.foodType, this.state.image).then(res => {
+       createRestaurant(this.state.name, this.state.description, this.state.area, this.state.foodType, this.state.image).then(res => {
             // this.setState({createSuccess: true})
             this
                 .props
@@ -97,6 +98,16 @@ export default class NewRestaurant extends React.Component {
                                     name="name"
                                     id="name"
                                     value={this.state.name}
+                                    onChange={this.handleChange}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="name">Description{' '}</Label>
+                                <Input
+                                    type="text"
+                                    placeholder=""
+                                    name="description"
+                                    id="description"
+                                    value={this.state.description}
                                     onChange={this.handleChange}/>
                             </FormGroup>
                             <FormGroup>

@@ -16,7 +16,7 @@ const restaurantSchema = new mongoose.Schema( {
         state: String,
         zipcode: {type: String, required: true}
     },
-    phone: String,
+    description: String,
     averageRating: Number,
     _author: {
         type: mongoose.Schema.Types.ObjectId,

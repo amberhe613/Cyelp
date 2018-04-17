@@ -1,5 +1,5 @@
 // TODO: image return promise, either success or failure
-export function createRestaurant(name, location, foodType, image) {
+export function createRestaurant(name, description, location, foodType, image) {
     // var newRestaurant = {
     //     name: name,
     //     address: {
@@ -11,6 +11,7 @@ export function createRestaurant(name, location, foodType, image) {
     
     var formData = new FormData();
     formData.append('name', name);
+    formData.append('description', description);
     formData.append('zipcode', location);
     formData.append('cuisine', foodType);
     formData.append('file', image);
@@ -108,27 +109,29 @@ export function findRestaurantById(restaurantId) {
 export function sortRestaurantByRating(restaurants) {
     return restaurants.sort((a, b) => {
         if (a.averageRating !== b.averageRating) {
-            return a.averageRating - b.averageRating
+            return b.averageRating - a.averageRating
         } else {
-            if (a.averagePrice !== b.averagePrice) {
-                return a.averagePrice - b.averagePrice
-            } else {
-                return a.name - b.name
-            }
+            return a.name < b.name ? -1 : 1;
         }
     })
 }
 
-export function sortRestaurantByPrice(restaurants) {
+export function sortRestaurantBySavedNumber(restaurants) {
     return restaurants.sort((a, b) => {
-        if (a.averagePrice !== b.averagePrice) {
-            return a.averagePrice - b.averagePrice
+        if (a.likedUserNumber !== b.likedUserNumber) {
+            return b.likedUserNumber- a.likedUserNumber
         } else {
-            if (a.averageRating !== b.averageRating) {
-                return a.averageRating - b.averageRating
-            } else {
-                return a.name - b.name
-            }
+            return a.name < b.name ? -1 : 1;
+       }
+    })
+}
+
+export function sortRestaurantByReviewedNumber(restaurants) {
+    return restaurants.sort((a, b) => {
+        if (a.reviewsNumber !== b.reviewsNumber) {
+            return b.reviewsNumber- a.reviewsNumber
+        } else {
+            return a.name < b.name ? -1 : 1;
         }
     })
 }
