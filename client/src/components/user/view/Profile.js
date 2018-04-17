@@ -155,11 +155,11 @@ export default class Profile extends React.Component {
 
                     <Container fluid>
 
-                        <span> I want to </span>
+                        <span> What would you like to do? </span>
 
                         <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle caret>
-                                Choose options
+                                options
                             </DropdownToggle>
                             <DropdownMenu>
                                 <DropdownItem onClick={this.renderNewRestaurant}> Create New Restaurants</DropdownItem>
