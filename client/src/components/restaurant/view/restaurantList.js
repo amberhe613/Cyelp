@@ -1,6 +1,6 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
-import {findRestaurant, sortRestaurantByReviewedNumber, sortRestaurantBySavedNumber, sortRestaurantByRating} from '../restaurantService';
+import {markRestaurant, findRestaurant, sortRestaurantByReviewedNumber, sortRestaurantBySavedNumber, sortRestaurantByRating} from '../restaurantService';
 import {checkLogin, logout} from '../../user/userService';
 import {
     Navbar,
@@ -16,25 +16,63 @@ import {
 } from 'reactstrap';
 
 class RestaurantRow extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = this.props.review;
+        this.onFireDeletion = this
+            .onFireDeletion
+            .bind(this);
+    }
+
+    onFireDeletion() {
+        markRestaurant(this.props.restaurant._id).then((res) => {
+            window
+                .location
+                .reload();
+        }).catch((err) => {
+        })
+    }
+
     render() {
         const restaurant = this.props.restaurant;
-        return (
-            <tr>
-                <td>
-                    <a href={"/restaurants/" + restaurant._id}>{restaurant.name}</a>
-                </td>
-                <td>{restaurant.address.zipcode}</td>
-                <td>{restaurant.cuisine}</td>
-                <td>
-                    <StarRatingComponent
-                        name="rate"
-                        starCount={5}
-                        value={restaurant.averageRating}
-                        editing={false}/>
-                </td>
-
-            </tr>
-        );
+        if (this.props.isFireDelete) {
+            return (
+                <tr>
+                    <td>
+                        <a href={"/restaurants/" + restaurant._id}>{restaurant.name}</a>
+                    </td>
+                    <td>{restaurant.address.zipcode}</td>
+                    <td>{restaurant.cuisine}</td>
+                    <td>
+                        <StarRatingComponent
+                            name="rate"
+                            starCount={5}
+                            value={restaurant.averageRating}
+                            editing={false}/>
+                    </td>
+                    <td>
+                        <button onClick={this.onFireDeletion}>Fire deletion</button>
+                    </td>
+                </tr>
+            );
+        } else {
+            return (
+                <tr>
+                    <td>
+                        <a href={"/restaurants/" + restaurant._id}>{restaurant.name}</a>
+                    </td>
+                    <td>{restaurant.address.zipcode}</td>
+                    <td>{restaurant.cuisine}</td>
+                    <td>
+                        <StarRatingComponent
+                            name="rate"
+                            starCount={5}
+                            value={restaurant.averageRating}
+                            editing={false}/>
+                    </td>
+                </tr>
+            );
+        }
     }
 }
 
@@ -45,7 +83,10 @@ export class RestaurantTable extends React.Component {
             .props
             .restaurants
             .forEach((restaurant) => {
-                rows.push(<RestaurantRow restaurant={restaurant} key={restaurant._id}/>);
+                rows.push(<RestaurantRow
+                    isFireDelete={this.props.isFireDelete}
+                    restaurant={restaurant}
+                    key={restaurant._id}/>);
             });
 
         return (
@@ -305,8 +346,10 @@ export class RestaurantList extends React.Component {
                             ? <NavLink
                                     onClick={(e) => {
                                     e.preventDefault();
-                                    logout().then(()=>{
-                                        window.location.reload();
+                                    logout().then(() => {
+                                        window
+                                            .location
+                                            .reload();
                                     })
                                 }}>Logout</NavLink>
                             : <NavItem>

@@ -30,7 +30,7 @@ class UserTable extends React.Component {
                 <Navbar color="light" light expand="xs">
                     <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
                     <Nav className="ml-auto" navbar>
-                       <NavLink>
+                        <NavLink>
                             Hi, {this.props.userInfo.username}
                         </NavLink>
                         <NavLink
@@ -42,7 +42,6 @@ class UserTable extends React.Component {
                                     .reload();
                             })
                         }}>Logout</NavLink>
- 
                     </Nav>
                 </Navbar>
             </div>
@@ -57,6 +56,7 @@ export default class Profile extends React.Component {
             restaurants: null,
             userInfo: {},
             isAuthenticated: false,
+            isFireDelete: false,
             userId: null,
             toRenderNewRestaurant: false,
             toRenderCreateSuccess: false
@@ -95,8 +95,7 @@ export default class Profile extends React.Component {
     // BUG: this.findCreatedRestaurants vs findCreatedRestaurants? BUG: rerender
     // when restaurants change or need to add lifecycle
     async findCreatedRestaurants() {
-        this.setState({toRenderNewRestaurant: false});
-        this.setState({toRenderCreateSuccess: false});
+        this.setState({toRenderNewRestaurant: false, isFireDelete: true, toRenderCreateSuccess: false});
         await findCreatedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("find createdrestaurants success!")
             this.setState({restaurants: res.restaurants})
@@ -106,8 +105,7 @@ export default class Profile extends React.Component {
     }
 
     async findSavedRestaurants() {
-        this.setState({toRenderNewRestaurant: false});
-        this.setState({toRenderCreateSuccess: false});
+        this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false});
         await findSavedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("find savedrestaurants success!")
             this.setState({restaurants: res.restaurants})
@@ -118,8 +116,7 @@ export default class Profile extends React.Component {
     }
 
     findReviewedRestaurants() {
-        this.setState({toRenderNewRestaurant: false});
-        this.setState({toRenderCreateSuccess: false});
+        this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false});
         findReviewedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("profile 76")
             // console.log(res.restaurants)
@@ -130,7 +127,7 @@ export default class Profile extends React.Component {
     }
 
     renderNewRestaurant() {
-        this.setState({toRenderNewRestaurant: true, restaurants: null})
+        this.setState({toRenderNewRestaurant: true, restaurants: null, isFireDelete: false, toRenderCreateSuccess: false});
     }
 
     render() {
@@ -161,7 +158,9 @@ export default class Profile extends React.Component {
                         <Button onClick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</Button>
                         {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}
                         {this.state.restaurants !== null
-                            ? <RestaurantTable restaurants={this.state.restaurants}/>
+                            ? <RestaurantTable
+                                    isFireDelete={this.state.isFireDelete}
+                                    restaurants={this.state.restaurants}/>
                             : null}
                         {this.state.toRenderNewRestaurant
                             ? <NewRestaurant

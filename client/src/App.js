@@ -40,7 +40,7 @@ class App extends Component {
         return (
             <div>
                 {window.location.pathname === "/"
-                    ? <Redirect to="/restaurants"/>
+                    ? <Redirect to="/home"/>
                     : null}
                 {/* <div className="header"> */}
                 {/* <Navbar color="light" light expand="xs">
@@ -56,6 +56,7 @@ class App extends Component {
                 </Navbar> */}
  
                 <Link to="/login"></Link>
+                <Link to="/admin"></Link>
                 <Link to="/user/:userId"></Link>
                 <Link to="/restaurants"></Link>
                 <Link to="/restaurants/:restaurantId"></Link>
@@ -65,6 +66,10 @@ class App extends Component {
                     exact
                     path="/home"
                     render={props => <Landing/>}/>
+                <Route
+                    exact
+                    path="/admin"
+                    render={props => <Admin/>}/>
                 <Route
                     exact
                     path="/login"
