@@ -30,6 +30,10 @@ class UserReviewRow extends React.Component {
             .bind(this);
     }
 
+    onStarClick(nextValue, prevValue, name) {
+        this.setState({rating: nextValue});
+    }
+
     handleChange(e) {
         e.preventDefault()
         this.setState({
@@ -81,12 +85,12 @@ class UserReviewRow extends React.Component {
                     </td>
                     <td>
 
-                        <input
-                            type="text"
-                            name="rating"
+                        <StarRatingComponent
+                            name="rate"
+                            starCount={5}
                             value={this.state.rating}
-                            onChange={this.handleChange}
-                            placeholder={review.rating}/>
+                            onStarClick={this.onStarClick.bind(this)}
+                        />
                     </td>
                     <td>
                         <input
