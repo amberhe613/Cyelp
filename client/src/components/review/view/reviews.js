@@ -96,12 +96,12 @@ class UserReviewRow extends React.Component {
                             onChange={this.handleChange}
                             placeholder={review.price}/>
                     </td>
-                    <td>{review.createdAt}</td>
+                    <td>{review.createdAt.substr(0, 10)}</td>
                     <td>
-                        <button onClick={this.handleSubmit}>Update</button>
+                        <Button onClick={this.handleSubmit}>Update</Button>
                     </td>
                     <td>
-                        <button onClick={this.handleDelete}>Delete</button>
+                        <Button onClick={this.handleDelete}>Delete</Button>
                     </td>
 
                 </tr>
@@ -123,7 +123,7 @@ class UserReviewRow extends React.Component {
                             editing={false}/>
                     </td>
                     <td>{review.price}</td>
-                    <td>{review.createdAt}</td>
+                    <td>{review.createdAt.substr(0, 10)}</td>
                 </tr>
             )
         }
