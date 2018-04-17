@@ -78,6 +78,7 @@ class RestaurantInfo extends React.Component {
                             <CardTitle>{this.props.restaurant.name}</CardTitle>
                         </CardBody>
                         <CardText>
+                            <div>Description: {this.props.restaurant.description}</div>
                             <div>Location: {this.props.restaurant.address.zipcode}</div>
                             <div>Food Type: {this.props.restaurant.cuisine}</div>
                             <div>Average Rating:

@@ -14,8 +14,8 @@ https://cyelp.herokuapp.com/
 - [x] frontend: search restaurants default null 
 - [x] backend: correct average rating algorithm
 - [x] frontend: add restaurant image add input for image url
-- [ ] frontend: add logout
+- [x] frontend: add logout
 - [ ] css: format user reviews table 
-- [ ] can't create new restaurant
-- [ ] create new restaurant always under get restaurants
+- [x] can't create new restaurant
+- [x] create new restaurant always under get restaurants
 - [x] reviews delete not update
