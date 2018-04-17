@@ -1,6 +1,6 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
-import {findRestaurant} from '../restaurantService';
+import {findRestaurant, sortRestaurantByReviewedNumber, sortRestaurantBySavedNumber, sortRestaurantByRating} from '../restaurantService';
 import {checkLogin} from '../../user/userService';
 import {
     Navbar,
@@ -30,8 +30,7 @@ class RestaurantRow extends React.Component {
                         name="rate"
                         starCount={5}
                         value={restaurant.averageRating}
-                        editing={false}
-                    />
+                        editing={false}/>
                 </td>
 
             </tr>
@@ -183,7 +182,7 @@ const jumbotronStyle = {
 };
 
 const textStyle = {
-    color: "white",
+    color: "white"
 }
 
 export class RestaurantList extends React.Component {
@@ -208,19 +207,46 @@ export class RestaurantList extends React.Component {
         this.findAllRestaurants = this
             .findAllRestaurants
             .bind(this);
+        this.sortBySavedNumber = this
+            .sortBySavedNumber
+            .bind(this);
+        this.sortByReviewedNumber = this
+            .sortByReviewedNumber
+            .bind(this);
+        this.sortByRating = this
+            .sortByRating
+            .bind(this);
     }
 
     async componentDidMount() {
-        // await checkLogin().then((res) => {
-        //     if (res._id !== null) {
-        //         this.setState({isAuthenticated: true, userId: res._id})
-        //     } else {}
-        // })
+        await checkLogin().then((res) => {
+            if (res._id !== null) {
+                this.setState({isAuthenticated: true, userId: res._id})
+            } else {}
+        })
         findRestaurant({}).then((res) => {
             this.setState({restaurants: res.restaurants})
         })
-
     }
+    
+    sortByReviewedNumber() {
+        this.setState({
+            restaurants: sortRestaurantByReviewedNumber(this.state.restaurants)
+        })
+    }
+
+    sortBySavedNumber() {
+        this.setState({
+            restaurants: sortRestaurantBySavedNumber(this.state.restaurants)
+        })
+    }
+
+    sortByRating() {
+        this.setState({
+            restaurants: sortRestaurantByRating(this.state.restaurants)
+        })
+    }
+
     findAllRestaurants() {
         findRestaurant({}).then((res) => {
             this.setState({restaurants: res.restaurants})
@@ -299,6 +325,9 @@ export class RestaurantList extends React.Component {
                         onFoodTypeChange={this.handleFoodTypeChange}
                         onAreaChange={this.handleAreaChange}
                         onLowestRatingChange={this.handleLowestRatingChange}/>
+                    <button onClick={this.sortBySavedNumber}>Sort by saved number</button>
+                    <button onClick={this.sortByReviewedNumber}>Sort by reviewed number</button>
+                    <button onClick={this.sortByRating}>Sort by rating</button>
                     <RestaurantTable restaurants={this.state.restaurants}/>
                 </Container>
             </div>
