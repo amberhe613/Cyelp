@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link, Route, Redirect} from 'react-router-dom';
 import Landing from './components/landing/Landing';
 import Login from './components/user/view/Login';
+import Admin from './components/user/view/Admin';
 import Profile from './components/user/view/Profile';
 import {Restaurant} from './components/restaurant/view/restaurant';
 import NewRestaurant from './components/restaurant/view/newRestaurant';

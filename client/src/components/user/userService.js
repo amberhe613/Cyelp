@@ -13,6 +13,21 @@ export function checkLogin() {
     })
 }
 
+export function checkAdmin() {
+    return fetch('/api/admin', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: "same-origin",
+    }).then((res) => {
+        return res.json()
+    }).catch((err)=>{
+        console.log(err)
+    })
+}
+
 export function findUserById(userId) {
     console.log("userservice 15")
     return fetch('/api/user/' + userId, {
