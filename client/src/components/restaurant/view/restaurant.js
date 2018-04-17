@@ -34,7 +34,7 @@ class ReviewRow extends React.Component {
                     <StarRatingComponent name="rate" starCount={5} value={review.rating}/>
                 </td>
                 <td>{review.price}</td>
-                <td>{review.createdAt}</td>
+                <td>{review.createdAt.substr(0, 10)}</td>
             </tr>
         );
     }
