@@ -71,16 +71,14 @@ class RestaurantInfo extends React.Component {
     render() {
         return (
             <div>
-                <Container fluid>
-                    <Card>
+                <Card>
                         {this.props.restaurant.image === null
                             ? null
                             : <CardImg
                                 top
                                 width="100%"
                                 src={"/productImg/" + this.props.restaurant.image}
-                                alt="restaurant image"/>
-}
+                                alt="restaurant image"/>}
                         <CardBody>
                             <CardTitle>{this.props.restaurant.name}</CardTitle>
                             <CardText>
@@ -97,8 +95,7 @@ class RestaurantInfo extends React.Component {
                             <Button onClick={this.props.reviewRestaurant}>Review me!</Button>
                             <Button onClick={this.props.saveRestaurant}>Save me!</Button>
                         </CardBody>
-                    </Card>
-                </Container>
+                </Card>
             </div>
         );
     }
