@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Button} from 'reactstrap';
 import './landing.css'
 
 export default class Landing extends React.Component {
@@ -9,6 +9,11 @@ export default class Landing extends React.Component {
                 <div id="landing-header">
                     <h1>Welcome to Cyelp!</h1>
                     <hr/>
+                    <a href={"/restaurants"}>
+                        <Button>
+                            Go Chinese Food!
+                        </Button>
+                    </a>
                 </div>
                 <ul class="slideshow">
                     <li></li>

@@ -74,6 +74,8 @@ class UserReviewRow extends React.Component {
                             placeholder={review.content}/>
                     </td>
                     <td>
+
+
                         <input
                             type="text"
                             name="rating"

@@ -195,22 +195,22 @@ export class Restaurant extends React.Component {
                         <NavItem>
                             <NavLink onClick={this.logout}>Logout</NavLink>
                         </NavItem>
-
                     </Nav>
                 </Navbar>
-                {this.state.restaurant !== null
-                    ? <RestaurantInfo
+                <Container fluid>
+                    {this.state.restaurant !== null
+                        ? <RestaurantInfo
                             restaurant={this.state.restaurant}
                             reviewRestaurant={this.reviewRestaurant}
                             saveRestaurant={this.saveRestaurant}/>
-                    : null}
-                {this.state.reviews !== null
-                    ? <ReviewTable reviews={this.state.reviews}/>
-                    : null}
-                {this.state.renderNewReview === true
-                    ? <NewReview restaurant={this.state.restaurant}/>
-                    : null
-}
+                        : null}
+                    {this.state.reviews !== null
+                        ? <ReviewTable reviews={this.state.reviews}/>
+                        : null}
+                    {this.state.renderNewReview === true
+                        ? <NewReview restaurant={this.state.restaurant}/>
+                        : null}
+                </Container>
             </div>
         )
     }
