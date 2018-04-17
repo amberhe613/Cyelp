@@ -84,16 +84,16 @@ class RestaurantInfo extends React.Component {
                         <CardBody>
                             <CardTitle>{this.props.restaurant.name}</CardTitle>
                             <CardText>
-                                <div>Description: {this.props.restaurant.description}</div>
-                                <StarRatingComponent
-                                    name="rate"
-                                    starCount={5}
-                                    value={this.props.restaurant.averageRating}
-                                    editing={false}/>
-                                <div>Location: {this.props.restaurant.address.zipcode}</div>
-                                <div>Food Type: {this.props.restaurant.cuisine}</div>
-
+                                <div>{this.props.restaurant.description}</div>
                             </CardText>
+                            <StarRatingComponent
+                                name="rate"
+                                starCount={5}
+                                value={this.props.restaurant.averageRating}
+                                editing={false}/>
+                            <div>Location: {this.props.restaurant.address.zipcode}</div>
+                            <div>Food Type: {this.props.restaurant.cuisine}</div>
+
                             <Button onClick={this.props.reviewRestaurant}>Review me!</Button>
                             <Button onClick={this.props.saveRestaurant}>Save me!</Button>
                         </CardBody>
