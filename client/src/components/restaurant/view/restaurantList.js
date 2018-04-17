@@ -1,7 +1,7 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import {findRestaurant, sortRestaurantByReviewedNumber, sortRestaurantBySavedNumber, sortRestaurantByRating} from '../restaurantService';
-import {checkLogin} from '../../user/userService';
+import {checkLogin, logout} from '../../user/userService';
 import {
     Navbar,
     NavbarBrand,
@@ -229,7 +229,7 @@ export class RestaurantList extends React.Component {
             this.setState({restaurants: res.restaurants})
         })
     }
-    
+
     sortByReviewedNumber() {
         this.setState({
             restaurants: sortRestaurantByReviewedNumber(this.state.restaurants)
@@ -302,7 +302,13 @@ export class RestaurantList extends React.Component {
                     <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
                     <Nav className="ml-auto" navbar>
                         {this.state.isAuthenticated
-                            ? null
+                            ? <NavLink
+                                    onClick={(e) => {
+                                    e.preventDefault();
+                                    logout().then(()=>{
+                                        window.location.reload();
+                                    })
+                                }}>Logout</NavLink>
                             : <NavItem>
                                 <NavLink href="/login">Login</NavLink>
                             </NavItem>}

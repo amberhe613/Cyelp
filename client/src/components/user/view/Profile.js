@@ -1,5 +1,12 @@
 import React from 'react';
-import {checkLogin, findUserById, findCreatedRestaurants, findSavedRestaurants, findReviewedRestaurants} from '../userService';
+import {
+    checkLogin,
+    logout,
+    findUserById,
+    findCreatedRestaurants,
+    findSavedRestaurants,
+    findReviewedRestaurants
+} from '../userService';
 import {RestaurantTable} from '../../restaurant/view/restaurantList';
 import {
     Navbar,
@@ -23,9 +30,19 @@ class UserTable extends React.Component {
                 <Navbar color="light" light expand="xs">
                     <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
                     <Nav className="ml-auto" navbar>
-                        <NavItem>
+                       <NavLink>
                             Hi, {this.props.userInfo.username}
-                        </NavItem>
+                        </NavLink>
+                        <NavLink
+                            onClick={(e) => {
+                            e.preventDefault();
+                            logout().then(() => {
+                                window
+                                    .location
+                                    .reload();
+                            })
+                        }}>Logout</NavLink>
+ 
                     </Nav>
                 </Navbar>
             </div>

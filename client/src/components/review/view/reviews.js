@@ -41,6 +41,7 @@ class UserReviewRow extends React.Component {
         console.log(this.props.review)
         await updateReview(this.props.review._id, this.state).then((res) => {
             console.log("update review success")
+            window.location.reload();
        }).catch((err) => {
             console.log("reviews 35" + err)
         })
