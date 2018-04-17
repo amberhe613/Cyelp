@@ -1,6 +1,6 @@
 import React from 'react';
 import {findReviewsByUserId, updateReview, deleteReview} from '../reviewService';
-import {checkLogin} from '../../user/userService';
+import {checkLogin, logout} from '../../user/userService';
 import {
     Navbar,
     NavbarBrand,
@@ -41,8 +41,10 @@ class UserReviewRow extends React.Component {
         console.log(this.props.review)
         await updateReview(this.props.review._id, this.state).then((res) => {
             console.log("update review success")
-            window.location.reload();
-       }).catch((err) => {
+            window
+                .location
+                .reload();
+        }).catch((err) => {
             console.log("reviews 35" + err)
         })
     }
@@ -50,7 +52,10 @@ class UserReviewRow extends React.Component {
     handleDelete() {
         deleteReview(this.props.review._id).then((res) => {
             console.log("delete review success")
-       }).catch((err) => {
+            window
+                .location
+                .reload();
+        }).catch((err) => {
             console.log("delete reviews failure")
         })
     }
@@ -75,7 +80,6 @@ class UserReviewRow extends React.Component {
                             placeholder={review.content}/>
                     </td>
                     <td>
-
 
                         <input
                             type="text"
@@ -112,7 +116,11 @@ class UserReviewRow extends React.Component {
                     </td>
                     <td>{review.content}</td>
                     <td>
-                        <StarRatingComponent name="rate" starCount={5} value={review.rating} editing={false}/>
+                        <StarRatingComponent
+                            name="rate"
+                            starCount={5}
+                            value={review.rating}
+                            editing={false}/>
                     </td>
                     <td>{review.price}</td>
                     <td>{review.createdAt.substr(0, 10)}</td>
@@ -159,7 +167,8 @@ export default class Reviews extends React.Component {
         this.state = {
             reviews: null,
             username: null,
-            showModify: false
+            showModify: false,
+            userId: null
         };
     }
 
@@ -173,7 +182,7 @@ export default class Reviews extends React.Component {
         await checkLogin().then((res) => {
             if (res._id !== null) {
                 if (res._id === this.props.match.params.userId) {
-                    this.setState({showModify: true})
+                    this.setState({showModify: true, userId: res._id})
                 }
             }
         })
@@ -182,14 +191,38 @@ export default class Reviews extends React.Component {
     render() {
         if (this.state.reviews !== null) {
             return (
-                <Container fluid>
-                    <div>
-                        <h3>All reviews of {this.state.username}</h3>
-                        <UserReviewsTable
-                            showModify={this.state.showModify}
-                            reviews={this.state.reviews}/>
-                    </div>
-                </Container>
+                <div>
+                    <Navbar color="light" light expand="xs">
+                        <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
+                        <Nav className="ml-auto" navbar>
+                            {this.state.isAuthenticated
+                                ? <NavLink
+                                        onClick={(e) => {
+                                        e.preventDefault();
+                                        logout().then(() => {
+                                            window
+                                                .location
+                                                .reload();
+                                        })
+                                    }}>Logout</NavLink>
+                                : <NavItem>
+                                    <NavLink href="/login">Login</NavLink>
+                                </NavItem>}
+                            <NavItem>
+                                <NavLink href={"/user/" + this.state.userId}>Profile</NavLink>
+                            </NavItem>
+                        </Nav>
+                    </Navbar>
+                    <Container fluid>
+                        <div>
+                            <h3>All reviews of {this.state.username}</h3>
+                            <UserReviewsTable
+                                showModify={this.state.showModify}
+                                reviews={this.state.reviews}/>
+                        </div>
+                    </Container>
+
+                </div>
             )
         } else {
             return (
