@@ -185,15 +185,18 @@ export class Restaurant extends React.Component {
                     <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
                     <Nav className="ml-auto" navbar>
                         {this.state.isAuthenticated
-                            ? null
+                            ? <NavLink
+                                    onClick={(e) => {
+                                    e.preventDefault();
+                                    logout().then(()=>{
+                                        window.location.reload();
+                                    })
+                                }}>Logout</NavLink>
                             : <NavItem>
                                 <NavLink href="/login">Login</NavLink>
                             </NavItem>}
                         <NavItem>
                             <NavLink href={"/user/" + this.state.userId}>Profile</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink onClick={this.logout}>Logout</NavLink>
                         </NavItem>
                     </Nav>
                 </Navbar>
