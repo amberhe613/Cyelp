@@ -359,7 +359,7 @@ export class RestaurantList extends React.Component {
                 </Navbar>
                 <Jumbotron style={jumbotronStyle} fluid>
                     <Container fluid>
-                        <h1 className="display-4" style={textStyle}>Welcome to Cyelp!</h1>
+                        <h1 className="display-4" style={textStyle}>Welcome to <img src={"/images/logoImg.png"} height="70" width="70"/> Cyelp!</h1>
                         <Button onClick={this.findAllRestaurants}>See all restaurants</Button>
                         {/*<p className="lead" style={textStyle}>View our hand picked authentic Chinese restaurants!</p>*/}
                     </Container>
