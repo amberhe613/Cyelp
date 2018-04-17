@@ -71,31 +71,24 @@ class RestaurantInfo extends React.Component {
     render() {
         return (
             <div>
-                <Container fluid>
-                    <Card>
-                        <CardImg
-                            top
-                            width="100%"
-                            src={"/productImg/" + this.props.restaurant.image}
-                            alt="restaurant image"/>
-                        <CardBody>
-                            <CardTitle>{this.props.restaurant.name}</CardTitle>
-                            <CardText>
-                                <div>Description: {this.props.restaurant.description}</div>
-                                <StarRatingComponent
-                                    name="rate"
-                                    starCount={5}
-                                    value={this.props.restaurant.averageRating}
-                                    editing={false}/>
-                                <div>Location: {this.props.restaurant.address.zipcode}</div>
-                                <div>Food Type: {this.props.restaurant.cuisine}</div>
-
-                            </CardText>
-                            <Button onClick={this.props.reviewRestaurant}>Review me!</Button>
-                            <Button onClick={this.props.saveRestaurant}>Save me!</Button>
-                        </CardBody>
-                    </Card>
-                </Container>
+                <Card>
+                    <CardImg top width="100%" src={"/productImg/" + this.props.restaurant.image} alt="restaurant image"/>
+                    <CardBody>
+                        <CardTitle>{this.props.restaurant.name}</CardTitle>
+                        <StarRatingComponent
+                            name="rate"
+                            starCount={5}
+                            value={this.props.restaurant.averageRating}
+                            editing={false}
+                        />
+                        <div>Location: {this.props.restaurant.address.zipcode}</div>
+                        <div>Food Type: {this.props.restaurant.cuisine}</div>
+                        <CardText>
+                        </CardText>
+                        <Button onClick={this.props.reviewRestaurant}>Review me!</Button>
+                        <Button onClick={this.props.saveRestaurant}>Save me!</Button>
+                    </CardBody>
+                </Card>
             </div>
         );
     }
@@ -192,22 +185,22 @@ export class Restaurant extends React.Component {
                         <NavItem>
                             <NavLink onClick={this.logout}>Logout</NavLink>
                         </NavItem>
-
                     </Nav>
                 </Navbar>
-                {this.state.restaurant !== null
-                    ? <RestaurantInfo
+                <Container fluid>
+                    {this.state.restaurant !== null
+                        ? <RestaurantInfo
                             restaurant={this.state.restaurant}
                             reviewRestaurant={this.reviewRestaurant}
                             saveRestaurant={this.saveRestaurant}/>
-                    : null}
-                {this.state.reviews !== null
-                    ? <ReviewTable reviews={this.state.reviews}/>
-                    : null}
-                {this.state.renderNewReview === true
-                    ? <NewReview restaurant={this.state.restaurant}/>
-                    : null
-}
+                        : null}
+                    {this.state.reviews !== null
+                        ? <ReviewTable reviews={this.state.reviews}/>
+                        : null}
+                    {this.state.renderNewReview === true
+                        ? <NewReview restaurant={this.state.restaurant}/>
+                        : null}
+                </Container>
             </div>
         )
     }
