@@ -29,7 +29,7 @@ router.post('/restaurant/new', upload.single('file'), function (req, res) {
         } else {
             var newRestaurant = new Restaurant({
                 name: req.body.name,
-                image: "",
+                image: null,
                 cuisine: req.body.cuisine,
                 description: req.body.description,
                 address: {

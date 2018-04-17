@@ -71,24 +71,34 @@ class RestaurantInfo extends React.Component {
     render() {
         return (
             <div>
-                <Card>
-                    <CardImg top width="100%" src={"/productImg/" + this.props.restaurant.image} alt="restaurant image"/>
-                    <CardBody>
-                        <CardTitle>{this.props.restaurant.name}</CardTitle>
-                        <StarRatingComponent
-                            name="rate"
-                            starCount={5}
-                            value={this.props.restaurant.averageRating}
-                            editing={false}
-                        />
-                        <div>Location: {this.props.restaurant.address.zipcode}</div>
-                        <div>Food Type: {this.props.restaurant.cuisine}</div>
-                        <CardText>
-                        </CardText>
-                        <Button onClick={this.props.reviewRestaurant}>Review me!</Button>
-                        <Button onClick={this.props.saveRestaurant}>Save me!</Button>
-                    </CardBody>
-                </Card>
+                <Container fluid>
+                    <Card>
+                        {this.props.restaurant.image === null
+                            ? null
+                            : <CardImg
+                                top
+                                width="100%"
+                                src={"/productImg/" + this.props.restaurant.image}
+                                alt="restaurant image"/>
+}
+                        <CardBody>
+                            <CardTitle>{this.props.restaurant.name}</CardTitle>
+                            <CardText>
+                                <div>Description: {this.props.restaurant.description}</div>
+                                <StarRatingComponent
+                                    name="rate"
+                                    starCount={5}
+                                    value={this.props.restaurant.averageRating}
+                                    editing={false}/>
+                                <div>Location: {this.props.restaurant.address.zipcode}</div>
+                                <div>Food Type: {this.props.restaurant.cuisine}</div>
+
+                            </CardText>
+                            <Button onClick={this.props.reviewRestaurant}>Review me!</Button>
+                            <Button onClick={this.props.saveRestaurant}>Save me!</Button>
+                        </CardBody>
+                    </Card>
+                </Container>
             </div>
         );
     }
