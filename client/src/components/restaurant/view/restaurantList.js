@@ -15,7 +15,16 @@ class RestaurantRow extends React.Component {
     }
 
     onFireDeletion() {
-        markRestaurant(this.props.restaurant._id).then((res) => {
+        markRestaurant(this.props.restaurant._id, {deleteRequested: true}).then((res) => {
+            window
+                .location
+                .reload();
+        }).catch((err) => {
+        })
+    }
+
+    onFireUpdate() {
+        markRestaurant(this.props.restaurant._id, {updateRequested: true}).then((res) => {
             window
                 .location
                 .reload();
@@ -42,6 +51,9 @@ class RestaurantRow extends React.Component {
                     </td>
                     <td>
                         <Button onClick={this.onFireDeletion}>Fire deletion</Button>
+                    </td>
+                     <td>
+                        <Button onClick={this.onFireUpdate}>Fire Update</Button>
                     </td>
                 </tr>
             );

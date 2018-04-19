@@ -148,7 +148,7 @@ export function saveRestaurant(restaurantId) {
     })
 }
 
-export function markRestaurant(restaurantId) {
+export function markRestaurant(restaurantId, markBody) {
     return fetch('/api/restaurant/' + restaurantId + '/mark/', {
         method: 'PUT',
         credentials: "same-origin",
@@ -156,6 +156,7 @@ export function markRestaurant(restaurantId) {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Content-Length': 0
-        }
+        },
+        body: markBody
     })
 }

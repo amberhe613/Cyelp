@@ -23,7 +23,7 @@ export default class Profile extends React.Component {
 
     async componentDidMount() {
         await checkAdmin().then((res) => {
-            if (res._id !== null) {
+            if (res.role === "ADMIN") {
                 this.setState({isAuthenticated: true})
             } else {}
         })
@@ -31,10 +31,20 @@ export default class Profile extends React.Component {
 
     async findDeletionRequests() {
         var queryBody = {
-            deletionRequested: true
+            deleteRequested: true
         };
 
-        await findRestaurant().then((res) => {
+        await findRestaurant(queryBody).then((res) => {
+            this.setState({restaurants: res.restaurants})
+        }).catch((err) => {});
+    }
+
+    async findUpdateRequests() {
+        var queryBody = {
+            updateRequested: true
+        };
+
+        await findRestaurant(queryBody).then((res) => {
             this.setState({restaurants: res.restaurants})
         }).catch((err) => {});
     }
