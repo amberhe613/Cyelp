@@ -3,7 +3,6 @@ import {createReview} from '../reviewService';
 import {checkLogin} from '../../user/userService';
 import StarRatingComponent from 'react-star-rating-component';
 import {
-    Container,
     Button,
     Form,
     FormGroup,

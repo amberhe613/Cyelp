@@ -7,9 +7,7 @@ import {
     NavItem,
     NavLink,
     Nav,
-    Jumbotron,
     Container,
-    Input,
     Button,
     Table
 } from 'reactstrap';

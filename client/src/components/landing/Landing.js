@@ -7,7 +7,7 @@ export default class Landing extends React.Component {
         return (
             <div>
                 <div id="landing-header">
-                    <h1>Welcome to <img src={"/images/logoImg.png"} height="70" width="70"/>Cyelp!</h1>
+                    <h1>Welcome to <img src={"/images/logoImg.png"} alt="logo" height="70" width="70"/>Cyelp!</h1>
                     <hr/>
                     <a href={"/restaurants"}>
                         <Button>

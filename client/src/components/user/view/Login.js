@@ -1,6 +1,6 @@
 import React from 'react';
 import {checkLogin} from '../userService';
-import {Button, Container} from 'reactstrap';
+import {Container} from 'reactstrap';
 
 export default class Login extends React.Component {
     componentDidMount() {
