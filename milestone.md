@@ -16,12 +16,11 @@
 - [x] Add user authentication with github
 - [x] Add authorization middleware for edit and delete
 - [x] Add home page with simply anmiation
-- [ ] Implement sorting service in list page
+- [x] Implement sorting service in list page
 
 ### week 4.09-4.15: 
 
 - [x] Implement search function(Opitional)
-- [ ] Add google map to detail page(Opitional)
 - [x] Polish front-end views
 - [x] Testing
 - [x] Cleaning up the code
@@ -30,5 +29,5 @@
 
 ### week 4.16-4.22: 
 
-- [ ] Record demo vedio 
-- [ ] Prepare slides for presentation
+- [ ] Record demo video
+- [ ] Prepare for presentation
