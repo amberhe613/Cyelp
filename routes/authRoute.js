@@ -52,10 +52,3 @@ module.exports = app => {
         }
     });
 }
-
-// test authentication
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-}

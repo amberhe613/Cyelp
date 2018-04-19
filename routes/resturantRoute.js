@@ -183,7 +183,7 @@ router.delete('/restaurant/:restaurantId', function (req, res) {
                     res.json({message: "Not found"});
                 } else {
                     // Delete restaurant in user liked restaurant list
-                    if (deleteRestaurant.likedUser) {
+                    if (deleteRestaurant.likedUser.length) {
                         deleteRestaurant
                             .likedUser
                             .forEach(function (likedUser) {

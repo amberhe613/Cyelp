@@ -25,3 +25,8 @@ https://cyelp.herokuapp.com/
 - [ ] show review numbers of user in restaurant detail page
 - [ ] add admin role to manage restaurant delete
 
+Based on Phil's suggestion
+- [ ] camera icon in the list page if it has a picture
+- [ ] show review num and save num in the list page
+- [ ] show sorted by which element by label or maybe show on the title~
+
