@@ -183,20 +183,22 @@ router.delete('/restaurant/:restaurantId', function (req, res) {
                     res.json({message: "Not found"});
                 } else {
                     // Delete restaurant in user liked restaurant list
-                    deleteRestaurant
-                        .likedUser
-                        .forEach(function (likedUser) {
-                            var removeIndex = likedUser
-                                .likedRestaurants
-                                .map(function (restaurant) {
-                                    return restaurant._id;
-                                })
-                                .indexOf(deleteRestaurant._id);
-                            likedUser
-                                .likedRestaurants
-                                .splice(removeIndex, 1);
-                            likedUser.save();
-                        });
+                    if (deleteRestaurant.likedUser) {
+                        deleteRestaurant
+                            .likedUser
+                            .forEach(function (likedUser) {
+                                var removeIndex = likedUser
+                                    .likedRestaurants
+                                    .map(function (restaurant) {
+                                        return restaurant._id;
+                                    })
+                                    .indexOf(deleteRestaurant._id);
+                                likedUser
+                                    .likedRestaurants
+                                    .splice(removeIndex, 1);
+                                likedUser.save();
+                            });
+                    }
                     // Delete restaurant in user created restaurant list
                     var userId = deleteRestaurant._author;
                     User.findById(userId, function (err, user) {
