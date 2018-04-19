@@ -67,8 +67,7 @@ router.post('/restaurant', function (req, res) {
                 restaurants.forEach(function (restaurant) {
                     restaurantMap.push(restaurant);
                 });
-                // console.log("restaurant route 71: ")
-                // console.log(restaurantMap)
+                // console.log("restaurant route 71: ") console.log(restaurantMap)
                 res.json({restaurants: restaurantMap});
             } else {
                 res.status(400);
@@ -147,22 +146,23 @@ router.put('/restaurant/:restaurantId/edit', function (req, res) {
 // PUT delete OR edit
 router.put('/restaurant/:restaurantId/mark', function (req, res) {
     //Check if all fields are provided and are valid:
-    console.log("restaurant route 151:")
-    console.log(req.body)
+    // console.log("restaurant route 151:")
+    // console.log(req.body.deleteRequested)
+    // console.log(req.params.restaurantId)
     if (!req.params.restaurantId) {
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-        Restaurant.findById(req.params.restaurantId
-            , function (err, restaurant) {
+        Restaurant
+            .findById(req.params.restaurantId, function (err, restaurant) {
                 if (err) {
                     res.status(400);
                     res.json({message: "Not Found"});
                 } else {
-                    if (req.body.deleteRequested) {
+                    if (req.body.deleteRequested !== null) {
                         restaurant.deleteRequested = req.body.deleteRequested;
                     }
-                    if (req.body.updateRequested) {
+                    if (req.body.updateRequested !== null) {
                         restaurant.updateRequested = req.body.updateRequested;
                     }
                     restaurant.save();
@@ -187,7 +187,7 @@ router.delete('/restaurant/:restaurantId', function (req, res) {
                     res.json({message: "Not found"});
                 } else {
                     // Delete restaurant in user liked restaurant list
-                    if (deleteRestaurant.likedUser) {
+                    if (deleteRestaurant.likedUser.length >= 1) {
                         deleteRestaurant
                             .likedUser
                             .forEach(function (likedUser) {

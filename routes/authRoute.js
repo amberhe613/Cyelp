@@ -21,7 +21,7 @@ module.exports = app => {
 
     app.get('/api/logout', function(req, res){
         req.logout();
-        res.redirect('/');
+        res.redirect('/restaurants');
     });
 
     app.get('/api/admin', function(req, res){

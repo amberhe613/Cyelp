@@ -1,6 +1,7 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import {
+    ignoreRestaurant,
     markRestaurant,
     findRestaurant,
     sortRestaurantByReviewedNumber,
@@ -41,6 +42,9 @@ class RestaurantRow extends React.Component {
         this.onDelete = this
             .onDelete
             .bind(this);
+        this.onIgnore = this
+            .onIgnore
+            .bind(this);
     }
 
     onFireDeletion() {
@@ -57,7 +61,15 @@ class RestaurantRow extends React.Component {
 
     onDelete(id) {
         deleteRestaurant(this.state.restaurant._id).then((res) => {
+            window.location.reload();
             console.log("delete update success")
+        }).catch((err) => {})
+    }
+
+    onIgnore(id) {
+        ignoreRestaurant(this.state.restaurant._id).then((res) => {
+            window.location.reload();
+            console.log("ignore update success")
         }).catch((err) => {})
     }
 
@@ -80,9 +92,9 @@ class RestaurantRow extends React.Component {
                     <td>
                         <Button onClick={this.onFireDeletion}>Fire deletion</Button>
                     </td>
-                    <td>
+                    {/* <td>
                         <Button onClick={this.onFireUpdate}>Fire Update</Button>
-                    </td>
+                    </td> */}
                 </tr>
             );
         } else if (this.props.isAdmin) {
@@ -102,6 +114,9 @@ class RestaurantRow extends React.Component {
                     </td>
                     <td>
                         <Button onClick={this.onDelete}>Delete</Button>
+                    </td>
+                    <td>
+                        <Button onClick={this.onIgnore}>Ignore</Button>
                     </td>
                 </tr>
             );

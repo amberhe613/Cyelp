@@ -81,7 +81,7 @@ class RestaurantInfo extends React.Component {
                         <CardBody>
                             <CardTitle>{this.props.restaurant.name}</CardTitle>
                             <CardText>
-                                <div>{this.props.restaurant.description}</div>
+                                {this.props.restaurant.description}
                             </CardText>
                             <StarRatingComponent
                                 name="rate"
@@ -133,7 +133,7 @@ export class Restaurant extends React.Component {
             this.setState({restaurant: res.restaurant})
         })
         findRestaurantReviews(restaurantId).then((res) => {
-            console.log(res)
+            // console.log(res)
             this.setState({reviews: res.reviews})
         })
     }

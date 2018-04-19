@@ -33,6 +33,7 @@ export default class Admin extends React.Component {
                 this.setState({isAuthenticated: true})
             } else {}
         })
+        this.findDeletionRequests();
     }
 
     async findDeletionRequests() {
@@ -62,7 +63,7 @@ export default class Admin extends React.Component {
             return (
                 <div>
                     <Container fluid>
-                        <Button onClick={this.findDeletionRequests}>Find restaurants with deletion requests</Button>
+                        {/* <Button onClick={this.findDeletionRequests}>Find restaurants with deletion requests</Button> */}
                         {/* <Button onClick={this.findUpdateRequests}>Find restaurants with update requests</Button> */}
                         {this.state.restaurants !== null
                             ? <RestaurantTable isAdmin={true} restaurants={this.state.restaurants}/>
