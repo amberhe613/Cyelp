@@ -16,7 +16,7 @@
 - [x] Add user authentication with github
 - [x] Add authorization middleware for edit and delete
 - [x] Add home page with simply anmiation
-- [ ] Implement sorting service in list page
+- [x] Implement sorting service in list page
 
 ### week 4.09-4.15: 
 
