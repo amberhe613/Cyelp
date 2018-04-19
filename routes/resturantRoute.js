@@ -143,6 +143,32 @@ router.put('/restaurant/:restaurantId/edit', function (req, res) {
     }
 });
 
+// PUT delete OR edit
+router.put('/restaurant/:restaurantId/mark', function (req, res) {
+    //Check if all fields are provided and are valid:
+    if (!req.params.restaurantId) {
+        res.status(400);
+        res.json({message: "Bad Request"});
+    } else {
+        Restaurant.findById(req.params.restaurantId
+            , function (err, restaurant) {
+                if (err) {
+                    res.status(400);
+                    res.json({message: "Not Found"});
+                } else {
+                    if (req.body.deleteRequested) {
+                        restaurant.deleteRequested = req.body.deleteRequested;
+                    }
+                    if (req.body.updateRequested) {
+                        restaurant.updateRequested = req.body.updateRequested;
+                    }
+                    restaurant.save();
+                    res.json({message: "Request send!"})
+                }
+            });
+    }
+});
+
 // DELETE deleteRestaurant
 router.delete('/restaurant/:restaurantId', function (req, res) {
     //Check if all fields are provided and are valid:
