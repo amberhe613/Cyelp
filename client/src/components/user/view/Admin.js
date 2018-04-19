@@ -12,13 +12,19 @@ import {
     Container
 } from 'reactstrap';
 
-export default class Profile extends React.Component {
+export default class Admin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             restaurants: null,
             isAuthenticated: false
         };
+        this.findDeletionRequests = this
+            .findDeletionRequests
+            .bind(this);
+        this.findUpdateRequests = this
+            .findUpdateRequests
+            .bind(this);
     }
 
     async componentDidMount() {
@@ -35,8 +41,9 @@ export default class Profile extends React.Component {
         };
 
         await findRestaurant(queryBody).then((res) => {
-            this.setState({restaurants: res.restaurants})
-        }).catch((err) => {});
+            console.log("find delete restaurants success")
+           this.setState({restaurants: res.restaurants})
+       }).catch((err) => {});
     }
 
     async findUpdateRequests() {
@@ -45,6 +52,7 @@ export default class Profile extends React.Component {
         };
 
         await findRestaurant(queryBody).then((res) => {
+            console.log("find update restaurants success")
             this.setState({restaurants: res.restaurants})
         }).catch((err) => {});
     }
@@ -55,8 +63,9 @@ export default class Profile extends React.Component {
                 <div>
                     <Container fluid>
                         <Button onClick={this.findDeletionRequests}>Find restaurants with deletion requests</Button>
+                        {/* <Button onClick={this.findUpdateRequests}>Find restaurants with update requests</Button> */}
                         {this.state.restaurants !== null
-                            ? <RestaurantTable restaurants={this.state.restaurants}/>
+                            ? <RestaurantTable isAdmin={true} restaurants={this.state.restaurants}/>
                             : null}
                     </Container>
                 </div>

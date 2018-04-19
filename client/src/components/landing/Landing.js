@@ -15,7 +15,7 @@ export default class Landing extends React.Component {
                         </Button>
                     </a>
                 </div>
-                <ul class="slideshow">
+                <ul className="slideshow">
                     <li></li>
                     <li></li>
                     <li></li>

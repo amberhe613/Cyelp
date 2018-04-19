@@ -149,7 +149,7 @@ export function saveRestaurant(restaurantId) {
 }
 
 export function markRestaurant(restaurantId, markBody) {
-    return fetch('/api/restaurant/' + restaurantId + '/mark/', {
+    return fetch('/api/restaurant/' + restaurantId + '/mark', {
         method: 'PUT',
         credentials: "same-origin",
         headers: {
@@ -157,6 +157,18 @@ export function markRestaurant(restaurantId, markBody) {
             'Content-Type': 'application/json',
             'Content-Length': 0
         },
-        body: markBody
+        body: JSON.stringify(markBody)
+    })
+}
+
+export function deleteRestaurant(restaurantId) {
+    return fetch('/api/restaurant/' + restaurantId, {
+        method: 'DELETE',
+        credentials: "same-origin",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Content-Length': 0
+        }
     })
 }

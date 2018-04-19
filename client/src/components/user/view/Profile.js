@@ -83,7 +83,7 @@ export default class Profile extends React.Component {
         })
 
         if (this.state.isAuthenticated) {
-            console.log("profile 35")
+            // console.log("profile 35")
             await findUserById(this.state.userId).then((res) => {
                 this.setState({userInfo: res})
             }).catch((err) => {
@@ -97,7 +97,7 @@ export default class Profile extends React.Component {
     async findCreatedRestaurants() {
         this.setState({toRenderNewRestaurant: false, isFireDelete: true, toRenderCreateSuccess: false});
         await findCreatedRestaurants(this.state.userInfo._id).then((res) => {
-            console.log("find createdrestaurants success!")
+            // console.log("find createdrestaurants success!")
             this.setState({restaurants: res.restaurants})
         }).catch((err) => {
             console.log("findCreatedRestaurants failure")
