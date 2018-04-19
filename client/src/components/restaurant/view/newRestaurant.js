@@ -1,19 +1,7 @@
 import React from 'react';
 import {checkLogin} from '../../user/userService';
 import {createRestaurant} from '../restaurantService';
-import {
-    Navbar,
-    NavbarBrand,
-    NavItem,
-    NavLink,
-    Nav,
-    Container,
-    Button,
-    Form,
-    FormGroup,
-    Input,
-    Label
-} from 'reactstrap';
+import {Container, Button, Form, FormGroup, Input, Label} from 'reactstrap';
 
 export default class NewRestaurant extends React.Component {
     // need a props for userId

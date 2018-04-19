@@ -9,11 +9,7 @@ import {
     NavLink,
     Nav,
     Button,
-    Container,
-    Row,
-    Col,
-    ListGroup,
-    ListGroupItem
+    Container
 } from 'reactstrap';
 
 export default class Profile extends React.Component {
@@ -21,8 +17,7 @@ export default class Profile extends React.Component {
         super(props);
         this.state = {
             restaurants: null,
-            isAuthenticated: false,
-            restaurants: null
+            isAuthenticated: false
         };
     }
 

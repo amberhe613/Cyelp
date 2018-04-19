@@ -7,9 +7,7 @@ import {
     NavItem,
     NavLink,
     Nav,
-    Jumbotron,
     Container,
-    Input,
     Button,
     Table
 } from 'reactstrap';
@@ -28,6 +26,10 @@ class UserReviewRow extends React.Component {
         this.handleDelete = this
             .handleDelete
             .bind(this);
+    }
+
+    onStarClick(nextValue, prevValue, name) {
+        this.setState({rating: nextValue});
     }
 
     handleChange(e) {
@@ -81,12 +83,12 @@ class UserReviewRow extends React.Component {
                     </td>
                     <td>
 
-                        <input
-                            type="text"
-                            name="rating"
+                        <StarRatingComponent
+                            name="rate"
+                            starCount={5}
                             value={this.state.rating}
-                            onChange={this.handleChange}
-                            placeholder={review.rating}/>
+                            onStarClick={this.onStarClick.bind(this)}
+                        />
                     </td>
                     <td>
                         <input

@@ -9,7 +9,6 @@ import NewRestaurant from './components/restaurant/view/newRestaurant';
 import Reviews from './components/review/view/reviews';
 // import {checkLogin} from './components/user/userService';
 import {RestaurantList} from './components/restaurant/view/restaurantList';
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container, Input, Button, Table } from 'reactstrap';
 
 class App extends Component {
     constructor(props) {
