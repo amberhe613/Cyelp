@@ -40,7 +40,11 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
                 restaurant.save();
                 // Add review to user reviews list
                 req.user.reviews.push(newReview._id);
-                req.user.reviewedRestaurants.push(restaurant._id);
+                var index = req.user.reviewedRestaurants.indexOf(restaurant._id);
+                if (index === -1) {
+                    console.log("hi");
+                    req.user.reviewedRestaurants.push(restaurant._id);
+                }
                 req.user.save();
 
                 res.send({
@@ -67,7 +71,7 @@ router.get('/user/:userId/reviewedrestaurants', function (req, res) {
                                 .findById(user.reviewedRestaurants[i])
                                 .exec(function (err, restaurant) {
                                     visited++;
-                                    if (restaurant != null) {
+                                    if (restaurant != null && !restaurantMap.includes(restaurant)) {
                                         restaurantMap.push(restaurant);
                                     }
                                     if (visited === user.reviewedRestaurants.length) {

@@ -35,7 +35,9 @@ const restaurantSchema = new mongoose.Schema( {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
         }
-    ]
+    ],
+    deleteRequested: {type: Boolean, default: false},
+    updateRequested: {type: Boolean, default: false}
 }, {timestamps: true});
 
 module.exports = mongoose.model('Restaurant', restaurantSchema);

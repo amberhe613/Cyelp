@@ -7,6 +7,12 @@ const UserSchema = new mongoose.Schema({
     username: String,
     photo: String,
     email: String,
+    Role: {
+        type: String,
+        required: true,
+        enum : ['ADMIN', 'USER'],
+        default : 'USER'
+    },
     likedRestaurants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Restaurant"

@@ -24,6 +24,18 @@ module.exports = app => {
         res.redirect('/');
     });
 
+    app.get('/api/admin', function(req, res){
+        if (req.session.passport) {
+            if (req.user.Role === "USER") {
+                    res.json({role: 'USER'});
+                } else {
+                    res.json({role: 'ADMIN'});
+                }
+            } else {
+                    res.json({role: null})
+        }
+    });
+
     app.get('/api/account', function (req, res) {
         if (req.session.passport) {
             User.findById(req.session.passport.user, function (err, user) {
