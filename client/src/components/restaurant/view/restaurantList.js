@@ -61,14 +61,18 @@ class RestaurantRow extends React.Component {
 
     onDelete(id) {
         deleteRestaurant(this.state.restaurant._id).then((res) => {
-            window.location.reload();
+            window
+                .location
+                .reload();
             console.log("delete update success")
         }).catch((err) => {})
     }
 
     onIgnore(id) {
         ignoreRestaurant(this.state.restaurant._id).then((res) => {
-            window.location.reload();
+            window
+                .location
+                .reload();
             console.log("ignore update success")
         }).catch((err) => {})
     }
@@ -78,8 +82,16 @@ class RestaurantRow extends React.Component {
             return (
                 <tr>
                     <td>
-                        <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name} </a>
-                        {this.state.restaurant.image? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/> : null}
+                        <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name}
+                        </a>
+                        {this.state.restaurant.image === null
+                            ? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/>
+                            : <img
+                                src={"/productImg/" + this.state.restaurant.image}
+                                alt="restaurantimagej"
+                                height="15"
+                                width="15"/>}
+ 
                     </td>
                     <td>{this.state.restaurant.address.zipcode}</td>
                     <td>{this.state.restaurant.cuisine}</td>
@@ -103,7 +115,13 @@ class RestaurantRow extends React.Component {
                 <tr>
                     <td>
                         <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name}</a>
-                        {this.state.restaurant.image? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/> : null}
+                        {this.state.restaurant.image === null
+                            ? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/>
+                            : <img
+                                src={"/productImg/" + this.state.restaurant.image}
+                                alt="restaurantimagej"
+                                height="15"
+                                width="15"/>}
                     </td>
                     <td>{this.state.restaurant.address.zipcode}</td>
                     <td>{this.state.restaurant.cuisine}</td>
@@ -127,7 +145,13 @@ class RestaurantRow extends React.Component {
                 <tr>
                     <td>
                         <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name}</a>
-                        {this.state.restaurant.image? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/> : null}
+                        {this.state.restaurant.image === null
+                            ? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/>
+                            : <img
+                                src={"/productImg/" + this.state.restaurant.image}
+                                alt="restaurantimagej"
+                                height="15"
+                                width="15"/>}
                     </td>
                     <td>{this.state.restaurant.address.zipcode}</td>
                     <td>{this.state.restaurant.cuisine}</td>
