@@ -78,7 +78,8 @@ class RestaurantRow extends React.Component {
             return (
                 <tr>
                     <td>
-                        <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name}</a>
+                        <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name} </a>
+                        {this.state.restaurant.image? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/> : null}
                     </td>
                     <td>{this.state.restaurant.address.zipcode}</td>
                     <td>{this.state.restaurant.cuisine}</td>
@@ -102,6 +103,7 @@ class RestaurantRow extends React.Component {
                 <tr>
                     <td>
                         <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name}</a>
+                        {this.state.restaurant.image? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/> : null}
                     </td>
                     <td>{this.state.restaurant.address.zipcode}</td>
                     <td>{this.state.restaurant.cuisine}</td>
@@ -125,6 +127,7 @@ class RestaurantRow extends React.Component {
                 <tr>
                     <td>
                         <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name}</a>
+                        {this.state.restaurant.image? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/> : null}
                     </td>
                     <td>{this.state.restaurant.address.zipcode}</td>
                     <td>{this.state.restaurant.cuisine}</td>
