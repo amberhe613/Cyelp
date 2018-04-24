@@ -328,7 +328,8 @@ export class RestaurantList extends React.Component {
             area: '',
             lowestRating: '',
             restaurants: [],
-            dropdownOpen: false
+            dropdownOpen: false,
+            display: "options"
         };
         this.toggle = this
             .toggle
@@ -375,19 +376,22 @@ export class RestaurantList extends React.Component {
 
     sortByReviewedNumber() {
         this.setState({
-            restaurants: sortRestaurantByReviewedNumber(this.state.restaurants)
+            restaurants: sortRestaurantByReviewedNumber(this.state.restaurants),
+            display: "reviewed times"
         })
     }
 
     sortBySavedNumber() {
         this.setState({
-            restaurants: sortRestaurantBySavedNumber(this.state.restaurants)
+            restaurants: sortRestaurantBySavedNumber(this.state.restaurants),
+            display: "saved times"
         })
     }
 
     sortByRating() {
         this.setState({
-            restaurants: sortRestaurantByRating(this.state.restaurants)
+            restaurants: sortRestaurantByRating(this.state.restaurants),
+            display: "rating"
         })
     }
 
@@ -479,14 +483,15 @@ export class RestaurantList extends React.Component {
                         onFoodTypeChange={this.handleFoodTypeChange}
                         onAreaChange={this.handleAreaChange}
                         onLowestRatingChange={this.handleLowestRatingChange}/>
+                    <span>Sort By { }</span>
                     <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                         <DropdownToggle caret>
-                            Sort By
+                            {this.state.display}
                         </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem onClick={this.sortBySavedNumber}>Saved times</DropdownItem>
-                            <DropdownItem onClick={this.sortByReviewedNumber}>Reviewed times</DropdownItem>
-                            <DropdownItem onClick={this.sortByRating}>Rating</DropdownItem>
+                            <DropdownItem onClick={this.sortBySavedNumber}>saved times</DropdownItem>
+                            <DropdownItem onClick={this.sortByReviewedNumber}>reviewed times</DropdownItem>
+                            <DropdownItem onClick={this.sortByRating}>rating</DropdownItem>
                         </DropdownMenu>
                     </ButtonDropdown>
                     <RestaurantTable restaurants={this.state.restaurants}/>
