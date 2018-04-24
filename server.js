@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const server = express();
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-const path = require('path');
 const authRoute = require('./routes/authRoute');
 const resturantRoute = require('./routes/resturantRoute');
 const userRoute = require('./routes/userRoute');
@@ -42,8 +41,6 @@ server.options("*", cors());
 // install, load, and configure body parser module
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
-
-server.use(express.static(path.join(__dirname, 'client/build')));
 
 // serialize and deserialize
 passport.serializeUser(function (user, done) {
