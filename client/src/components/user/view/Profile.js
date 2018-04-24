@@ -80,7 +80,9 @@ export default class Profile extends React.Component {
         await checkLogin().then((res) => {
             if (res._id !== null) {
                 this.setState({isAuthenticated: true, userId: res._id})
-            } else {}
+            } else {
+                window.location="/login";
+            }
         })
 
         if (this.state.isAuthenticated) {
