@@ -1,3 +1,16 @@
+export function googleLogin(){
+    // not used
+    console.log("hi from user service google login")
+    return fetch('/auth', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: "same-origin",
+    })
+}
+
 export function checkLogin() {
     return fetch('/api/account', {
         method: 'GET',

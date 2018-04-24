@@ -23,16 +23,5 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "proxy": {
-    "/auth/google": {
-      "target": "http://localhost:3002"
-    },
-    "/auth/github": {
-      "target": "http://localhost:3002"
-    },
-    "/api/*": {
-      "target": "http://localhost:3002"
-    }
   }
 }

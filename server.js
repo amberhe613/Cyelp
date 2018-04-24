@@ -77,11 +77,13 @@ server.listen(process.env.PORT, function(err) {
   }
 });
 
+// server.get("/auth/google",function(req, res){
+    // console.log("hi")
+// })
 // serve static built files
 server.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
-
 
 server.get('/index.html*', function(req, res) {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));

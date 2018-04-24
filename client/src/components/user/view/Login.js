@@ -1,5 +1,5 @@
 import React from 'react';
-import {checkLogin} from '../userService';
+import {checkLogin, googleLogin} from '../userService';
 import {Container} from 'reactstrap';
 
 export default class Login extends React.Component {
@@ -17,6 +17,7 @@ export default class Login extends React.Component {
                     .goBack();
             } else {}
         })
+        // googleLogin();
     }
 
     render() {

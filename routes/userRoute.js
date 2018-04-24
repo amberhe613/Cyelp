@@ -38,6 +38,7 @@ router.get('/admin', function(req, res){
 });
 
 router.get('/account', function (req, res) {
+    console.log("hi from account");
     if (req.session.passport) {
         User.findById(req.session.passport.user, function (err, user) {
             if (err) {
