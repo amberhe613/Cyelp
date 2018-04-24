@@ -17,7 +17,7 @@ export default class Login extends React.Component {
                     .goBack();
             } else {}
         })
-        // googleLogin();
+        googleLogin();
     }
 
     render() {
