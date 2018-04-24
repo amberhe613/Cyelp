@@ -1,11 +1,6 @@
-const passport = require("passport");
 var express = require('express');
+const passport = require("passport");
 var router = express.Router();
-var User = require("../db/userModel");
-
-// router.get("/", function(req,res){
-    // console.log("hi from  auth")
-// })
 
 router.get("/google", passport.authenticate("google", {
     scope: ['profile', 'email']

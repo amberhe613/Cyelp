@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const server = express();
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-const path = require('path');
 const authRoute = require('./routes/authRoute');
 const resturantRoute = require('./routes/resturantRoute');
 const userRoute = require('./routes/userRoute');
@@ -38,12 +37,11 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 
-server.use(express.static(path.join(__dirname, 'client/build')));
-
 // serialize and deserialize
 passport.serializeUser(function(user, done) {
     done(null, user._id);
 });
+
 passport.deserializeUser(function(id, done) {
     User.findById(id, function(err, user){
         if(!err) done(null, user);
@@ -69,34 +67,19 @@ server.use('/api', reviewRoute);
 server.use('/api', likeRoute);
 server.use('/api', adminRoute);
 
-server.listen(process.env.PORT, function(err) {
-  if (err) {
-    console.log('err: app listen');
-  } else {
-    console.log('app listening');
-  }
-});
+if (process.env.NODE_ENV === "production") {
+    // Express will serve up production assets like our main.js file or main.css file!
+    server.use(express.static("client/build"));
 
-// server.get("/auth/google",function(req, res){
-    // console.log("hi")
-// })
-// serve static built files
-server.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
+    // Express will serve up index.html file if it doesn't recognize the route
+    const path = require("path");
+    server.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
 
-server.get('/index.html*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
-
-server.get('/service-worker.js', function(req, res) {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
-
-server.get('/static/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
-
-server.get('/productImg/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+//Set up serves
+const PORT = process.env.PORT || 3002;
+server.listen(PORT, (req, res) => {
+    console.log("Serves started in ", PORT);
 });
