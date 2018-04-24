@@ -19,4 +19,38 @@ router.get('/user/:userId', function (req, res) {
     }
 });
 
+
+router.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/restaurants');
+});
+
+router.get('/admin', function(req, res){
+    if (req.session.passport) {
+        if (req.user.Role === "USER") {
+            res.json({role: 'USER'});
+        } else {
+            res.json({role: 'ADMIN'});
+        }
+    } else {
+        res.json({role: null})
+    }
+});
+
+router.get('/account', function (req, res) {
+    if (req.session.passport) {
+        User.findById(req.session.passport.user, function (err, user) {
+            if (err) {
+                console.log(err); // handle errors
+            } else if (user !== null) {
+                res.json(user);
+            } else {
+                res.json({_id: null})
+            }
+        });
+    } else {
+        res.json({_id: null})
+    }
+});
+
 module.exports = router;

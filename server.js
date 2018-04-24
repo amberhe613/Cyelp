@@ -62,7 +62,7 @@ server.use(
 server.use(passport.initialize());
 server.use(passport.session());
 
-server.use('/', authRoute);
+server.use('/auth', authRoute);
 server.use('/api', userRoute);
 server.use('/api', resturantRoute);
 server.use('/api', reviewRoute);
