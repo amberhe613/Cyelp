@@ -173,16 +173,6 @@ export default class Profile extends React.Component {
                             </DropdownMenu>
                         </ButtonDropdown>
 
-                        {/*<Button onClick={this.renderNewRestaurant}>Create New Restaurants</Button>*/}
-                        {/*<a href={"/user/" + this.state.userId + "/reviews"}>*/}
-                            {/*<Button>*/}
-                                {/*Get all reviews*/}
-                            {/*</Button>*/}
-                        {/*</a>*/}
-                        {/*<Button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</Button>*/}
-                        {/*<Button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</Button>*/}
-                        {/*<Button onClick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</Button>*/}
-                        {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}
                         {this.state.restaurants !== null
                             ? <RestaurantTable
                                     isFireDelete={this.state.isFireDelete}
