@@ -2,6 +2,7 @@ import React from 'react';
 import {createReview} from '../reviewService';
 import {checkLogin} from '../../user/userService';
 import StarRatingComponent from 'react-star-rating-component';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 import {
     Button,
     Form,
@@ -62,16 +63,10 @@ export default class NewReview extends React.Component {
             return (
                 <div>
                     <h3>Create a new review for restaurant {this.props.restaurant.name}</h3>
-                    <Form>
-                        <FormGroup>
-                            <Label for="content">Content</Label>
-                            <Input
-                                type="text"
-                                name="content"
-                                id="content"
-                                value={this.state.content}
-                                onChange={this.handleChange}/>
-                        </FormGroup>
+
+                    <AvForm onValidSubmit={this.handleSubmit}>
+                        <AvField type="text" name="content" required value={this.state.content} label="Content"
+                                 onChange={this.handleChange}/>
                         <FormGroup>
                             <div>Rating</div>
                             <StarRatingComponent
@@ -82,17 +77,11 @@ export default class NewReview extends React.Component {
                                 onStarClick={this.onStarClick.bind(this)}
                             />
                         </FormGroup>
+                        <AvField type="text" name="price" value={this.state.price} onChange={this.handleChange} label="Price"/>
                         <FormGroup>
-                            <Label for="price">Price</Label>
-                            <Input
-                                type="text"
-                                name="price"
-                                id="price"
-                                value={this.state.price}
-                                onChange={this.handleChange}/>
+                            <Button >Submit review</Button>
                         </FormGroup>
-                    </Form>
-                    <Button onClick={this.handleSubmit}>Submit review</Button>
+                    </AvForm>
                 </div>
             );
         } else {
