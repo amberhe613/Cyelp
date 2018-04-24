@@ -101,7 +101,7 @@ export default class Profile extends React.Component {
         this.setState({toRenderNewRestaurant: false, isFireDelete: true, toRenderCreateSuccess: false,
             display: "Get All Created Restaurants"});
         await findCreatedRestaurants(this.state.userInfo._id).then((res) => {
-            // console.log("find createdrestaurants success!")
+            console.log(res.restaurants)
             this.setState({restaurants: res.restaurants})
         }).catch((err) => {
             console.log("findCreatedRestaurants failure")

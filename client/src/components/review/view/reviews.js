@@ -94,7 +94,7 @@ class UserReviewRow extends React.Component {
                         <input
                             type="text"
                             name="price"
-                            value={this.state.price}
+                            value={this.state.price || " "}
                             onChange={this.handleChange}
                             placeholder={review.price}/>
                     </td>
