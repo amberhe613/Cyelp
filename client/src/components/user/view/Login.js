@@ -28,16 +28,20 @@ export default class Login extends React.Component {
     onGoogleLogin(e) {
         e.preventDefault();
         googleLogin().then(() => {
-            window.location.reload();
+            window
+                .location
+                .reload();
         })
     }
 
     onGithubLogin(e) {
         e.preventDefault();
         githubLogin().then(() => {
-            window.location.reload();
+            window
+                .location
+                .reload();
         })
-   }
+    }
 
     render() {
         return (
