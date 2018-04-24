@@ -38,4 +38,5 @@ passport.use(new GitHubStrategy({
         const user = await new User({oauthID: profile.id, username: profile.displayName, oauthProvider: profile.provider, photo: profile.photos[0].value}).save();
         done(null, user);
     }
+
 }));
