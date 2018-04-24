@@ -91,3 +91,7 @@ server.get('/service-worker.js', function(req, res) {
 server.get('/static/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
+
+server.get('/productImg/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
