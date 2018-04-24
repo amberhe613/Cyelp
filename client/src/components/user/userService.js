@@ -11,6 +11,7 @@ export function googleLogin(){
     })
 }
 
+
 export function checkLogin() {
     return fetch('/api/account', {
         method: 'GET',
