@@ -2,7 +2,7 @@ import React from 'react';
 import {checkLogin} from '../../user/userService';
 import {createRestaurant} from '../restaurantService';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
-import {Container, Button, Form, FormGroup, Input, Label} from 'reactstrap';
+import {Container, Button, FormGroup} from 'reactstrap';
 
 export default class NewRestaurant extends React.Component {
     // need a props for userId
@@ -66,12 +66,13 @@ export default class NewRestaurant extends React.Component {
                     <Container fluid>
                         <AvForm onValidSubmit={this.handleSubmit}>
                             <AvField name="name" label="Restaurant Name" type="text" required value={this.state.name}
-                                     onChange={this.handleChange}/>
+                                     errorMessage="Restaurant name is required!" onChange={this.handleChange}/>
                             <AvField name="description" label="description" type="text" value={this.state.description}
                                      onChange={this.handleChange}/>
                             <AvField name="area" label="Location" type="text" placeholder="five digit zip code"
-                                     value={this.state.area} required onChange={this.handleChange}/>
-                            <AvField type="select" required name="foodType" label="Food Type" value={this.state.foodType} onChange={this.handleChange}>
+                                     errorMessage="Zip code is required!" value={this.state.area} required onChange={this.handleChange}/>
+                            <AvField type="select" required name="foodType" label="Food Type" value={this.state.foodType}
+                                     onChange={this.handleChange} errorMessage="Food type is required!">
                                 <option>Choose food type</option>
                                 <option>Cantonese</option>
                                 <option>Sichuan</option>

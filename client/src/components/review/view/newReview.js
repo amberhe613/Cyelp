@@ -3,13 +3,7 @@ import {createReview} from '../reviewService';
 import {checkLogin} from '../../user/userService';
 import StarRatingComponent from 'react-star-rating-component';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
-import {
-    Button,
-    Form,
-    FormGroup,
-    Input,
-    Label
-} from 'reactstrap';
+import {Button, FormGroup} from 'reactstrap';
 
 export default class NewReview extends React.Component {
     constructor(props) {
@@ -66,7 +60,7 @@ export default class NewReview extends React.Component {
 
                     <AvForm onValidSubmit={this.handleSubmit}>
                         <AvField type="text" name="content" required value={this.state.content} label="Content"
-                                 onChange={this.handleChange}/>
+                                 errorMessage="Review content is required!" onChange={this.handleChange}/>
                         <FormGroup>
                             <div>Rating</div>
                             <StarRatingComponent
