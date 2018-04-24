@@ -36,22 +36,22 @@
 }
 
 .slideshow li:nth-child(1) {
-    background-image: url(http://toutiaoabc.com/fangimg.php?url=http://mmbiz.qpic.cn/mmbiz_jpg/RiacFDBX14xC5GibATwA0C6yHC2O9yjfRq4cRWFtQqHSgwD6nngRosTKSb9BLUwyMBicFViaxBvjstju78xn98ALIQ/0?wx_fmt=jpeg)
+    background-image: url(/images/landingImg1.jpeg)
 }
 .slideshow li:nth-child(2) {
-    background-image: url(http://a1.att.hudong.com/40/86/19300001351528131708865107983_950.jpg);
+    background-image: url(/images/landingImg2.jpg);
     animation-delay: 5s;
 }
 .slideshow li:nth-child(3) {
-    background-image: url(http://img02.tooopen.com/images/20140311/sy_56478996782.jpg);
+    background-image: url(/images/landingImg3.jpg);
     animation-delay: 10s;
 }
 .slideshow li:nth-child(4) {
-    background-image: url(https://steemitimages.com/DQmQoNGjbfdJ3uD8wF4FFU1VB2fRuxzkKKm5bswPUc9a4Ec/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180305201352.jpg);
+    background-image: url(/images/landingImg4.jpeg);
     animation-delay: 15s;
 }
 .slideshow li:nth-child(5) {
-    background-image: url(http://image.imspender.com/images/6091f4647de1bfad76fb00cc4a3d7153ee060bd0.jpg);
+    background-image: url(/images/landingImg5.jpg);
     animation-delay: 20s;
 }
 
