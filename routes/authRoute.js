@@ -8,7 +8,7 @@ var User = require("../db/userModel");
     }));
 
     router.get("/google/callback", passport.authenticate("google"), (req, res) => {
-        res.redirect('/login');
+        res.redirect('/restaurants');
     });
 
     router.get("/github", passport.authenticate("github", {
@@ -16,7 +16,7 @@ var User = require("../db/userModel");
     }));
 
     router.get("/github/callback", passport.authenticate("github"), (req, res) => {
-        res.redirect('/login');
+        res.redirect('/restaurants');
     });
 
 module.exports = router;
