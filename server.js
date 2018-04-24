@@ -39,6 +39,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 server.use(cors());
 server.options("*", cors());
 
+server.enable("trust proxy");
 // install, load, and configure body parser module
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
