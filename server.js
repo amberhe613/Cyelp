@@ -89,9 +89,9 @@ server.get('/index.html*', function(req, res) {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
-server.get('/service-worker.js', function(req, res) {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
+// server.get('/service-worker.js', function(req, res) {
+//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+// });
 
 server.get('/static/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
