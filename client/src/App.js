@@ -23,12 +23,8 @@ class App extends Component {
     }
 
     componentWillMount() {
-        // checkLogin().then((res) => {
-        //     this.setState({
-        //         userId: res._id,
-        //         isAuthenticated: res._id !== null
-        //     })
-        // })
+        // checkLogin().then((res) => {     this.setState({         userId: res._id,
+        //     isAuthenticated: res._id !== null     }) })
     }
 
     authenticateUser(userId) {
@@ -54,7 +50,7 @@ class App extends Component {
                         </NavItem>
                     </Nav>
                 </Navbar> */}
- 
+
                 <Link to="/login"></Link>
                 <Link to="/admin"></Link>
                 <Link to="/user/:userId"></Link>
@@ -62,36 +58,24 @@ class App extends Component {
                 <Link to="/restaurants/:restaurantId"></Link>
                 <Link to="/newrestaurant"></Link>
                 <Link to="/user/:userId/reviews"></Link>
-                <Route
-                    exact
-                    path="/home"
-                    render={props => <Landing/>}/>
-                <Route
-                    exact
-                    path="/admin"
-                    render={props => <Admin/>}/>
-                <Route
-                    exact
-                    path="/login"
-                    render={props => <Login {...props}/>}/>
-                <Route
-                    exact
-                    path="/user/:userId"
-                    render={() => <Profile />}/>
+                <Route exact path="/home" render={props => <Landing/>}/>
+                <Route exact path="/admin" render={props => <Admin/>}/>
+                <Route exact path="/login" render={props => <Login {...props}/>}/>
+                <Route exact path="/user/:userId" render={() => <Profile/>}/>
                 <Route exact path="/restaurants" component={RestaurantList}/>
                 <Route
                     exact
                     path="/restaurants/:restaurantId"
-                    render={props => <Restaurant {...props} />}/>
+                    render={props => <Restaurant {...props}/>}/>
                 <Route
                     exact
                     path="/newRestaurant"
-                    render={(props) => <NewRestaurant {...props} />}/>
+                    render={(props) => <NewRestaurant {...props}/>}/>
                 <Route
                     exact
                     path="/user/:userId/reviews"
                     render={props => <Reviews {...props}/>}/>
- 
+
             </div>
         );
     }

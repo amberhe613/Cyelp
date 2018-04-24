@@ -91,7 +91,7 @@ class RestaurantRow extends React.Component {
                                 alt="restaurantimagej"
                                 height="15"
                                 width="15"/>}
- 
+
                     </td>
                     <td>{this.state.restaurant.address.zipcode}</td>
                     <td>{this.state.restaurant.cuisine}</td>
@@ -359,12 +359,14 @@ export class RestaurantList extends React.Component {
 
     async componentDidMount() {
         await checkLogin().then((res) => {
-            if (res._id !== null) {
+            if (res && res._id !== null) {
                 this.setState({isAuthenticated: true, userId: res._id})
             } else {}
         })
         findRestaurant({}).then((res) => {
-            this.setState({restaurants: res.restaurants})
+            if (res) {
+                this.setState({restaurants: res.restaurants})
+            }
         })
     }
 
@@ -483,7 +485,9 @@ export class RestaurantList extends React.Component {
                         onFoodTypeChange={this.handleFoodTypeChange}
                         onAreaChange={this.handleAreaChange}
                         onLowestRatingChange={this.handleLowestRatingChange}/>
-                    <span>Sort By { }</span>
+                    <span>Sort By
+}
+                    </span>
                     <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                         <DropdownToggle caret>
                             {this.state.display}

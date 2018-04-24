@@ -1,5 +1,16 @@
+export function githubLogin(){
+    console.log("hi from user service github login")
+    return fetch('/auth/github', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: "same-origin",
+        mode: "no-cors"
+    })
+}
 export function googleLogin(){
-    // not used
     console.log("hi from user service google login")
     return fetch('/auth/google', {
         method: 'GET',
@@ -8,9 +19,9 @@ export function googleLogin(){
             'Content-Type': 'application/json'
         },
         credentials: "same-origin",
+        mode: "no-cors"
     })
 }
-
 
 export function checkLogin() {
     return fetch('/api/account', {
