@@ -35,7 +35,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 
-server.use(express.static(path.join(__dirname, '../client/build')));
+server.use(express.static(path.join(__dirname, 'client/build')));
 
 // serialize and deserialize
 passport.serializeUser(function(user, done) {
@@ -80,14 +80,14 @@ server.get('/', function(req, res) {
 });
 
 
-// server.get('/index.html*', function(req, res) {
-//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-// });
+server.get('/index.html*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
-// server.get('/service-worker.js', function(req, res) {
-//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-// });
+server.get('/service-worker.js', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
-// server.get('/static/*', function(req, res) {
-//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-// });
+server.get('/static/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
