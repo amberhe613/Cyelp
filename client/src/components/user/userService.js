@@ -29,7 +29,7 @@ export function checkAdmin() {
 }
 
 export function findUserById(userId) {
-    console.log("userservice 15")
+    // console.log("userservice 15")
     return fetch('/api/user/' + userId, {
         method: 'GET',
         credentials: "same-origin",

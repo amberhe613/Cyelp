@@ -1,47 +1,142 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
-import {markRestaurant, findRestaurant, sortRestaurantByReviewedNumber, sortRestaurantBySavedNumber, sortRestaurantByRating} from '../restaurantService';
+import {
+    ignoreRestaurant,
+    markRestaurant,
+    findRestaurant,
+    sortRestaurantByReviewedNumber,
+    sortRestaurantBySavedNumber,
+    sortRestaurantByRating,
+    deleteRestaurant
+} from '../restaurantService';
 import {checkLogin, logout} from '../../user/userService';
-import {Navbar, NavbarBrand, NavItem, NavLink, Nav, Jumbotron, Container, Input, Button, Table, ButtonDropdown,
-    DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
+import {
+    Navbar,
+    NavbarBrand,
+    NavItem,
+    NavLink,
+    Nav,
+    Jumbotron,
+    Container,
+    Input,
+    Button,
+    Table,
+    ButtonDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+} from 'reactstrap';
 
 class RestaurantRow extends React.Component {
     constructor(props) {
         super(props);
-        this.state = this.props.review;
+        this.state = {
+            restaurant: this.props.restaurant
+        }
         this.onFireDeletion = this
             .onFireDeletion
+            .bind(this);
+        this.onFireUpdate = this
+            .onFireUpdate
+            .bind(this);
+        this.onDelete = this
+            .onDelete
+            .bind(this);
+        this.onIgnore = this
+            .onIgnore
             .bind(this);
     }
 
     onFireDeletion() {
-        markRestaurant(this.props.restaurant._id).then((res) => {
+        markRestaurant(this.state.restaurant._id, {deleteRequested: true}).then((res) => {
+            console.log("mark deletion success")
+        }).catch((err) => {})
+    }
+
+    onFireUpdate(id) {
+        markRestaurant(this.state.restaurant._id, {updateRequested: true}).then((res) => {
+            console.log("mark update success")
+        }).catch((err) => {})
+    }
+
+    onDelete(id) {
+        deleteRestaurant(this.state.restaurant._id).then((res) => {
             window
                 .location
                 .reload();
-        }).catch((err) => {
-        })
+            console.log("delete update success")
+        }).catch((err) => {})
+    }
+
+    onIgnore(id) {
+        ignoreRestaurant(this.state.restaurant._id).then((res) => {
+            window
+                .location
+                .reload();
+            console.log("ignore update success")
+        }).catch((err) => {})
     }
 
     render() {
-        const restaurant = this.props.restaurant;
         if (this.props.isFireDelete) {
             return (
                 <tr>
                     <td>
-                        <a href={"/restaurants/" + restaurant._id}>{restaurant.name}</a>
+                        <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name}
+                        </a>
+                        {this.state.restaurant.image === null
+                            ? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/>
+                            : <img
+                                src={"/productImg/" + this.state.restaurant.image}
+                                alt="restaurantimagej"
+                                height="15"
+                                width="15"/>}
+ 
                     </td>
-                    <td>{restaurant.address.zipcode}</td>
-                    <td>{restaurant.cuisine}</td>
+                    <td>{this.state.restaurant.address.zipcode}</td>
+                    <td>{this.state.restaurant.cuisine}</td>
                     <td>
                         <StarRatingComponent
                             name="rate"
                             starCount={5}
-                            value={restaurant.averageRating}
+                            value={this.state.restaurant.averageRating}
                             editing={false}/>
                     </td>
                     <td>
                         <Button onClick={this.onFireDeletion}>Fire deletion</Button>
+                    </td>
+                    {/* <td>
+                        <Button onClick={this.onFireUpdate}>Fire Update</Button>
+                    </td> */}
+                </tr>
+            );
+        } else if (this.props.isAdmin) {
+            return (
+                <tr>
+                    <td>
+                        <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name}</a>
+                        {this.state.restaurant.image === null
+                            ? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/>
+                            : <img
+                                src={"/productImg/" + this.state.restaurant.image}
+                                alt="restaurantimagej"
+                                height="15"
+                                width="15"/>}
+                    </td>
+                    <td>{this.state.restaurant.address.zipcode}</td>
+                    <td>{this.state.restaurant.cuisine}</td>
+                    <td>
+                        <StarRatingComponent
+                            name="rate"
+                            starCount={5}
+                            value={this.state.restaurant.averageRating}
+                            editing={false}/>
+                    </td>
+                    <td>
+                        <Button onClick={this.onDelete}>Delete</Button>
+                    </td>
+                    <td>
+                        <Button onClick={this.onIgnore}>Ignore</Button>
                     </td>
                 </tr>
             );
@@ -49,15 +144,22 @@ class RestaurantRow extends React.Component {
             return (
                 <tr>
                     <td>
-                        <a href={"/restaurants/" + restaurant._id}>{restaurant.name}</a>
+                        <a href={"/restaurants/" + this.state.restaurant._id}>{this.state.restaurant.name}</a>
+                        {this.state.restaurant.image === null
+                            ? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/>
+                            : <img
+                                src={"/productImg/" + this.state.restaurant.image}
+                                alt="restaurantimagej"
+                                height="15"
+                                width="15"/>}
                     </td>
-                    <td>{restaurant.address.zipcode}</td>
-                    <td>{restaurant.cuisine}</td>
+                    <td>{this.state.restaurant.address.zipcode}</td>
+                    <td>{this.state.restaurant.cuisine}</td>
                     <td>
                         <StarRatingComponent
                             name="rate"
                             starCount={5}
-                            value={restaurant.averageRating}
+                            value={this.state.restaurant.averageRating}
                             editing={false}/>
                     </td>
                 </tr>
@@ -74,6 +176,7 @@ export class RestaurantTable extends React.Component {
             .restaurants
             .forEach((restaurant) => {
                 rows.push(<RestaurantRow
+                    isAdmin={this.props.isAdmin}
                     isFireDelete={this.props.isFireDelete}
                     restaurant={restaurant}
                     key={restaurant._id}/>);
@@ -225,9 +328,12 @@ export class RestaurantList extends React.Component {
             area: '',
             lowestRating: '',
             restaurants: [],
-            dropdownOpen: false
+            dropdownOpen: false,
+            display: "options"
         };
-        this.toggle = this.toggle.bind(this);
+        this.toggle = this
+            .toggle
+            .bind(this);
         this.handleFoodTypeChange = this
             .handleFoodTypeChange
             .bind(this);
@@ -270,19 +376,22 @@ export class RestaurantList extends React.Component {
 
     sortByReviewedNumber() {
         this.setState({
-            restaurants: sortRestaurantByReviewedNumber(this.state.restaurants)
+            restaurants: sortRestaurantByReviewedNumber(this.state.restaurants),
+            display: "reviewed times"
         })
     }
 
     sortBySavedNumber() {
         this.setState({
-            restaurants: sortRestaurantBySavedNumber(this.state.restaurants)
+            restaurants: sortRestaurantBySavedNumber(this.state.restaurants),
+            display: "saved times"
         })
     }
 
     sortByRating() {
         this.setState({
-            restaurants: sortRestaurantByRating(this.state.restaurants)
+            restaurants: sortRestaurantByRating(this.state.restaurants),
+            display: "rating"
         })
     }
 
@@ -359,7 +468,9 @@ export class RestaurantList extends React.Component {
                 </Navbar>
                 <Jumbotron style={jumbotronStyle} fluid>
                     <Container fluid>
-                        <h1 className="display-4" style={textStyle}>Welcome to <img src={"/images/logoImg.png"} alt="logo" height="70" width="70"/> Cyelp!</h1>
+                        <h1 className="display-4" style={textStyle}>Welcome to
+                            <img src={"/images/logoImg.png"} alt="logo" height="70" width="70"/>
+                            Cyelp!</h1>
                         <Button onClick={this.findAllRestaurants}>See all restaurants</Button>
                         {/*<p className="lead" style={textStyle}>View our hand picked authentic Chinese restaurants!</p>*/}
                     </Container>
@@ -372,14 +483,15 @@ export class RestaurantList extends React.Component {
                         onFoodTypeChange={this.handleFoodTypeChange}
                         onAreaChange={this.handleAreaChange}
                         onLowestRatingChange={this.handleLowestRatingChange}/>
+                    <span>Sort By { }</span>
                     <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                         <DropdownToggle caret>
-                            Sort By
+                            {this.state.display}
                         </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem onClick={this.sortBySavedNumber}>Saved times</DropdownItem>
-                            <DropdownItem onClick={this.sortByReviewedNumber}>Reviewed times</DropdownItem>
-                            <DropdownItem onClick={this.sortByRating}>Rating</DropdownItem>
+                            <DropdownItem onClick={this.sortBySavedNumber}>saved times</DropdownItem>
+                            <DropdownItem onClick={this.sortByReviewedNumber}>reviewed times</DropdownItem>
+                            <DropdownItem onClick={this.sortByRating}>rating</DropdownItem>
                         </DropdownMenu>
                     </ButtonDropdown>
                     <RestaurantTable restaurants={this.state.restaurants}/>

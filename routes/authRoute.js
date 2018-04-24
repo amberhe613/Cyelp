@@ -21,7 +21,7 @@ var User = require("../db/userModel");
 
     router.get('/api/logout', function(req, res){
         req.logout();
-        res.redirect('/');
+        res.redirect('/restaurants');
     });
 
     router.get('/api/admin', function(req, res){

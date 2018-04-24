@@ -1,14 +1,8 @@
 // TODO: image return promise, either success or failure
 export function createRestaurant(name, description, location, foodType, image) {
-    // var newRestaurant = {
-    //     name: name,
-    //     address: {
-    //         "zipcode": location
-    //     },
-    //     cuisine: foodType,
-    //     image: image
-    // }
-    
+    // var newRestaurant = {     name: name,     address: {         "zipcode":
+    // location     },     cuisine: foodType,     image: image }
+
     var formData = new FormData();
     formData.append('name', name);
     formData.append('description', description);
@@ -19,10 +13,8 @@ export function createRestaurant(name, description, location, foodType, image) {
     return fetch('/api/restaurant/new', {
         method: 'POST',
         credentials: "same-origin",
-        // headers: {
-        //     'Accept': 'application/json',
-        //     'Content-Type': 'multipart/form-data'
-        // },
+        // headers: {     'Accept': 'application/json',     'Content-Type':
+        // 'multipart/form-data' },
         body: formData
     })
 }
@@ -111,7 +103,9 @@ export function sortRestaurantByRating(restaurants) {
         if (a.averageRating !== b.averageRating) {
             return b.averageRating - a.averageRating
         } else {
-            return a.name < b.name ? -1 : 1;
+            return a.name < b.name
+                ? -1
+                : 1;
         }
     })
 }
@@ -119,19 +113,23 @@ export function sortRestaurantByRating(restaurants) {
 export function sortRestaurantBySavedNumber(restaurants) {
     return restaurants.sort((a, b) => {
         if (a.likedUserNumber !== b.likedUserNumber) {
-            return b.likedUserNumber- a.likedUserNumber
+            return b.likedUserNumber - a.likedUserNumber
         } else {
-            return a.name < b.name ? -1 : 1;
-       }
+            return a.name < b.name
+                ? -1
+                : 1;
+        }
     })
 }
 
 export function sortRestaurantByReviewedNumber(restaurants) {
     return restaurants.sort((a, b) => {
         if (a.reviewsNumber !== b.reviewsNumber) {
-            return b.reviewsNumber- a.reviewsNumber
+            return b.reviewsNumber - a.reviewsNumber
         } else {
-            return a.name < b.name ? -1 : 1;
+            return a.name < b.name
+                ? -1
+                : 1;
         }
     })
 }
@@ -148,9 +146,22 @@ export function saveRestaurant(restaurantId) {
     })
 }
 
-export function markRestaurant(restaurantId) {
-    return fetch('/api/restaurant/' + restaurantId + '/mark/', {
+export function markRestaurant(restaurantId, markBody) {
+    return fetch('/api/restaurant/' + restaurantId + '/mark', {
         method: 'PUT',
+        credentials: "same-origin",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Content-Length': 0
+        },
+        body: JSON.stringify(markBody)
+    })
+}
+
+export function deleteRestaurant(restaurantId) {
+    return fetch('/api/restaurant/' + restaurantId, {
+        method: 'DELETE',
         credentials: "same-origin",
         headers: {
             'Accept': 'application/json',
@@ -158,4 +169,11 @@ export function markRestaurant(restaurantId) {
             'Content-Length': 0
         }
     })
+}
+
+export function ignoreRestaurant(restaurantId) {
+    var queryBody = {
+        deleteRequested: false
+    }
+    return markRestaurant(restaurantId, queryBody);
 }

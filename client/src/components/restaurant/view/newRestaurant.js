@@ -1,7 +1,8 @@
 import React from 'react';
 import {checkLogin} from '../../user/userService';
 import {createRestaurant} from '../restaurantService';
-import {Container, Button, Form, FormGroup, Input, Label} from 'reactstrap';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
+import {Container, Button, FormGroup} from 'reactstrap';
 
 export default class NewRestaurant extends React.Component {
     // need a props for userId
@@ -17,7 +18,6 @@ export default class NewRestaurant extends React.Component {
             userId: null,
             createSuccess: false
         };
-
         this.handleChange = this
             .handleChange
             .bind(this);
@@ -34,6 +34,7 @@ export default class NewRestaurant extends React.Component {
         })
     }
 
+
     handleChange(e) {
         e.preventDefault()
         this.setState({
@@ -42,8 +43,8 @@ export default class NewRestaurant extends React.Component {
     }
 
     handleSubmit() {
-        console.log("newrestaurant 41")
-        console.log(this.state.name)
+        console.log("newrestaurant 41");
+        console.log(this.state.name);
        createRestaurant(this.state.name, this.state.description, this.state.area, this.state.foodType, this.state.image).then(res => {
             // this.setState({createSuccess: true})
             this
@@ -62,88 +63,37 @@ export default class NewRestaurant extends React.Component {
             }
             return (
                 <div>
-                    {/* <Navbar color="light" light expand="xs">
-                        <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
-                        <Nav className="ml-auto" navbar>
-                            {this.state.isAuthenticated
-                                ? null
-                                : <NavItem>
-                                    <NavLink href="/login">Login</NavLink>
-                                </NavItem>}
-
-                            <NavItem>
-                                <NavLink href={"/user/" + this.state.userId}>Profile</NavLink>
-                            </NavItem>
-                        </Nav>
-                    </Navbar> */}
                     <Container fluid>
-                        <Form>
+                        <AvForm onValidSubmit={this.handleSubmit}>
+                            <AvField name="name" label="Restaurant Name" type="text" required value={this.state.name}
+                                     errorMessage="Restaurant name is required!" onChange={this.handleChange}/>
+                            <AvField name="description" label="description" type="text" value={this.state.description}
+                                     onChange={this.handleChange}/>
+                            <AvField name="area" label="Location" type="text" placeholder="five digit zip code"
+                                     errorMessage="Zip code is required!" value={this.state.area} required onChange={this.handleChange}/>
+                            <AvField type="select" required name="foodType" label="Food Type" value={this.state.foodType}
+                                     onChange={this.handleChange} errorMessage="Food type is required!">
+                                <option>Choose food type</option>
+                                <option>Cantonese</option>
+                                <option>Sichuan</option>
+                                <option>Hunan</option>
+                                <option>Fujian</option>
+                                <option>Jiangsu</option>
+                                <option>Zhejiang</option>
+                                <option>Anhui</option>
+                                <option>Shandong</option>
+                            </AvField>
+                            <AvField type="file" name="image" onChange={(e) => this.setState({image: e.target.files[0]})}/>
                             <FormGroup>
-                                <Label for="name">Restaurant Name {' '}</Label>
-                                <Input
-                                    type="text"
-                                    placeholder=""
-                                    name="name"
-                                    id="name"
-                                    value={this.state.name}
-                                    onChange={this.handleChange}/>
+                                <Button >Create new restaurant</Button>
                             </FormGroup>
-                            <FormGroup>
-                                <Label for="name">Description{' '}</Label>
-                                <Input
-                                    type="text"
-                                    placeholder=""
-                                    name="description"
-                                    id="description"
-                                    value={this.state.description}
-                                    onChange={this.handleChange}/>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="name">Location {' '}</Label>
-                                <Input
-                                    type="text"
-                                    name="area"
-                                    id="area"
-                                    placeholder="five digit zip code"
-                                    value={this.state.area}
-                                    onChange={this.handleChange}/>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="foodType">Food Type {' '}</Label>
-                                <Input
-                                    type="select"
-                                    name="foodType"
-                                    id="foodType"
-                                    value={this.state.foodType}
-                                    onChange={this.handleChange}>
-                                    <option>Choose food type</option>
-                                    <option>Cantonese</option>
-                                    <option>Sichuan</option>
-                                    <option>Hunan</option>
-                                    <option>Fujian</option>
-                                    <option>Jiangsu</option>
-                                    <option>Zhejiang</option>
-                                    <option>Anhui</option>
-                                    <option>Shandong</option>
-                                </Input>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="image">Restaurant image {' '}</Label>
-                                <Input
-                                    type="file"
-                                    onChange={(e) => 
-                                    this.setState({image: e.target.files[0]})
-                                }/>
-                            </FormGroup>
-
-                        </Form>
-                        <Button onClick={this.handleSubmit}>Create new restaurant</Button>
+                        </AvForm>
                     </Container>
                 </div>
             );
         } else {
             return (
-                <div></div >
+                <div>Error while creating restaurant!</div>
             )
         }
     }

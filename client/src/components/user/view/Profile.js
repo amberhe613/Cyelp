@@ -58,7 +58,8 @@ export default class Profile extends React.Component {
             userId: null,
             toRenderNewRestaurant: false,
             toRenderCreateSuccess: false,
-            dropdownOpen: false
+            dropdownOpen: false,
+            display: "options"
         };
         this.toggle = this.toggle.bind(this);
         this.findCreatedRestaurants = this
@@ -79,11 +80,13 @@ export default class Profile extends React.Component {
         await checkLogin().then((res) => {
             if (res._id !== null) {
                 this.setState({isAuthenticated: true, userId: res._id})
-            } else {}
+            } else {
+                window.location="/login";
+            }
         })
 
         if (this.state.isAuthenticated) {
-            console.log("profile 35")
+            // console.log("profile 35")
             await findUserById(this.state.userId).then((res) => {
                 this.setState({userInfo: res})
             }).catch((err) => {
@@ -95,9 +98,10 @@ export default class Profile extends React.Component {
     // BUG: this.findCreatedRestaurants vs findCreatedRestaurants? BUG: rerender
     // when restaurants change or need to add lifecycle
     async findCreatedRestaurants() {
-        this.setState({toRenderNewRestaurant: false, isFireDelete: true, toRenderCreateSuccess: false});
+        this.setState({toRenderNewRestaurant: false, isFireDelete: true, toRenderCreateSuccess: false,
+            display: "Get All Created Restaurants"});
         await findCreatedRestaurants(this.state.userInfo._id).then((res) => {
-            console.log("find createdrestaurants success!")
+            // console.log("find createdrestaurants success!")
             this.setState({restaurants: res.restaurants})
         }).catch((err) => {
             console.log("findCreatedRestaurants failure")
@@ -105,7 +109,8 @@ export default class Profile extends React.Component {
     }
 
     async findSavedRestaurants() {
-        this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false});
+        this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false,
+        display: "Get All Saved Restaurants"});
         await findSavedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("find savedrestaurants success!")
             this.setState({restaurants: res.restaurants})
@@ -122,7 +127,8 @@ export default class Profile extends React.Component {
     }
 
     findReviewedRestaurants() {
-        this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false});
+        this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false,
+        display: "Get All Reviewed Restaurants"});
         findReviewedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("profile 76")
             // console.log(res.restaurants)
@@ -133,7 +139,8 @@ export default class Profile extends React.Component {
     }
 
     renderNewRestaurant() {
-        this.setState({toRenderNewRestaurant: true, restaurants: null, isFireDelete: false, toRenderCreateSuccess: false});
+        this.setState({toRenderNewRestaurant: true, restaurants: null, isFireDelete: false, toRenderCreateSuccess: false,
+        display: "Create New Restaurants"});
     }
 
     render() {
@@ -158,7 +165,7 @@ export default class Profile extends React.Component {
 
                         <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle caret>
-                                options
+                                {this.state.display}
                             </DropdownToggle>
                             <DropdownMenu>
                                 <DropdownItem onClick={this.renderNewRestaurant}> Create New Restaurants</DropdownItem>
@@ -173,16 +180,6 @@ export default class Profile extends React.Component {
                             </DropdownMenu>
                         </ButtonDropdown>
 
-                        {/*<Button onClick={this.renderNewRestaurant}>Create New Restaurants</Button>*/}
-                        {/*<a href={"/user/" + this.state.userId + "/reviews"}>*/}
-                            {/*<Button>*/}
-                                {/*Get all reviews*/}
-                            {/*</Button>*/}
-                        {/*</a>*/}
-                        {/*<Button onClick={this.findCreatedRestaurants}>Get All Created Restaurants</Button>*/}
-                        {/*<Button onClick={this.findSavedRestaurants}>Get All Saved Restaurants</Button>*/}
-                        {/*<Button onClick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</Button>*/}
-                        {/* <button onclick={this.findReviewedRestaurants}>Get All Reviewed Restaurants</button> */}
                         {this.state.restaurants !== null
                             ? <RestaurantTable
                                     isFireDelete={this.state.isFireDelete}

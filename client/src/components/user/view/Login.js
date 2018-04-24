@@ -6,10 +6,15 @@ export default class Login extends React.Component {
     componentDidMount() {
         checkLogin().then((res) => {
             if (res._id !== null) {
-               this
+                console.log(this.props.history)
+                // this
+                //     .props
+                //     .history
+                //     .push('/restaurants');
+                this
                     .props
                     .history
-                    .push('/');
+                    .goBack();
             } else {}
         })
     }
