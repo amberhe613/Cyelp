@@ -28,7 +28,7 @@ passport.use(new GoogleStrategy({
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "/auth/github/callback"
+    callbackURL: "https://cyelp.heroku.com/auth/github/callback"
 }, async(accessToken, refreshToken, profile, done) => {
     console.log("hi from github auth");
     const existingUser = await User.findOne({oauthID: profile.id});
