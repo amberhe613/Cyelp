@@ -41,9 +41,8 @@ People in the Bay Area who are interested in chinese food.
 
 ## Application Functions
 1. Post new resturants.
-2. Add, edit, or delete photos, description and other information about resturants.
-3. Search exsiting resturants.
+2. Creators of resturants can fire deletion of the restaurants.
+3. Search exsiting resturants based on location(zip code), food type, and lowest rating. Sort results on saved times, reviewed times and rating.
 4. Leave reviews about resturants and edit or delete comments whenever users need.
-5. Rate resturants on a five-star rating scale according to food quality, service and etc.
+5. Rate resturants on a five-star rating scale.
 6. Login with github and google account.
-7. Display resturant location on Google Maps.
