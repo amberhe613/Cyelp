@@ -1,7 +1,7 @@
 export function googleLogin(){
     // not used
     console.log("hi from user service google login")
-    return fetch('/auth', {
+    return fetch('/auth/google', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
