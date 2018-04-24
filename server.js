@@ -13,6 +13,7 @@ const adminRoute = require('./routes/adminRoute');
 const User = mongoose.model('User');
 var dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path');
 
 dotenv.load();
 
@@ -62,6 +63,8 @@ server.use(cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000, // 24 hours
     keys: [process.env.COOKIE_KEY]
 }));
+
+server.use(express.static(path.join(__dirname, 'client/build')));
 
 server.use(passport.initialize());
 server.use(passport.session());

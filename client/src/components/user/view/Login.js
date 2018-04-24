@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {checkLogin, googleLogin, githubLogin} from '../userService';
 import {Container} from 'reactstrap';
 
@@ -18,7 +17,6 @@ export default class Login extends React.Component {
         checkLogin().then((res) => {
             if (res && res._id !== null) {
                 console.log(this.props.history)
-                // this     .props     .history     .push('/restaurants');
                 this
                     .props
                     .history
@@ -29,17 +27,17 @@ export default class Login extends React.Component {
 
     onGoogleLogin(e) {
         e.preventDefault();
-        googleLogin().then(()=>{
-            this.props.history.goBack();
-        });
+        googleLogin().then(() => {
+            window.location.reload();
+        })
     }
 
     onGithubLogin(e) {
         e.preventDefault();
-        githubLogin().then(()=>{
-            this.props.history.goBack();
-        });
-    }
+        githubLogin().then(() => {
+            window.location.reload();
+        })
+   }
 
     render() {
         return (
@@ -50,7 +48,7 @@ export default class Login extends React.Component {
                 <button onClick={this.onGithubLogin}>
                     Github login
                 </button>
-           </Container>
+            </Container>
         )
     }
 }
