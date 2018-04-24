@@ -42,7 +42,6 @@ router.post('/restaurant/:restaurantId/review', function (req, res) {
                 req.user.reviews.push(newReview._id);
                 var index = req.user.reviewedRestaurants.indexOf(restaurant._id);
                 if (index === -1) {
-                    console.log("hi");
                     req.user.reviewedRestaurants.push(restaurant._id);
                 }
                 req.user.save();
@@ -75,8 +74,6 @@ router.get('/user/:userId/reviewedrestaurants', function (req, res) {
                                         restaurantMap.push(restaurant);
                                     }
                                     if (visited === user.reviewedRestaurants.length) {
-                                        // console.log("reviewroutes 74:")
-                                        // console.log(restaurantMap)
                                         res.json({restaurants: restaurantMap})
                                     }
                                 })
@@ -153,7 +150,6 @@ router.put("/review/:reviewId", function (req, res) {
                 var curRatingTotal = (restaurant.averageRating || 0) * restaurant.reviewsNumber;
                 restaurant.averageRating = (parseInt(curRatingTotal) + parseInt(req.body.rating) - parseInt(oldRate)) / restaurant.reviewsNumber;
                 restaurant.save();
-                console.log(restaurant.averageRating);
             });
 
             res.status(200);
