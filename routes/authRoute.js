@@ -1,30 +1,30 @@
 const passport = require("passport");
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
+var express = require('express');
+var router = express.Router();
+var User = require("../db/userModel");
 
-module.exports = app => {
-    app.get("/auth/google", passport.authenticate("google", {
+    router.get("/auth/google", passport.authenticate("google", {
         scope: ['profile', 'email']
     }));
 
-    app.get("/auth/google/callback", passport.authenticate("google"), (req, res) => {
+    router.get("/auth/google/callback", passport.authenticate("google"), (req, res) => {
         res.redirect('/login');
     });
 
-    app.get("/auth/github", passport.authenticate("github", {
+    router.get("/auth/github", passport.authenticate("github", {
         scope: ['profile', 'email']
     }));
 
-    app.get("/auth/github/callback", passport.authenticate("github"), (req, res) => {
+    router.get("/auth/github/callback", passport.authenticate("github"), (req, res) => {
         res.redirect('/login');
     });
 
-    app.get('/api/logout', function(req, res){
+    router.get('/api/logout', function(req, res){
         req.logout();
         res.redirect('/');
     });
 
-    app.get('/api/admin', function(req, res){
+    router.get('/api/admin', function(req, res){
         if (req.session.passport) {
             if (req.user.Role === "USER") {
                     res.json({role: 'USER'});
@@ -36,7 +36,7 @@ module.exports = app => {
         }
     });
 
-    app.get('/api/account', function (req, res) {
+    router.get('/api/account', function (req, res) {
         if (req.session.passport) {
             User.findById(req.session.passport.user, function (err, user) {
                 if (err) {
@@ -51,4 +51,5 @@ module.exports = app => {
             res.json({_id: null})
         }
     });
-}
+
+module.exports = router;

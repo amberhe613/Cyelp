@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var Restaurant = require("../db/restaurantModel");
-var User = require("../db/userModel");
 
 // GET findRestaurantsByTag
 router.get('/admin/restaurants/update', function (req, res) {
