@@ -56,7 +56,7 @@ People in the Bay Area who are interested in chinese food.
 
 ## Challenges
 1. React: 
-⋅⋅* reuse code by using components 
+* reuse code by using components 
 ⋅⋅* manage state and props to communicate between child and parent components
 ⋅⋅* use react strap to beautify webpage
 2. Heroku:
