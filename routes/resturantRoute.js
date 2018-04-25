@@ -13,6 +13,7 @@ router.post('/restaurant/new', function (req, res) {
     // Check if all fields are provided and are valid:
     console.log(req)
     if (!req.body.name || !req.body.zipcode) {
+        console.log("no body name")
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
