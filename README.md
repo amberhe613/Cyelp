@@ -56,11 +56,11 @@ People in the Bay Area who are interested in chinese food.
 
 ## Challenges
 1. React: 
-⋅⋅*reuse code by using components 
-⋅⋅*manage state and props to communicate between child and parent components
-⋅⋅*use react strap to beautify webpage
+⋅⋅* reuse code by using components 
+⋅⋅* manage state and props to communicate between child and parent components
+⋅⋅* use react strap to beautify webpage
 2. Heroku:
-⋅⋅*use a mixture of http (server) and https (frontend) 
-⋅⋅*use CORS to deal with cross domain security issues
-⋅⋅*use cloudiary to store media files on the cloud (original: multer on local machine)
+⋅⋅* use a mixture of http (server) and https (frontend) 
+⋅⋅* use CORS to deal with cross domain security issues
+⋅⋅* use cloudiary to store media files on the cloud (original: multer on local machine)
 3. Trouble storing images on Heroku. 
