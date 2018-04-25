@@ -1,7 +1,11 @@
 var express = require('express');
 var multer = require('multer');
-var upload = multer({dest: 'client/public/productImg/'})
 var router = express.Router();
+var path = require("path");
+var mypath = path.join(__dirname, '../client/public/productImg');
+console.log(mypath);
+// var upload = multer({dest: 'client/public/productImg/'})
+var upload = multer({dest: mypath})
 var Restaurant = require("../db/restaurantModel");
 var User = require("../db/userModel");
 
