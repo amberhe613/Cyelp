@@ -16,40 +16,42 @@ router.post('/restaurant/new', function (req, res) {
         res.json({message: "Bad Request"});
     } else {
         if (req.file) {
+            console.log("find file")
             cloudinary
                 .uploader
                 .upload(req.file, function (result) {
                     console.log(result.url)
                     // result.url is image url
-                    var newRestaurant = new Restaurant({
-                        name: req.body.name,
-                        image: result.url,
-                        cuisine: req.body.cuisine,
-                        description: req.body.description,
-                        address: {
-                            street: req.body.street,
-                            building: req.body.building,
-                            city: req.body.city,
-                            state: req.body.state,
-                            zipcode: req.body.zipcode
-                        }
-                    });
-                    console.log(newRestaurant)
-                    newRestaurant._author = req.user._id;
-                    newRestaurant.save();
-                    req
-                        .user
-                        .restaurants
-                        .push(newRestaurant._id);
-                    req
-                        .user
-                        .save();
-                    res.json({
-                        message: "New Restaurant created.",
-                        location: "/api/restaurant/" + newRestaurant._id
-                    });
                 });
+            console.log("create new restaurant")
+            var newRestaurant = new Restaurant({
+                name: req.body.name,
+                image: result.url,
+                cuisine: req.body.cuisine,
+                description: req.body.description,
+                address: {
+                    street: req.body.street,
+                    building: req.body.building,
+                    city: req.body.city,
+                    state: req.body.state,
+                    zipcode: req.body.zipcode
+                }
+            });
+            newRestaurant._author = req.user._id;
+            newRestaurant.save();
+            req
+                .user
+                .restaurants
+                .push(newRestaurant._id);
+            req
+                .user
+                .save();
+            res.json({
+                message: "New Restaurant created.",
+                location: "/api/restaurant/" + newRestaurant._id
+            });
         } else {
+            console.log("not find file")
             var newRestaurant = new Restaurant({
                 name: req.body.name,
                 image: null,
@@ -76,7 +78,6 @@ router.post('/restaurant/new', function (req, res) {
                 message: "New Restaurant created.",
                 location: "/api/restaurant/" + newRestaurant._id
             });
-            
         }
     }
 });
