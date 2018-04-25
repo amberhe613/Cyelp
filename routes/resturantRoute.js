@@ -7,18 +7,18 @@ var User = require("../db/userModel");
 var cloudinary = require("cloudinary")
 router.post('/restaurant/new', function (req, res) {
     // Check if all fields are provided and are valid: console.log(req)
-    console.log(req.body)
-    console.log(req.files)
+    // console.log(req.body)
+    // console.log(req.files)
     if (!req.body.name || !req.body.zipcode) {
         console.log("no body name")
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
-        if (req.body.file) {
+        if (req.body.file !== 'null') {
             console.log("find file")
             cloudinary
                 .uploader
-                .upload(req.body.file, function (result) {
+                .upload(req.body.file.path, function (result) {
                     console.log(result.url)
                     // result.url is image url
                     console.log("create new restaurant")

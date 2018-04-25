@@ -13,8 +13,10 @@ export function createRestaurant(name, description, location, foodType, image) {
     return fetch('/api/restaurant/new', {
         method: 'POST',
         credentials: "same-origin",
-        // headers: {     'Accept': 'application/json',     'Content-Type':
-        // 'multipart/form-data' },
+        // headers: {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'multipart/form-data'
+        // },
         body: formData
     })
 }
