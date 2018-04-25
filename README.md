@@ -62,5 +62,4 @@ People in the Bay Area who are interested in chinese food.
 2. Heroku:
 * use a mixture of http (server) and https (frontend) 
 * use CORS to deal with cross domain security issues
-* use cloudiary to store media files on the cloud (original: multer on local machine)
-3. Trouble storing images on Heroku. 
+* use cloudiary to store media files on the cloud (original: multer on local machine) 
