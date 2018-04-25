@@ -74,3 +74,4 @@ People in the Bay Area who are interested in chinese food.
 1. improve UI design
 2. add Google Maps to show restaurant location
 3. add more fuzzy search
+4. add more rating fields such as food quality and service. 
