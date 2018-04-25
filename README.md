@@ -69,3 +69,8 @@ People in the Bay Area who are interested in chinese food.
 * sending CORS request to server to direct to google/github authentication page (original: proxy; problem: proxy ignored by heroku and treated as client routes)
 * use cloudinary to store media files on the cloud (original: multer on local machine; problem: heroku only save the files deployed) 
 * use express-form-data to deal with form data (orginal: multer deals with it)
+
+## Future Improvements
+1. improve UI design
+2. add Google Maps to show restaurant location
+3. add more fuzzy search
