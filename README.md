@@ -13,9 +13,8 @@ cyelp.slack.com
 ## Project Name
 Cyelp(Chinese Resturant Yelp) 
 
-## Links
-1. heroku link: https://cyelp.herokuapp.com/ (please use Chrome to access)
-2. Youtube demo link: https://youtu.be/gDyKCImFneI
+## Heroku Link
+https://cyelp.herokuapp.com/ (please use Chrome to access)
 
 ## Documentation
 1. [URL diagram](https://drive.google.com/file/d/1dACySKbPXIwAe0M6piYnkQ7dECkR_sRc/view?usp=sharing)
@@ -57,10 +56,15 @@ People in the Bay Area who are interested in chinese food.
 
 ## Challenges
 1. React: 
-* reuse code by using components 
+* reuse code by dissecting into components 
 * manage state and props to communicate between child and parent components
-* use react strap to beautify webpage
-2. Heroku:
-* use a mixture of http (server) and https (frontend) 
-* use CORS to deal with cross domain security issues
-* use cloudiary to store media files on the cloud (original: multer on local machine) 
+* use a mixture of react strap and W3 css in javascript files to beautify webpage 
+2. Communication between client and server: 
+* use fetch API with "same-origin" credentials to pass user sessions in client cookies, so client doesn't need to send user information in url
+* enable "trust proxy" to use a mixture of http (server) and https (frontend) 
+* send CORS response to deal with cross domain security issues when directing to external websites
+3. Heroku vs local development:
+* use production mode by building the react app and serving the build file
+* sending CORS request to server to direct to google/github authentication page (original: proxy; problem: proxy ignored by heroku and treated as client routes)
+* use cloudinary to store media files on the cloud (original: multer on local machine; problem: heroku only save the files deployed) 
+* use express-form-data to deal with form data (orginal: multer deals with it)
