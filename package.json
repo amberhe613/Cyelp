@@ -22,7 +22,7 @@
         "foreman": "^2.0.0"
     },
     "scripts": {
-        "start": "node server.js",
+        "start": "HTTPS=true && node server.js",
         "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
     },
     "engines": {

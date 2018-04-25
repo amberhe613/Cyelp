@@ -172,43 +172,54 @@ router.delete("/review/:reviewId", function (req, res) {
             Restaurant.findById(deletedReview._restaurant.id, function (err, restaurant) {
                     var curReviewNum = restaurant.reviewsNumber;
                     var curRatingTotal = (restaurant.averageRating || 0) * restaurant.reviewsNumber;
-                    var removeIndexForRestaurant = restaurant.reviews.map(function (review) {
-                            return review._id;
-                        })
-                        .indexOf(req.params.reviewId);
+                    var removeIndexForRestaurant = restaurant.reviews.indexOf(req.params.reviewId);
                     if (removeIndexForRestaurant === -1) {
                         res.json({message: "Not found"});
                     } else {
-                        restaurant.reviewsNumber = curReviewNum - 1;
-                        restaurant.averageRating = (curRatingTotal - deletedReview.rating) / restaurant.reviewsNumber;
-                        restaurant.reviews.splice(removeIndexForRestaurant, 1);
-                        restaurant.save();
+                        if (parseInt(curReviewNum) > 1) {
+                            restaurant.reviewsNumber = parseInt(curReviewNum) - 1;
+                            restaurant.averageRating = (parseInt(curRatingTotal) - parseInt(deletedReview.rating)) / parseInt(restaurant.reviewsNumber);
+                            restaurant.reviews.splice(removeIndexForRestaurant, 1);
+                            restaurant.save();
+                        } else {
+                            restaurant.reviewsNumber = 0;
+                            restaurant.averageRating = 0;
+                            restaurant.reviews.splice(removeIndexForRestaurant, 1);
+                            restaurant.save();
+                        }
 
-                        var removeIndexForUser = req
-                            .user
-                            .reviews
-                            .map(function (review) {
-                                return review._id;
-                            })
-                            .indexOf(req.params.reviewId);
-                        req
-                            .user
-                            .reviews
-                            .splice(removeIndexForUser, 1);
-                        req
-                            .user
-                            .save();
-                        var removeRestaurantIndexForUser = req
-                            .user
-                            .reviewedRestaurants
-                            .map(function (restaurant) {
-                                return restaurant._id;
-                            })
-                            .indexOf(deletedReview._restaurant.id);
-                        req.user.reviewedRestaurants
-                            .splice(removeRestaurantIndexForUser, 1);
+                        var restaurantReviewMap = [];
+                        var visited = 0;
+                        var n = req.user.reviews.length;
+
+                        console.log(req.user.reviews.length);
+                        for (var i = 0; i < n; i++) {
+                            (function (i) {
+                                console.log(req.user.reviews[i]);
+                                Review.findById(req.user.reviews[i])
+                                    .exec(function (err, review) {
+                                        visited++;
+                                        // console.log(visited);
+                                        // console.log(review);
+                                        // console.log(restaurant);
+                                        if (review != null && review._restaurant._id === restaurant._id) {
+                                            restaurantReviewMap.push(review._restaurant._id);
+                                            console.log(restaurantReviewMap);
+                                        }
+                                        if (visited === n) {
+                                            console.log(restaurantReviewMap);
+                                            if (restaurantReviewMap.length === 0) {
+                                                var removeRestaurantIndexForUser = req.user.reviewedRestaurants.indexOf(deletedReview._restaurant.id);
+                                                req.user.reviewedRestaurants.splice(removeRestaurantIndexForUser, 1);
+                                                req.user.save();
+                                            }
+                                        }
+                                    })
+                            })(i)
+                        }
+                        var removeIndexForUser = req.user.reviews.indexOf(req.params.reviewId);
+                        req.user.reviews.splice(removeIndexForUser, 1);
                         req.user.save();
-                        res.status(200);
                     }
                 });
         }
