@@ -103,6 +103,9 @@ class RestaurantRow extends React.Component {
                             editing={false}/>
                     </td>
                     <td>
+                           {this.state.restaurant.reviewsNumber} 
+                    </td>
+                    <td>
                         <Button onClick={this.onFireDeletion}>Fire deletion</Button>
                     </td>
                     {/* <td>
@@ -131,6 +134,9 @@ class RestaurantRow extends React.Component {
                             starCount={5}
                             value={this.state.restaurant.averageRating}
                             editing={false}/>
+                    </td>
+                    <td>
+                           {this.state.restaurant.reviewsNumber} 
                     </td>
                     <td>
                         <Button onClick={this.onDelete}>Delete</Button>
@@ -162,6 +168,9 @@ class RestaurantRow extends React.Component {
                             value={this.state.restaurant.averageRating}
                             editing={false}/>
                     </td>
+                    <td>
+                           {this.state.restaurant.reviewsNumber} 
+                    </td>
                 </tr>
             );
         }
@@ -188,8 +197,9 @@ export class RestaurantTable extends React.Component {
                     <tr>
                         <th>Name</th>
                         <th>Location</th>
-                        <th>FoodType</th>
-                        <th>AverageRating</th>
+                        <th>Food Type</th>
+                        <th>Average Rating</th>
+                        <th>Reviewed Times</th>
                     </tr>
                 </thead>
                 <tbody>{rows}</tbody>
