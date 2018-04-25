@@ -1,17 +1,19 @@
 var express = require('express');
 var multer = require('multer');
 var router = express.Router();
-var path = require("path");
-var mypath = path.join(__dirname, '../client/public/productImg');
-console.log(mypath);
-// var upload = multer({dest: 'client/public/productImg/'})
-var upload = multer({dest: mypath})
 var Restaurant = require("../db/restaurantModel");
 var User = require("../db/userModel");
 
 // POST createRestaurant
+var path = require("path");
+var mypath = path.join(__dirname, '../client/public/productImg');
+var upload = multer({dest: mypath})
+var cloudinary = require("cloudinary")
 router.post('/restaurant/new', upload.single('file'), function (req, res) {
     // Check if all fields are provided and are valid:
+    console.log(req.file);
+    cloudinary.uploader.upload(req.file.path, function(result){console.log(result)} );
+
     if (!req.body.name || !req.body.zipcode) {
         res.status(400);
         res.json({message: "Bad Request"});
