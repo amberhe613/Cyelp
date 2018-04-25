@@ -5,36 +5,23 @@ var User = require("../db/userModel");
 
 //PUT userSaveRestaurant
 router.put('/restaurant/:restaurantId/save', function (req, res) {
-    Restaurant
-        .findById(req.params.restaurantId, function (err, likedRestaurant) {
+    Restaurant.findById(req.params.restaurantId, function (err, likedRestaurant) {
             if (err) {
                 res.status(400);
                 res.json({"error": "restaurant not found"});
             } else {
-                var existedIndex = likedRestaurant
-                    .likedUser
-                    .map(function (user) {
-                        return user._id;
-                    })
-                    .indexOf(req.user._id);
+                var existedIndex = likedRestaurant.likedUser.indexOf(req.user._id);
 
                 if (existedIndex === -1) {
                     var curLikedNum = likedRestaurant.likedUserNumber || 0;
                     // Push user to restaurant likedUser list
-                    likedRestaurant
-                        .likedUser
-                        .push(req.user._id);
+                    likedRestaurant.likedUser.push(req.user._id);
                     likedRestaurant.likedUserNumber = curLikedNum + 1;
                     likedRestaurant.save();
 
                     // Add Saved to user liked restaurant list
-                    req
-                        .user
-                        .likedRestaurants
-                        .push(likedRestaurant._id);
-                    req
-                        .user
-                        .save();
+                    req.user.likedRestaurants.push(likedRestaurant._id);
+                    req.user.save();
 
                     res.send({
                         message: "User id " + req.user._id + " like restaurant id " + likedRestaurant._id

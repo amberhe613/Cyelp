@@ -1,6 +1,21 @@
 import React from 'react';
 import {checkLogin, googleLogin, githubLogin} from '../userService';
 import {Container} from 'reactstrap';
+import {GoogleLoginButton} from 'react-social-login-buttons';
+import {GithubLoginButton} from 'react-social-login-buttons';
+
+const buttonStyle = {
+    background:"grey"
+};
+
+const buttonSyleActive = {
+    background:"#959ba5"
+}
+
+const headerStyle = {
+    textAlign: "center"
+}
+
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -12,6 +27,7 @@ export default class Login extends React.Component {
             .onGithubLogin
             .bind(this);
     }
+
 
     componentDidMount() {
         checkLogin().then((res) => {
@@ -43,15 +59,14 @@ export default class Login extends React.Component {
         })
     }
 
+
     render() {
         return (
-            <Container fluid>
-                <button onClick={this.onGoogleLogin}>
-                    Google login
-                </button>
-                <button onClick={this.onGithubLogin}>
-                    Github login
-                </button>
+            <Container>
+                <h2 style={headerStyle}>Login </h2>
+                <hr/>
+                <GoogleLoginButton style={buttonStyle} activeStyle={buttonSyleActive} onClick={this.onGoogleLogin}/>
+                <GithubLoginButton sonClick={this.onGithubLogin}/>
             </Container>
         )
     }

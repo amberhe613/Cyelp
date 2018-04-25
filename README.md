@@ -11,10 +11,17 @@ cyelp.slack.com
 | ouyang.f@husky.neu.edu   | fayeoyaee     |
 
 ## Project Name
-Cyelp(Chinese Resturant Yelp)
+Cyelp(Chinese Resturant Yelp) 
+
+## Heroku Link
+https://cyelp.herokuapp.com/ (please use Chrome to access)
+
+## Documentation
+1. [URL diagram](https://drive.google.com/file/d/1dACySKbPXIwAe0M6piYnkQ7dECkR_sRc/view?usp=sharing)
+2. [RESTful Routing](https://docs.google.com/spreadsheets/d/1q1rLYEOoPYDXK2NWAR92IBXi7gIQJ4GXA5B2fWfZTDc/edit#gid=1490315922)
 
 ## Description
-Cyelp is a yelp-like website for the Bay Area customers to post, search and read reviews about chinese resturants that they are interested in. Users can rate the resturant and write comments for those resturants as well. Users can login to the website with their facebook or google plus account so that they can manage posts and comments without registering for our website.
+Cyelp is a yelp-like website for the Bay Area customers to post, search and read reviews about chinese resturants that they are interested in. Users can rate the resturant and write comments for those resturants as well. Users can login to the website with their Github or Google account so that they can manage posts and comments without registering for our website.
 
 ## Intended Users
 People in the Bay Area who are interested in chinese food.
@@ -35,8 +42,8 @@ People in the Bay Area who are interested in chinese food.
 
 ### Client
 1. React JS
-2. Bootstrap
-3. Materialize CSS
+2. Reactstrap
+3. Availity reactstrap Validation
 4. jQuery
 
 ## Application Functions
