@@ -44,8 +44,7 @@ export default class NewRestaurant extends React.Component {
 
     handleSubmit() {
         console.log("newrestaurant 41");
-        console.log(this.state.name);
-       createRestaurant(this.state.name, this.state.description, this.state.area, this.state.foodType, this.state.image).then(res => {
+      createRestaurant(this.state.name, this.state.description, this.state.area, this.state.foodType, this.state.image).then(res => {
             // this.setState({createSuccess: true})
             this
                 .props
