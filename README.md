@@ -53,3 +53,6 @@ People in the Bay Area who are interested in chinese food.
 4. Leave reviews about resturants and edit or delete comments whenever users need.
 5. Rate resturants on a five-star rating scale.
 6. Login with github and google account.
+
+## Challenges
+1. Trouble storing images on Heroku. 
