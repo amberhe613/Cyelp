@@ -14,7 +14,7 @@ cyelp.slack.com
 Cyelp(Chinese Resturant Yelp) 
 
 ## Heroku Link
-https://cyelp.herokuapp.com/
+https://cyelp.herokuapp.com/ (please use Chrome to access)
 
 ## Documentation
 1. [URL diagram](https://drive.google.com/file/d/1dACySKbPXIwAe0M6piYnkQ7dECkR_sRc/view?usp=sharing)
