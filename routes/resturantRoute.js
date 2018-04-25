@@ -19,7 +19,7 @@ router.post('/restaurant/new', function (req, res) {
             cloudinary
                 .uploader
                 .upload(req.file, function (result) {
-                    console.log(result)
+                    console.log(result.url)
                     // result.url is image url
                     var newRestaurant = new Restaurant({
                         name: req.body.name,
@@ -34,6 +34,7 @@ router.post('/restaurant/new', function (req, res) {
                             zipcode: req.body.zipcode
                         }
                     });
+                    console.log(newRestaurant)
                 });
         } else {
             var newRestaurant = new Restaurant({

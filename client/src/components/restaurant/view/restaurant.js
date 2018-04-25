@@ -76,7 +76,7 @@ class RestaurantInfo extends React.Component {
                             : <CardImg
                                 top
                                 width="100%"
-                                src={"/productImg/" + this.props.restaurant.image}
+                                src={this.props.restaurant.image}
                                 alt="restaurant image"/>}
                         <CardBody>
                             <CardTitle>{this.props.restaurant.name}</CardTitle>

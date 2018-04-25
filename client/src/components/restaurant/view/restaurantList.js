@@ -87,7 +87,7 @@ class RestaurantRow extends React.Component {
                         {this.state.restaurant.image === null
                             ? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/>
                             : <img
-                                src={"/productImg/" + this.state.restaurant.image}
+                                src={this.state.restaurant.image}
                                 alt="restaurantimagej"
                                 height="15"
                                 width="15"/>}
@@ -118,7 +118,7 @@ class RestaurantRow extends React.Component {
                         {this.state.restaurant.image === null
                             ? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/>
                             : <img
-                                src={"/productImg/" + this.state.restaurant.image}
+                                src={this.state.restaurant.image}
                                 alt="restaurantimagej"
                                 height="15"
                                 width="15"/>}
@@ -148,7 +148,7 @@ class RestaurantRow extends React.Component {
                         {this.state.restaurant.image === null
                             ? <img src={"/images/imgIcon.png"} alt="imgicon" height="15" width="15"/>
                             : <img
-                                src={"/productImg/" + this.state.restaurant.image}
+                                src={this.state.restaurant.image}
                                 alt="restaurantimagej"
                                 height="15"
                                 width="15"/>}
