@@ -34,8 +34,20 @@ router.post('/restaurant/new', function (req, res) {
                             zipcode: req.body.zipcode
                         }
                     });
-
                     console.log(newRestaurant)
+                    newRestaurant._author = req.user._id;
+                    newRestaurant.save();
+                    req
+                        .user
+                        .restaurants
+                        .push(newRestaurant._id);
+                    req
+                        .user
+                        .save();
+                    res.json({
+                        message: "New Restaurant created.",
+                        location: "/api/restaurant/" + newRestaurant._id
+                    });
                 });
         } else {
             var newRestaurant = new Restaurant({
@@ -51,20 +63,20 @@ router.post('/restaurant/new', function (req, res) {
                     zipcode: req.body.zipcode
                 }
             });
+            newRestaurant._author = req.user._id;
+            newRestaurant.save();
+            req
+                .user
+                .restaurants
+                .push(newRestaurant._id);
+            req
+                .user
+                .save();
+            res.json({
+                message: "New Restaurant created.",
+                location: "/api/restaurant/" + newRestaurant._id
+            });
         }
-        newRestaurant._author = req.user._id;
-        newRestaurant.save();
-        req
-            .user
-            .restaurants
-            .push(newRestaurant._id);
-        req
-            .user
-            .save();
-        res.json({
-            message: "New Restaurant created.",
-            location: "/api/restaurant/" + newRestaurant._id
-        });
     }
 });
 
