@@ -76,6 +76,7 @@ router.post('/restaurant/new', function (req, res) {
                 message: "New Restaurant created.",
                 location: "/api/restaurant/" + newRestaurant._id
             });
+            
         }
     }
 });
