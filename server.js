@@ -15,6 +15,28 @@ var dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
 
+const formData = require("express-form-data");
+const os = require("os");
+ 
+/**
+ * Options are the same as multiparty takes.
+ * But there is a new option "autoClean" to clean all files in "uploadDir" folder after the response.
+ * By default, it is "false".
+ */
+const options = {
+  uploadDir: os.tmpdir(),
+  autoClean: true
+};
+ 
+// parse data with connect-multiparty. 
+server.use(formData.parse(options));
+// clear from the request and delete all empty files (size == 0)
+server.use(formData.format());
+// change file objects to stream.Readable 
+server.use(formData.stream());
+// union body and files
+server.use(formData.union());
+
 dotenv.load();
 
 // Require Database models
