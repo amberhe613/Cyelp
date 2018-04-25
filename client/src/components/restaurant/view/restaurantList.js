@@ -50,6 +50,7 @@ class RestaurantRow extends React.Component {
     onFireDeletion() {
         markRestaurant(this.state.restaurant._id, {deleteRequested: true}).then((res) => {
             console.log("mark deletion success")
+            window.location.reload();
         }).catch((err) => {})
     }
 
@@ -106,7 +107,7 @@ class RestaurantRow extends React.Component {
                            {this.state.restaurant.reviewsNumber} 
                     </td>
                     <td>
-                        <Button onClick={this.onFireDeletion}>Fire deletion</Button>
+                        <Button disabled={this.state.restaurant.deleteRequested} onClick={this.onFireDeletion}>Fire deletion</Button>
                     </td>
                     {/* <td>
                         <Button onClick={this.onFireUpdate}>Fire Update</Button>

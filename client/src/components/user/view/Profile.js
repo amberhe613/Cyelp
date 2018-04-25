@@ -21,6 +21,7 @@ import {
 } from 'reactstrap';
 import NewRestaurant from '../../restaurant/view/newRestaurant'
 
+const myStyle={color:"grey"}
 class UserTable extends React.Component {
     render() {
         return (
@@ -40,6 +41,8 @@ class UserTable extends React.Component {
                                     .reload();
                             })
                         }}>Logout</NavLink>
+                        <NavLink><a style={myStyle} href="/admin">Admin</a></NavLink>
+
                     </Nav>
                 </Navbar>
             </div>
@@ -61,7 +64,9 @@ export default class Profile extends React.Component {
             dropdownOpen: false,
             display: "options"
         };
-        this.toggle = this.toggle.bind(this);
+        this.toggle = this
+            .toggle
+            .bind(this);
         this.findCreatedRestaurants = this
             .findCreatedRestaurants
             .bind(this);
@@ -81,7 +86,7 @@ export default class Profile extends React.Component {
             if (res && res._id !== null) {
                 this.setState({isAuthenticated: true, userId: res._id})
             } else {
-                window.location="/login";
+                window.location = "/login";
             }
         })
 
@@ -98,8 +103,7 @@ export default class Profile extends React.Component {
     // BUG: this.findCreatedRestaurants vs findCreatedRestaurants? BUG: rerender
     // when restaurants change or need to add lifecycle
     async findCreatedRestaurants() {
-        this.setState({toRenderNewRestaurant: false, isFireDelete: true, toRenderCreateSuccess: false,
-            display: "Get All Created Restaurants"});
+        this.setState({toRenderNewRestaurant: false, isFireDelete: true, toRenderCreateSuccess: false, display: "Get All Created Restaurants"});
         await findCreatedRestaurants(this.state.userInfo._id).then((res) => {
             console.log(res.restaurants)
             this.setState({restaurants: res.restaurants})
@@ -109,8 +113,7 @@ export default class Profile extends React.Component {
     }
 
     async findSavedRestaurants() {
-        this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false,
-        display: "Get All Saved Restaurants"});
+        this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false, display: "Get All Saved Restaurants"});
         await findSavedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("find savedrestaurants success!")
             this.setState({restaurants: res.restaurants})
@@ -127,8 +130,7 @@ export default class Profile extends React.Component {
     }
 
     findReviewedRestaurants() {
-        this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false,
-        display: "Get All Reviewed Restaurants"});
+        this.setState({toRenderNewRestaurant: false, isFireDelete: false, toRenderCreateSuccess: false, display: "Get All Reviewed Restaurants"});
         findReviewedRestaurants(this.state.userInfo._id).then((res) => {
             console.log("profile 76")
             // console.log(res.restaurants)
@@ -139,8 +141,7 @@ export default class Profile extends React.Component {
     }
 
     renderNewRestaurant() {
-        this.setState({toRenderNewRestaurant: true, restaurants: null, isFireDelete: false, toRenderCreateSuccess: false,
-        display: "Create New Restaurants"});
+        this.setState({toRenderNewRestaurant: true, restaurants: null, isFireDelete: false, toRenderCreateSuccess: false, display: "Create New Restaurants"});
     }
 
     render() {
@@ -161,14 +162,17 @@ export default class Profile extends React.Component {
 
                     <Container fluid>
 
-                        <span> What would you like to do? </span>
+                        <span>
+                            What would you like to do?
+                        </span>
 
                         <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <DropdownToggle caret>
                                 {this.state.display}
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem onClick={this.renderNewRestaurant}> Create New Restaurants</DropdownItem>
+                                <DropdownItem onClick={this.renderNewRestaurant}>
+                                    Create New Restaurants</DropdownItem>
                                 <a href={"/user/" + this.state.userId + "/reviews"}>
                                     <DropdownItem>
                                         Get all reviews
