@@ -42,7 +42,7 @@ export default class Login extends React.Component {
     }
 
     onGoogleLogin(e) {
-        e.preventDefault();
+        // e.preventDefault();
         googleLogin().then(() => {
             window
                 .location
@@ -51,7 +51,7 @@ export default class Login extends React.Component {
     }
 
     onGithubLogin(e) {
-        e.preventDefault();
+        // e.preventDefault();
         githubLogin().then(() => {
             window
                 .location
