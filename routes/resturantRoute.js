@@ -37,6 +37,7 @@ router.post('/restaurant/new', function (req, res) {
                     zipcode: req.body.zipcode
                 }
             });
+
             newRestaurant._author = req.user._id;
             newRestaurant.save();
             req
