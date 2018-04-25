@@ -13,8 +13,9 @@ cyelp.slack.com
 ## Project Name
 Cyelp(Chinese Resturant Yelp) 
 
-## Heroku Link
-https://cyelp.herokuapp.com/ (please use Chrome to access)
+## Links
+1. heroku link: https://cyelp.herokuapp.com/ (please use Chrome to access)
+2. Youtube demo link: https://youtu.be/gDyKCImFneI
 
 ## Documentation
 1. [URL diagram](https://drive.google.com/file/d/1dACySKbPXIwAe0M6piYnkQ7dECkR_sRc/view?usp=sharing)
