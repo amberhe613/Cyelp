@@ -9,29 +9,32 @@ var path = require("path");
 var mypath = path.join(__dirname, '../client/public/productImg');
 var upload = multer({dest: mypath})
 var cloudinary = require("cloudinary")
-router.post('/restaurant/new', upload.single('file'), function (req, res) {
+router.post('/restaurant/new', function (req, res) {
     // Check if all fields are provided and are valid:
-    console.log(req.file);
-    cloudinary.uploader.upload(req.file.path, function(result){console.log(result)} );
-
     if (!req.body.name || !req.body.zipcode) {
         res.status(400);
         res.json({message: "Bad Request"});
     } else {
         if (req.file) {
-            var newRestaurant = new Restaurant({
-                name: req.body.name,
-                image: req.file.filename,
-                cuisine: req.body.cuisine,
-                description: req.body.description,
-                address: {
-                    street: req.body.street,
-                    building: req.body.building,
-                    city: req.body.city,
-                    state: req.body.state,
-                    zipcode: req.body.zipcode
-                }
-            });
+            cloudinary
+                .uploader
+                .upload(req.file, function (result) {
+                    console.log(result)
+                    // result.url is image url
+                    var newRestaurant = new Restaurant({
+                        name: req.body.name,
+                        image: result.url,
+                        cuisine: req.body.cuisine,
+                        description: req.body.description,
+                        address: {
+                            street: req.body.street,
+                            building: req.body.building,
+                            city: req.body.city,
+                            state: req.body.state,
+                            zipcode: req.body.zipcode
+                        }
+                    });
+                });
         } else {
             var newRestaurant = new Restaurant({
                 name: req.body.name,
@@ -151,9 +154,8 @@ router.put('/restaurant/:restaurantId/edit', function (req, res) {
 
 // PUT delete OR edit
 router.put('/restaurant/:restaurantId/mark', function (req, res) {
-    //Check if all fields are provided and are valid:
-    // console.log("restaurant route 151:")
-    // console.log(req.body.deleteRequested)
+    // Check if all fields are provided and are valid: console.log("restaurant route
+    // 151:") console.log(req.body.deleteRequested)
     // console.log(req.params.restaurantId)
     if (!req.params.restaurantId) {
         res.status(400);
