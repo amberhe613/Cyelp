@@ -17,8 +17,8 @@ Cyelp(Chinese Resturant Yelp)
 https://cyelp.herokuapp.com/
 
 ## Documentation
-[URL diagram](https://drive.google.com/file/d/1dACySKbPXIwAe0M6piYnkQ7dECkR_sRc/view?usp=sharing)
-[RESTful Routing](https://docs.google.com/spreadsheets/d/1q1rLYEOoPYDXK2NWAR92IBXi7gIQJ4GXA5B2fWfZTDc/edit#gid=1490315922)
+1. [URL diagram](https://drive.google.com/file/d/1dACySKbPXIwAe0M6piYnkQ7dECkR_sRc/view?usp=sharing)
+2. [RESTful Routing](https://docs.google.com/spreadsheets/d/1q1rLYEOoPYDXK2NWAR92IBXi7gIQJ4GXA5B2fWfZTDc/edit#gid=1490315922)
 
 ## Description
 Cyelp is a yelp-like website for the Bay Area customers to post, search and read reviews about chinese resturants that they are interested in. Users can rate the resturant and write comments for those resturants as well. Users can login to the website with their Github or Google account so that they can manage posts and comments without registering for our website.
