@@ -66,7 +66,7 @@ export default class Login extends React.Component {
                 <h2 style={headerStyle}>Login </h2>
                 <hr/>
                 <GoogleLoginButton style={buttonStyle} activeStyle={buttonSyleActive} onClick={this.onGoogleLogin}/>
-                <GithubLoginButton sonClick={this.onGithubLogin}/>
+                <GithubLoginButton onClick={this.onGithubLogin}/>
             </Container>
         )
     }
