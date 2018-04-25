@@ -41,7 +41,7 @@ export default class Login extends React.Component {
         })
     }
 
-    onGoogleLogin(e) {
+    onGoogleLogin() {
         // e.preventDefault();
         googleLogin().then(() => {
             window
@@ -50,7 +50,7 @@ export default class Login extends React.Component {
         })
     }
 
-    onGithubLogin(e) {
+    onGithubLogin() {
         // e.preventDefault();
         githubLogin().then(() => {
             window
@@ -65,8 +65,8 @@ export default class Login extends React.Component {
             <Container>
                 <h2 style={headerStyle}>Login </h2>
                 <hr/>
-                <GoogleLoginButton style={buttonStyle} activeStyle={buttonSyleActive} onClick={(e)=>{this.onGoogleLogin}}/>
-                <GithubLoginButton onClick={(e)=>{this.onGithubLogin}}/>
+                <GoogleLoginButton style={buttonStyle} activeStyle={buttonSyleActive} onClick={this.onGoogleLogin}/>
+                <GithubLoginButton sonClick={this.onGithubLogin}/>
             </Container>
         )
     }
