@@ -34,8 +34,8 @@ router.post('/restaurant/new', function (req, res) {
                             zipcode: req.body.zipcode
                         }
                     });
-                    console.log(newRestaurant)
 
+                    console.log(newRestaurant)
                 });
         } else {
             var newRestaurant = new Restaurant({
