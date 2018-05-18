@@ -25,6 +25,7 @@ const myStyle={color:"grey"}
 class UserTable extends React.Component {
     render() {
         return (
+
             <div>
                 <Navbar color="light" light expand="xs">
                     <NavbarBrand href="/restaurants">Cyelp</NavbarBrand>
